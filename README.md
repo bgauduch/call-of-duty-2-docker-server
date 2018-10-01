@@ -15,8 +15,10 @@ Clone or download the repository and follow theses steps to get the server up an
    1. Go in the `main` folder of your original game (install directory or retail DVD);
    2. Copy all the `iw_XX.iwd` from 00 to 15 to the `cod2server/main` folder;
    3. Copy all the localizations `localized_english_iwXX.iwd` to the `cod2server/main` (it might be another language).
-2. Edit the config file located in `cod2server/main/config.cfg` to suits your needs.
-3. Launch the server:
+2. Edit the config file located in `cod2server/main/config.cfg` to suits your needs:
+   * **Set the RCON password to something strong !**
+   * Tweak the rest as you see fit.
+3. From the project root, Launch the server:
    ``` bash
    docker-compose up -d
    ```
@@ -26,7 +28,6 @@ Clone or download the repository and follow theses steps to get the server up an
 ## Troobleshooting
 * For `docker-compose` to "see" potential changes in the Dockerfile, force the image build: 
   ``` bash
-  # from the project root
   docker-compose up --build
   ```
 * If you choose another server binary, make sure to make it executable:
@@ -38,10 +39,8 @@ Clone or download the repository and follow theses steps to get the server up an
 * There is a similar repository on github proposing a Call of Duty 2 server based on CentOS : [hberntsen/docker-cod2](https://github.com/hberntsen/docker-cod2)
 * This setup was tested on an ubuntu server 14.04.3 LTS x86_64 architecture.
 * You might want to use a separated host user to launch your docker container. In this case do not forget to add him to the docker group : `sudo gpasswd -a USER_NAME docker`, and restart docker dameon : `sudo service docker restart`.
-* You also might want to [automate the container startup at server boot](https://docs.docker.com/articles/host_integration/) with the `--restart=always` flag.
 * You will find original and modified `cod2_lnxded` dedicated server binaries in the `backup` folder. It might be usefull if you want to create a cracked server to play on without a CD key. But you won't need this as you did buy the game, didn't you ? 
-
-> if you didn't, [this link](http://killtube.org/showthread.php?1337-CoD2-Tutorial-How-to-make-your-cracked-server-show-up-in-the-master-list) might help your pervert mind create a masterlist-visible-pirate-uberawesome server.
+  > if you didn't, [this link](http://killtube.org/showthread.php?1337-CoD2-Tutorial-How-to-make-your-cracked-server-show-up-in-the-master-list) might help your pervert mind create a masterlist-visible-pirate-uberawesome server.
 
 * The gcc3-libs in the `cod2server` folder was used as a workaround before finding a proper solution to add it using official repositories (32 / 64 bit gcc library issues as dicussed [here](http://askubuntu.com/questions/454253/how-to-run-32-bit-app-in-ubuntu-64-bit/454254#454254)). It is not used anymore but will stay here as a backup, just in case it would not be supported anymore.
 
