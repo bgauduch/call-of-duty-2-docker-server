@@ -1,0 +1,16 @@
+version: '3.6'
+services:
+  server:
+    build: .
+    ports:
+      - target: 28960
+        published: 28960
+        protocol: udp
+        mode: host
+      - target: 20510
+        published: 20510
+        protocol: udp
+        mode: host
+    volumes:
+    - ./cod2server:/home/cod2/cod2server:ro
+    restart: unless-stopped
