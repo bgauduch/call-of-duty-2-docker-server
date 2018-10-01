@@ -1,3 +1,5 @@
 # exlude cod2 game server files
 *.iwd
 
+# OSX
+.DS_store
