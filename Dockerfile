@@ -1,5 +1,5 @@
-FROM debian:stable
-MAINTAINER bgauduchon
+FROM debian:stretch-slim
+LABEL maintainer='bgauduch'
 
 # adding i386 architecture
 RUN dpkg --add-architecture i386 && \
