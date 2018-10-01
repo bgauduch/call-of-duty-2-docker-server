@@ -52,6 +52,6 @@ I also strongly recommend reading the [best practices for writing dockerfiles](h
 **[Docker](https://www.docker.com/) is awesome**, give it a try ;-)
 
 ## Roadmap
-* Extract the hard-coded rcon password from the server configuration (In an env var or in a secret)
-* Try to minimize the docker image using Scratch or Alpine instead of full featured OSs images (this implies to manually import all libraries and more)
-* Handle server logs (in the container or on a volume )
+- [ ] Extract the hard-coded rcon password from the server configuration (In an env var or in a secret)
+- [ ] Try to minimize the docker image using Scratch or Alpine instead of full featured OSs images (this implies to manually import all libraries and more)
+- [ ] Handle server logs (in the container or on a volume )
