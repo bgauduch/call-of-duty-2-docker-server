@@ -1,6 +1,6 @@
 # Call of Duty 2 server meet docker
 
-Create a dockerized game server to deploy a [Call of Duty 2](https://en.wikipedia.org/wiki/Call_of_Duty_2) multiplayer server in a container.
+Create a containarized [Call of Duty 2](https://en.wikipedia.org/wiki/Call_of_Duty_2) multiplayer game server.
 
 ## Prerequisite
 You will need the following things :
@@ -11,25 +11,25 @@ You will need the following things :
 
 ## Usage on unix
 Clone or download the repository and follow theses steps to get the server up and running :
-1. **MANDATORY!** Copy the required data from the game to the server :
-  1. Go in the `main` folder of your original game (install directory or retail DVD);
-  2. Copy all the `iw_XX.iwd` from 00 to 15 to the `cod2server/main` folder;
-  3. Copy all the localizations `localized_english_iwXX.iwd` to the `cod2server/main` (it might be another language).
+1. Copy the required data from the game to the server :
+   1. Go in the `main` folder of your original game (install directory or retail DVD);
+   2. Copy all the `iw_XX.iwd` from 00 to 15 to the `cod2server/main` folder;
+   3. Copy all the localizations `localized_english_iwXX.iwd` to the `cod2server/main` (it might be another language).
 2. Edit the config file located in `cod2server/main/config.cfg` to suits your needs.
-3. Launch the server :
-  ``` bash
-  docker-compose up -d
-  ```
-4. Depending on your setup, you might have some port-forwarding and firewalling to be able to acces your server.
+3. Launch the server:
+   ``` bash
+   docker-compose up -d
+   ```
+4. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available.
 5. And "voila" !
 
 ## Troobleshooting
-* For `docker-compose` to "see" potential changes in the Dockerfile, build the image : 
+* For `docker-compose` to "see" potential changes in the Dockerfile, force the image build: 
   ``` bash
   # from the project root
-  docker-compose build
+  docker-compose up --build
   ```
-* If you choose another server binary, make sure to make it executable :
+* If you choose another server binary, make sure to make it executable:
   ``` bash
   cd cod2server && chmod +x cod2_lnxded
   ```
@@ -53,5 +53,6 @@ I also strongly recommend reading the [best practices for writing dockerfiles](h
 **[Docker](https://www.docker.com/) is awesome**, give it a try ;-)
 
 ## Roadmap
+* Extract the hard-coded rcon password from the server configuration (In an env var or in a secret)
 * Try to minimize the docker image using Scratch or Alpine instead of full featured OSs images (this implies to manually import all libraries and more)
-* Find a way to handle server logs (in the container ? on the monted volume ?)
+* Handle server logs (in the container or on a volume )
