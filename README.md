@@ -38,18 +38,23 @@ Clone or download the repository and follow theses steps to get the server up an
 ## Notes
 * There is a similar repository on github proposing a Call of Duty 2 server based on CentOS : [hberntsen/docker-cod2](https://github.com/hberntsen/docker-cod2)
 * This setup was tested on an ubuntu server 14.04.3 LTS x86_64 architecture.
-* You might want to use a separated host user to launch your docker container. In this case do not forget to add him to the docker group : `sudo gpasswd -a USER_NAME docker`, and restart docker dameon : `sudo service docker restart`.
-* You will find original and modified `cod2_lnxded` dedicated server binaries in the `backup` folder. It might be usefull if you want to create a cracked server to play on without a CD key. But you won't need this as you did buy the game, didn't you ? 
+* You might want to use a separated host user to launch your docker container. In this case do not forget to add him to the docker group :
+  ``` bash
+  # add user to docker group
+  sudo gpasswd -a USER_NAME docker
+  # restart docker dameon
+  sudo service docker restart
+  ```
+* You will find original and cracked `cod2_lnxded` dedicated server binaries in the `backup` folder. It might be usefull if you want to create a server to play on without a valid CD key. But you won't need this as you did buy the game, didn't you ? 
   > if you didn't, [this link](http://killtube.org/showthread.php?1337-CoD2-Tutorial-How-to-make-your-cracked-server-show-up-in-the-master-list) might help your pervert mind create a masterlist-visible-pirate-uberawesome server.
-
-* The gcc3-libs in the `cod2server` folder was used as a workaround before finding a proper solution to add it using official repositories (32 / 64 bit gcc library issues as dicussed [here](http://askubuntu.com/questions/454253/how-to-run-32-bit-app-in-ubuntu-64-bit/454254#454254)). It is not used anymore but will stay here as a backup, just in case it would not be supported anymore.
+* The gcc3-libs in the `backup` folder was used as a workaround before finding a proper solution to add it using official repositories (32 / 64 bit gcc library issues as dicussed [here](http://askubuntu.com/questions/454253/how-to-run-32-bit-app-in-ubuntu-64-bit/454254#454254)). It is not used anymore but will stay here as a backup, just in case it would not be supported anymore.
 
 ## Docker
 If you are not familiar with docker (docker engine, docker hub, dockerfiles, docker images and containers), I suggest you have a look at the [documentation](https://docs.docker.com/) (especially the [dockerfiles](https://docs.docker.com/reference/builder/) part).
 
 I also strongly recommend reading the [best practices for writing dockerfiles](https://docs.docker.com/articles/dockerfile_best-practices/) for a better understanding and a cleaner writing of dockerfiles.
 
-**[Docker](https://www.docker.com/) is awesome**, give it a try ;-)
+[Docker](https://www.docker.com/) is useful, give it a try ;-)
 
 ## Roadmap
 - [ ] Extract the hard-coded rcon password from the server configuration (In an env var or in a secret)
