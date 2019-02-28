@@ -23,7 +23,7 @@ Clone or download the repository and follow theses steps to get the server up an
     docker-compose up -d
     ```
 1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available.
-1. And "voila" ! Availables server commands are listed in [/doc/console_command.md](console_command.md)
+1. And "voila" ! Availables server commands are listed in [/doc/console_command.md](doc/console_command.md)
 
 ## Troobleshooting
 * For `docker-compose` to pick-up potential changes in the Dockerfile, force the image build: 
