@@ -12,5 +12,5 @@ services:
         protocol: udp
         mode: host
     volumes:
-    - ./cod2server:/home/cod2/cod2server:ro
+      - ./cod2server/:/server:ro
     restart: unless-stopped
