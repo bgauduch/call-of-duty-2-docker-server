@@ -1,2 +1,2 @@
-# avoid sending game files to docker contexte
-cod2server/*
+# avoid sending any files to docker contexte
+*
