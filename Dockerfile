@@ -1,25 +1,27 @@
-FROM debian:stretch-slim
+# Build Step
+FROM debian:stretch-slim AS build
 LABEL maintainer='bgauduch'
 
-# adding i386 architecture
-RUN dpkg --add-architecture i386 && \
-# update system & install 32bits libraries (needed for gcc 3.3.4 library use by cod2_lnxded)
-	apt-get update && \
-	apt-get install -y libstdc++5:i386 && \
-# add cod2 user & permissions
-	useradd cod2 && \
-	mkdir /home/cod2 && \
-	chown -R cod2:cod2 /home/cod2 && \
-# cleanup
-	rm -rf /var/lib/apt/lists /tmp/* && \
-	apt-get autoremove -y
+# Add i386 architecture support
+RUN dpkg --add-architecture i386
+# Update system & install 32 bits libraries (needed by cod2_lnxded for gcc 3.3.4 compatibility)
+RUN apt update
+RUN apt install -y libstdc++5:i386
 
-# switch to cod2 user
-USER cod2
+# Minimal runtime setup
+# FROM scratch
+FROM debian:stretch-slim
 
-# expose gaming port & master server port
+# Copy needed libraries from build stage
+COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
+COPY --from=build /usr/lib/i386-linux-gnu/ /usr/lib/i386-linux-gnu/
+COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
+
+# Expose server ports
 EXPOSE 28960/udp 20510/udp
 
-# launch server
-WORKDIR /home/cod2/cod2server
-ENTRYPOINT ./cod2_lnxded +exec config.cfg
+# Set the server dir
+WORKDIR /server
+
+# Launch server at container startup
+ENTRYPOINT [ "./cod2_lnxded", "+exec", "config.cfg" ]
