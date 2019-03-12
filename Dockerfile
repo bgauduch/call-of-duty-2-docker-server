@@ -9,8 +9,7 @@ RUN apt update
 RUN apt install -y libstdc++5:i386
 
 # Minimal runtime setup
-# FROM scratch
-FROM debian:stretch-slim
+FROM scratch
 
 # Copy needed libraries from build stage
 COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
