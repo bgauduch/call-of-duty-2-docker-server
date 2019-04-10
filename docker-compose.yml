@@ -1,16 +1,12 @@
 version: '3.6'
 services:
-  server:
+  cod2_server:
     build: .
     ports:
-      - target: 28960
-        published: 28960
-        protocol: udp
-        mode: host
-      - target: 20510
-        published: 20510
-        protocol: udp
-        mode: host
+      - "20500:20500/udp"
+      - "20510:20510/udp"
+      - "28960:28960/tcp"
+      - "28960:28960/udp"
     volumes:
       - ./cod2server/main:/server/main:ro
     restart: unless-stopped
