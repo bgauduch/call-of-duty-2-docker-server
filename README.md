@@ -29,20 +29,26 @@ Clone or download the repository and follow theses steps to get the server up an
     docker-compose up -d
     ```
 1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available.
-1. And "voila" ! Availables server commands are listed in [/doc/readme.md](doc/readme.md)
+1. And "voila" ! Availables server commands are listed in [/doc/readme.md](doc/readme.md), see next chapter for server interactions.
 
 ## Server interaction
-* To stop the server, simply run these commands from the project root: 
+From the project root, you can:
+* Restart the server (to pick up config change for instance):
+  ```bash
+  docker-compose restart
+  ```
+* Tail the server logs:
+  ```bash
+  # cod2_server refer to the name of the service in the compose file
+  docker-compose logs -f cod2_server
+  ```
+* Completely stop the server:
   ```bash
   docker-compose down
   ```
-* To get the server logs, use this command from the project root:
-  ```bash
-  docker-compose logs server
-  ```
 
 ## Troobleshooting
-* For `docker-compose` to pick-up potential changes in the Dockerfile, force the image build: 
+* For `docker-compose` to pick up potential changes in the Dockerfile, force the image build: 
   ``` bash
   docker-compose up --build
   ```
@@ -81,5 +87,9 @@ I also strongly recommend reading the [best practices for writing dockerfiles](h
     - script doc: https://m-itch.github.io/codscriptdoc/
     - global info: https://killtube.org/showthread.php?1869-Script-documentation
     - full install thread: https://killtube.org/showthread.php?2454-CoD2-Setup-CoD2-on-your-ubuntu-14-04-server
+- [ ] Add all libcod libs
 - [ ] Placeholder replacement on startup to use environnement variables for server configuration
 - [ ] Add CI for automatic image build & tooling (hadolint, container structure test, etc)
+- [ ] Use builded image in the compose file instead of building locally
+- [ ] Use Github project to host the roadmap and keep track of changes
+- [ ] Try to optimize the libstdc++ copy for runtime (if possible ? most certainly symlinks to deal with), check with wagoodman/dive
