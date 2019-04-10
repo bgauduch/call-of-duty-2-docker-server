@@ -50,7 +50,7 @@ COPY --from=build /lib/libcod2_1_3.so /lib/libcod2_1_3.so
 COPY --from=build /bin/cod2_lnxded /server/cod2_lnxded
 
 # Expose server ports
-EXPOSE 28960/udp 20510/udp
+EXPOSE 20500/udp 20510/udp 28960/tcp 28960/udp
 
 # Set the server dir
 WORKDIR /server
