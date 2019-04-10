@@ -4,16 +4,16 @@ Launch a minimal containarized [Call of Duty 2](https://en.wikipedia.org/wiki/Ca
 
 Currently it use:
 - The `cod2_lnxded_1_3_nodelay_va_loc` server binary from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by **Kung Foo Man**, **Mitch** and anyone that contributed;
-- The [custom `libcod`](https://github.com/voron00/libcod) from **Voron00**, initaly from [Killtube](https://killtube.org/forumdisplay.php?44-libcod)
+- The [custom `libcod`](https://github.com/voron00/libcod) from **Voron00**, follow the forks for the origin.
 
 Full credits goes to them.
 
-## Prerequisite
+## Prerequisites
 You will need the following things:
-1. The linux dedicated server binary, which can be found in this repository in the `backups` folder;
+1. The linux dedicated server binary, which can be found in this repository in the `bin` folder;
 1. The orginal game, as it's contents are used by the dedicated server;
 1. A host machine of your choice with x86_64 architecture;
-1. [Docker](https://www.docker.com/) installed and configured on your host machine, obviously.
+1. [Docker](https://docs.docker.com/install/linux/docker-ce/debian/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and configured on your host machine, obviously.
 
 ## Usage
 Clone or download the repository and follow theses steps to get the server up and running:
@@ -29,16 +29,26 @@ Clone or download the repository and follow theses steps to get the server up an
     docker-compose up -d
     ```
 1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available.
-1. And "voila" ! Availables server commands are listed in [/doc/console_command.md](doc/console_command.md)
+1. And "voila" ! Availables server commands are listed in [/doc/readme.md](doc/readme.md)
+
+## Server interaction
+* To stop the server, simply run these commands from the project root: 
+  ```bash
+  docker-compose down
+  ```
+* To get the server logs, use this command from the project root:
+  ```bash
+  docker-compose logs server
+  ```
 
 ## Troobleshooting
 * For `docker-compose` to pick-up potential changes in the Dockerfile, force the image build: 
   ``` bash
   docker-compose up --build
   ```
-* If you choose another server binary, make sure to make it executable:
-  ``` bash
-  cd cod2server && chmod +x cod2_lnxded
+* To choose another server binary, symply edit this file in the Dockerfile:
+  ```docker
+  COPY bin/BINARY_OF_YOUR_CHOICE /bin/cod2_lnxded
   ```
 
 ## Notes
@@ -52,7 +62,9 @@ Clone or download the repository and follow theses steps to get the server up an
   # restart docker dameon
   sudo service docker restart
   ```
-* Original and cracked server binaries as well as gcc3 library can be found in the `backup` folder, have a look at the [/backups/readme.md](/backups/readme.md).
+* Original and cracked server binaries can be found in the 'bin' folder, have a look at the [readme](/bin/readme.md)
+* The gcc3 library can be found in the `lib` folder, have a look at the [readme](/lib/readme.md).
+* If you need to use iptables in conjonction with Docker, please follow the [official documentation tips](https://docs.docker.com/network/iptables/)
 
 ## Docker
 If you are not familiar with docker (docker engine, docker hub, dockerfiles, docker images and containers), I suggest you have a look at the [documentation](https://docs.docker.com/) (especially the [dockerfiles](https://docs.docker.com/reference/builder/) part).
