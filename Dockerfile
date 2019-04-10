@@ -24,7 +24,6 @@ RUN unzip -j ${TMP_PATH}/${LIB_NAME}.zip -d ${TMP_PATH}/${LIB_NAME}
 
 # Build libcod2 v1.3 (only base lib, no addons)
 WORKDIR ${TMP_PATH}/${LIB_NAME}
-RUN mkdir -p bin
 RUN mkdir -p objects_"${COD_VER}"
 ENV constants="-D COD_VERSION=COD2_1_3"
 ENV options="-I. -m32 -fPIC -Wall"
@@ -32,6 +31,10 @@ RUN g++ $options $constants -c libcod.cpp -o objects_"${COD_VER}"/libcod.opp
 # Build libraries
 RUN objects="$(ls objects_${COD_VER}/*.opp)"
 RUN g++ -m32 -shared -L/lib32 -o /lib/lib"${COD_VER}".so -ldl $objects
+
+# Copy server binary to ensure it is runable
+COPY bin/cod2_lnxded_1_3_nodelay_va_loc /bin/cod2_lnxded
+RUN chmod +x /bin/cod2_lnxded
 
 # Runtime stage
 FROM scratch
@@ -43,11 +46,17 @@ COPY --from=build /usr/lib/i386-linux-gnu/ /usr/lib/i386-linux-gnu/
 COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
 COPY --from=build /lib/libcod2_1_3.so /lib/libcod2_1_3.so
 
+# Copy cod2 server binary from build stage
+COPY --from=build /bin/cod2_lnxded /server/cod2_lnxded
+
 # Expose server ports
 EXPOSE 28960/udp 20510/udp
 
 # Set the server dir
 WORKDIR /server
+
+# Main files volume metadata
+VOLUME [ "/server/main" ]
 
 # Launch server at container startup
 ENV LD_PRELOAD="/lib/libcod2_1_3.so"

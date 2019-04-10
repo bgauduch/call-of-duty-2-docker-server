@@ -1,2 +1,5 @@
-# avoid sending any files to docker contexte
+# avoid sending any files to docker context
 *
+
+# add bin folder to context
+!/bin
