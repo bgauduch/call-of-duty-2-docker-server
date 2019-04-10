@@ -15,7 +15,7 @@ You will need the following things:
 1. A host machine of your choice with x86_64 architecture;
 1. [Docker](https://docs.docker.com/install/linux/docker-ce/debian/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and configured on your host machine, obviously.
 
-## Usage
+## Setup
 Clone or download the repository and follow theses steps to get the server up and running:
 1. Copy the required data from the game to the server:
     1. Go in the `main` folder of your original game (install directory or retail DVD);
@@ -29,7 +29,7 @@ Clone or download the repository and follow theses steps to get the server up an
     docker-compose up -d
     ```
 1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available.
-1. And "voila" ! Availables server commands are listed in [/doc/readme.md](doc/readme.md), see next chapter for server interactions.
+1. And "voila" ! Availables server commands are listed in [/doc/readme.md](doc/readme.md).
 
 ## Server interaction
 From the project root, you can:
@@ -68,7 +68,7 @@ From the project root, you can:
   # restart docker dameon
   sudo service docker restart
   ```
-* Original and cracked server binaries can be found in the 'bin' folder, have a look at the [readme](/bin/readme.md)
+* Original and cracked server binaries can be found in the `bin` folder, have a look at the [readme](/bin/readme.md)
 * The gcc3 library can be found in the `lib` folder, have a look at the [readme](/lib/readme.md).
 * If you need to use iptables in conjonction with Docker, please follow the [official documentation tips](https://docs.docker.com/network/iptables/)
 
