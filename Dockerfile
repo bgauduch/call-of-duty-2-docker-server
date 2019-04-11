@@ -11,10 +11,10 @@ RUN dpkg --add-architecture i386
 # Update system & install 32 bits libraries (needed by cod2_lnxded for gcc 3.3.4 compatibility)
 RUN apt update
 RUN apt install -y \
-  libstdc++5:i386=1:3.3.6-28 \
-  libstdc++6:i386=6.3.0-18+deb9u1 \
   curl=7.52.1-5+deb9u9 \
   unzip=6.0-21 \
+  libstdc++5:i386=1:3.3.6-28 \
+  libstdc++6:i386=6.3.0-18+deb9u1 \
   gcc-multilib=4:6.3.0-4 \
   g++-multilib=4:6.3.0-4
 
