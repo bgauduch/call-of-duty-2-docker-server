@@ -1,5 +1,9 @@
-# avoid sending any files to docker context
-*
-
-# add bin folder to context
-!/bin
+# avoid sending unnecessary folders and files to docker context
+/cod2server
+/debug
+/doc
+/lib
+.gitignore
+docker-compose.yml
+LISCENCE
+readme.md
