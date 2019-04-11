@@ -1,5 +1,5 @@
 # Call Of Duty 2 - server documentation
-Full credit to http://anarchyrules.co.uk/cod2/server%20commands.html 
+Full credit goes to http://anarchyrules.co.uk/cod2/server%20commands.html 
 
 ## Map Name
 All maps are available in each gamemodes:
