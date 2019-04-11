@@ -81,15 +81,19 @@ I also strongly recommend reading the [best practices for writing dockerfiles](h
 
 ## Roadmap
 - [x]  Try to minimize the docker image using Scratch or Alpine instead of full featured OSs images (this implies to manually import all libraries and more)
-- [x] Handle server logs (in the container or on a volume) : keeping default output from container, log handling is deffered to the host system.
+- [x] Handle server binary logs (in the container or on a volume) : keeping default output from container, log handling is deffered to the host system.
 - [X] Implement libcod base library
     - code: https://github.com/voron00/libcod
     - script doc: https://m-itch.github.io/codscriptdoc/
     - global info: https://killtube.org/showthread.php?1869-Script-documentation
     - full install thread: https://killtube.org/showthread.php?2454-CoD2-Setup-CoD2-on-your-ubuntu-14-04-server
-- [ ] Add all libcod libs
-- [ ] Placeholder replacement on startup to use environnement variables for server configuration
-- [ ] Add CI for automatic image build & tooling (hadolint, container structure test, etc)
+- [ ] Automated build on Docker Hub
 - [ ] Use builded image in the compose file instead of building locally
+- [ ] Add all libcod libs
+- [ ] Placeholder replacement on startup to use environnement variables for server configuration (use https://github.com/pyaillet/placeholder in build stage)
+- [ ] Handle server log file games_mp.log (where the user actions are logged)
+- [ ] Allow console commands in the container (currently not possible because of scratch being used: no shell, maybe possible with libcod ?)
+- [ ] Add CI for automatic image build & tooling (hadolint, container structure test, etc)
 - [ ] Use Github project to host the roadmap and keep track of changes
 - [ ] Try to optimize the libstdc++ copy for runtime (if possible ? most certainly symlinks to deal with), check with wagoodman/dive
+- [ ] See if it is possible to lower server ping (20+ ms on local, too hight, certainly linked to docker virtual interfaces)
