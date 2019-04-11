@@ -1,36 +1,37 @@
-# Build stage
+# Throwaway build stage
 FROM debian:stretch-slim AS build
 
-ENV TMP_PATH /tmp
-ENV LIB_NAME libcod2
-ENV COD_VER cod2_1_3
+# Configuration
+ENV COD2_VER="1_3" \
+  LIB_NAME="libcod2" \
+  LIBCOD_GIT_URL="https://github.com/voron00/libcod" \
+# Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
+  libcod_mysql_type=1
 
 # Add i386 architecture support
 RUN dpkg --add-architecture i386
 
-# Update system & install 32 bits libraries (needed by cod2_lnxded for gcc 3.3.4 compatibility)
+# Update system & install tools
 RUN apt update
 RUN apt install -y \
-  curl=7.52.1-5+deb9u9 \
-  unzip=6.0-21 \
+  git=1:2.11.0-3+deb9u4
+# Install 32 bits c++ libraries needed by cod2_lnxded for gcc 3.3.4 compatibility
+RUN apt install -y \
   libstdc++5:i386=1:3.3.6-28 \
   libstdc++6:i386=6.3.0-18+deb9u1 \
   gcc-multilib=4:6.3.0-4 \
   g++-multilib=4:6.3.0-4
+# Install mysql 32bit libs required if using libcod mysql
+RUN apt install -y \
+  libmysql++-dev:i386=3.2.2+pristine-2
 
-# Download and extract codlib from "Voron00"
-RUN curl -LsSo "${TMP_PATH}/${LIB_NAME}.zip" "https://github.com/voron00/libcod/archive/master.zip"
-RUN unzip -j ${TMP_PATH}/${LIB_NAME}.zip -d ${TMP_PATH}/${LIB_NAME}
+# Download codlib from "Voron00"
+RUN git clone ${LIBCOD_GIT_URL} ${TMPDIR}/${LIB_NAME}
 
-# Build libcod2 v1.3 (only base lib, no addons)
-WORKDIR ${TMP_PATH}/${LIB_NAME}
-RUN mkdir -p objects_"${COD_VER}"
-ENV constants="-D COD_VERSION=COD2_1_3"
-ENV options="-I. -m32 -fPIC -Wall"
-RUN g++ $options $constants -c libcod.cpp -o objects_"${COD_VER}"/libcod.opp
-# Build libraries
-RUN objects="$(ls objects_${COD_VER}/*.opp)"
-RUN g++ -m32 -shared -L/lib32 -o /lib/lib"${COD_VER}".so -ldl $objects
+# Build libcod2
+WORKDIR ${TMPDIR}/${LIB_NAME}
+RUN yes ${libcod_mysql_type} | ./doit.sh cod2_${COD2_VER}
+RUN mv bin/libcod2_${COD2_VER}.so /lib/libcod2_${COD2_VER}.so
 
 # Copy server binary to ensure it is runable
 COPY bin/cod2_lnxded_1_3_nodelay_va_loc /bin/cod2_lnxded
@@ -55,9 +56,9 @@ EXPOSE 20500/udp 20510/udp 28960/tcp 28960/udp
 # Set the server dir
 WORKDIR /server
 
-# Main files volume metadata
+# Server "main" folder volume
 VOLUME [ "/server/main" ]
 
-# Launch server at container startup
+# Launch server at container startup, using libcod library
 ENV LD_PRELOAD="/lib/libcod2_1_3.so"
 ENTRYPOINT [ "./cod2_lnxded", "+exec", "config.cfg" ]
