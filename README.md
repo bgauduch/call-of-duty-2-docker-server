@@ -1,5 +1,6 @@
-# Call of Duty 2 server meet docker
+[![](https://images.microbadger.com/badges/image/bgauduch/cod2-server.svg)](https://microbadger.com/images/bgauduch/cod2-server)
 
+# Call of Duty 2 server meet docker
 Launch a minimal containarized [Call of Duty 2](https://en.wikipedia.org/wiki/Call_of_Duty_2) multiplayer game server.
 
 Currently it use:
@@ -61,7 +62,7 @@ From the project root, you can:
 * There is a similar repository on github proposing a Call of Duty 2 server based on CentOS: [hberntsen/docker-cod2](https://github.com/hberntsen/docker-cod2)
 * A thread on setting up a cod2 server on ubuntu 14.04 is available [on killtube](https://killtube.org/showthread.php?2454-Work-in-progress-Setup-CoD2-on-your-ubuntu-14-04-server)
 * This setup was tested on an ubuntu server 18.04.3 LTS x86_64 architecture and should work on any platform with the same architecture.
-* You might want to use a separated host user to launch your docker containers. In this case do not forget to add him to the docker group. On Ubuntu for instance:
+* You might want to use a separated user to launch your docker containers for security purpose. In this case do not forget to add him to the docker group. On Ubuntu for instance:
   ```bash
   # add user to docker group
   sudo gpasswd -a USER_NAME docker
@@ -81,16 +82,17 @@ I also strongly recommend reading the [best practices for writing dockerfiles](h
 
 ## Roadmap
 In reverse chronological order:
-- [ ] Automated build on Docker Hub
-- [ ] Use builded image in the compose file instead of building locally
-- [ ] Revert dockerignore to ignore all but copied files
+- [ ] Add dev scripts for local build
 - [ ] Placeholder replacement on startup to use environnement variables for server configuration (use https://github.com/pyaillet/placeholder in build stage)
 - [ ] Handle server log file games_mp.log (where the user actions are logged)
-- [ ] Allow console commands in the container (currently not possible because of scratch being used: no shell, maybe possible with libcod ?)
+- [ ] Allow console commands in the container (currently not possible because of scratch being used: no shell, maybe possible with libcod ? Or Busybox ?)
 - [ ] Add CI for automatic image build & tooling (hadolint, container structure test, etc)
 - [ ] Use Github project to host the roadmap and keep track of changes
-- [ ] Try to optimize the libstdc++ copy for runtime (if possible ? most certainly symlinks to deal with), check with wagoodman/dive
+- [ ] Optimize the library copy from build stage to runtime stage (copying way to much lib at the moment. Most certainly symlinks to deal with), check with wagoodman/dive
 - [ ] See if it is possible to lower server ping (20+ ms on local, too hight, certainly linked to docker virtual interfaces)
+- [X] Use builded image in the compose file instead of building locally
+- [X] Revert dockerignore to ignore all but copied files
+- [X] Automated build on Docker Hub
 - [X] Add all libcod libs
 - [X] Implement libcod base library
     - code: https://github.com/voron00/libcod
