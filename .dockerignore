@@ -1,9 +1,5 @@
-# avoid sending unnecessary folders and files to docker context
-/cod2server
-/debug
-/doc
-/lib
-.gitignore
-docker-compose.yml
-LISCENCE
-readme.md
+# discar anything to be send to docker buid context
+*
+
+# manually include files that need to be copied
+!bin/
