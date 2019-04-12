@@ -6,7 +6,7 @@ ENV COD2_VER="1_3" \
   LIB_NAME="libcod2" \
   LIBCOD_GIT_URL="https://github.com/voron00/libcod" \
 # Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
-  libcod_mysql_type=1
+  LIBCOD_MYSQL_TYPE=1
 
 # Add i386 architecture support
 RUN dpkg --add-architecture i386
@@ -30,7 +30,7 @@ RUN git clone ${LIBCOD_GIT_URL} ${TMPDIR}/${LIB_NAME}
 
 # Build libcod2
 WORKDIR ${TMPDIR}/${LIB_NAME}
-RUN yes ${libcod_mysql_type} | ./doit.sh cod2_${COD2_VER}
+RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VER}
 RUN mv bin/libcod2_${COD2_VER}.so /lib/libcod2_${COD2_VER}.so
 
 # Copy server binary to ensure it is runable
