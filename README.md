@@ -1,7 +1,9 @@
-[![](https://images.microbadger.com/badges/image/bgauduch/cod2-server.svg)](https://microbadger.com/images/bgauduch/cod2-server)
+[![](https://images.microbadger.com/badges/image/bgauduch/cod2server.svg)](https://microbadger.com/images/bgauduch/cod2server) [![](https://images.microbadger.com/badges/version/bgauduch/cod2server.svg)](https://microbadger.com/images/bgauduch/cod2server)
 
 # Call of Duty 2 server meet docker
 Launch a minimal containarized [Call of Duty 2](https://en.wikipedia.org/wiki/Call_of_Duty_2) multiplayer game server.
+
+=> Automated build on [Dockerhub](https://hub.docker.com/r/bgauduch/cod2server)
 
 Currently it use:
 - The `cod2_lnxded_1_3_nodelay_va_loc` server binary from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by **Kung Foo Man**, **Mitch** and anyone that contributed;
@@ -83,9 +85,9 @@ I also strongly recommend reading the [best practices for writing dockerfiles](h
 ## Roadmap
 In reverse chronological order:
 - [ ] Add dev scripts for local build
-- [ ] Placeholder replacement on startup to use environnement variables for server configuration (use https://github.com/pyaillet/placeholder in build stage)
 - [ ] Handle server log file games_mp.log (where the user actions are logged)
 - [ ] Allow console commands in the container (currently not possible because of scratch being used: no shell, maybe possible with libcod ? Or Busybox ?)
+- [ ] Placeholder replacement on startup to use environnement variables for server configuration (use https://github.com/pyaillet/placeholder in build stage)
 - [ ] Add CI for automatic image build & tooling (hadolint, container structure test, etc)
 - [ ] Use Github project to host the roadmap and keep track of changes
 - [ ] Optimize the library copy from build stage to runtime stage (copying way to much lib at the moment. Most certainly symlinks to deal with), check with wagoodman/dive
