@@ -6,10 +6,8 @@
 # Call of Duty 2 server meets docker
 Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikipedia.org/wiki/Call_of_Duty_2) multiplayer game server.
 
-## Availables Docker image tags
-Automated build on [Dockerhub](https://hub.docker.com/r/bgauduch/cod2server):
-
-* `bgauduch/cod2server:latest` - autobuild on master branch - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
+## Supported tags and respective `Dockerfile` links
+* `bgauduch/cod2server:latest` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
 * `bgauduch/cod2server:1.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/v1.0/Dockerfile)
 
 ## What's inside
@@ -85,8 +83,8 @@ From the project root, you can:
   # restart docker dameon
   sudo service docker restart
   ```
-* Original and cracked server binaries can be found in the `bin` folder, have a look at the [readme](/bin/readme.md)
-* The gcc3 library can be found in the `lib` folder, have a look at the [readme](/lib/readme.md).
+* Original and cracked server binaries can be found in the [`bin`](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) folder, have a look at the `readme`
+* The gcc3 library can be found in the [`lib`](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/lib) folder, have a look at the `readme`
 * If you need to use iptables in conjonction with Docker, please follow the [official documentation tips](https://docs.docker.com/network/iptables/)
 
 ## Docker
@@ -99,7 +97,7 @@ I also strongly recommend reading the [best practices for writing dockerfiles](h
 ## Roadmap
 In reverse chronological order:
 
-- [ ] Add dev scripts for local build
+- [ ] Add dev scripts for local build
 - [ ] Handle server log file games_mp.log (where the user actions are logged)
 - [ ] Allow console commands in the container (currently not possible because of scratch being used: no shell, maybe possible with libcod ? Or Busybox ?)
 - [ ] Placeholder replacement on startup to use environnement variables for server configuration (use https://github.com/pyaillet/placeholder in build stage)
