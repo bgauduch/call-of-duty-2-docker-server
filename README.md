@@ -14,9 +14,9 @@ Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikiped
 Currently it use:
 
 * The `cod2_lnxded_1_3_nodelay_va_loc` server binary from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by **Kung Foo Man**, **Mitch** and anyone that contributed;
-* The [custom `libcod`](https://github.com/voron00/libcod) from **Voron00**, follow the forks for a complete list of creators and contributors.
+* The [custom `libcod`](https://github.com/voron00/libcod) from **Voron00**, follow the repository forks for a complete list of creators and contributors.
 
-Full credits goes to them for their awesome work on the server binary !
+Full credits goes to them for their awesome work !
 
 ## Prerequisites
 You will need the following things:
@@ -100,6 +100,9 @@ In reverse chronological order:
 - [ ] Add dev scripts for local build
 - [ ] Handle server log file games_mp.log (where the user actions are logged)
 - [ ] Allow console commands in the container (currently not possible because of scratch being used: no shell, maybe possible with libcod ? Or Busybox ?)
+    -> launch binary with shell
+    -> tail -f in entrypoint (process 1) 
+    -> use FG / BG
 - [ ] Placeholder replacement on startup to use environnement variables for server configuration (use https://github.com/pyaillet/placeholder in build stage)
 - [ ] Add CI for automatic image build & tooling (hadolint, container structure test, etc)
 - [ ] Use Github project to host the roadmap and keep track of changes
