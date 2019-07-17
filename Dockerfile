@@ -1,11 +1,11 @@
 # Throwaway build stage
-FROM debian:stretch-slim AS build
+FROM debian:buster-20190708-slim AS build
 
 # Configuration
 ENV COD2_VER="1_3" \
   LIB_NAME="libcod2" \
   LIBCOD_GIT_URL="https://github.com/voron00/libcod" \
-# Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
+  # Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
   LIBCOD_MYSQL_TYPE=1
 
 # Add i386 architecture support
@@ -14,14 +14,14 @@ RUN dpkg --add-architecture i386
 # Install dependancies
 RUN apt-get update \
   && apt-get install -y \
-    git=1:2.11.0-3+deb9u4 \
+    git=1:2.20.1-2 \
     # Install 32 bits c++ libraries needed by cod2_lnxded and cross-compilation libs
-    libstdc++5:i386=1:3.3.6-28 \
-    gcc-multilib=4:6.3.0-4 \
-    g++-multilib=4:6.3.0-4 \
+    libstdc++5:i386=1:3.3.6-30 \
+    gcc-multilib=4:8.3.0-1 \
+    g++-multilib=4:8.3.0-1 \
     # Install mysql & sqlite 32bit libs required if using libcod mysql options
-    default-libmysqlclient-dev:i386=1.0.2 \
-    libsqlite3-dev:i386=3.16.2-5+deb9u1
+    default-libmysqlclient-dev:i386=1.0.5 \
+    libsqlite3-dev:i386=3.27.2-3
 
 # Download libcod from "Voron00"
 RUN git clone ${LIBCOD_GIT_URL} ${TMPDIR}/${LIB_NAME}
