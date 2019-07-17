@@ -1,0 +1,5 @@
+# Docker-compose override for dev purpose
+version: '3.6'
+services:
+  cod2_server:
+    image: bgauduch/cod2-server:dev
