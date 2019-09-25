@@ -95,28 +95,4 @@ I also strongly recommend reading the [best practices for writing dockerfiles](h
 [Docker](https://www.docker.com/) is useful, give it a try ;-)
 
 ## Roadmap
-In reverse chronological order:
-
-- [ ] Add dev scripts for local build
-- [ ] Handle server log file games_mp.log (where the user actions are logged)
-- [ ] Allow console commands in the container (currently not possible because of scratch being used: no shell, maybe possible with libcod ? Or Busybox ?)
-    -> launch binary with shell
-    -> tail -f in entrypoint (process 1) 
-    -> use FG / BG
-- [ ] Placeholder replacement on startup to use environnement variables for server configuration (use https://github.com/pyaillet/placeholder in build stage)
-- [ ] Add CI for automatic image build & tooling (hadolint, container structure test, etc)
-- [ ] Use Github project to host the roadmap and keep track of changes
-- [ ] Optimize the library copy from build stage to runtime stage (copying way to much lib at the moment. Most certainly symlinks to deal with), check with wagoodman/dive
-- [ ] See if it is possible to lower server ping (20+ ms on local, too hight, certainly linked to docker virtual interfaces)
-- [X] Use builded image in the compose file instead of building locally
-- [X] Revert dockerignore to ignore all but copied files
-- [X] Automated build on Docker Hub
-- [X] Add all libcod libs
-- [X] Implement libcod base library
-    - code: https://github.com/voron00/libcod
-    - script doc: https://m-itch.github.io/codscriptdoc/
-    - global info: https://killtube.org/showthread.php?1869-Script-documentation
-    - full install thread: https://killtube.org/showthread.php?2454-CoD2-Setup-CoD2-on-your-ubuntu-14-04-server
-- [x] Handle server binary logs (in the container or on a volume) : keeping default output from container, log handling is deffered to the host system.
-- [x]  Try to minimize the docker image using Scratch or Alpine instead of full featured OSs images (this implies to manually import all libraries and more)
-- [X] Basic implementation
+Project roadmap & issues can be tracked on the [project page](https://github.com/bgauduch/call-of-duty-2-docker-server/projects/2).
