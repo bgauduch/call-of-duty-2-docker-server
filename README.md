@@ -1,5 +1,3 @@
-[![Latest image layers and size](https://images.microbadger.com/badges/image/bgauduch/cod2server.svg)](https://microbadger.com/images/bgauduch/cod2server/) 
-[![Current Docker image version](https://images.microbadger.com/badges/version/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/tags/)
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/builds/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/)
 
