@@ -11,17 +11,17 @@ ENV COD2_VER="1_3" \
 # Add i386 architecture support
 RUN dpkg --add-architecture i386
 
-# Install dependancies
-RUN apt-get update \
-  && apt-get install -y \
-    git=1:2.20.1-2 \
-    # Install 32 bits c++ libraries needed by cod2_lnxded and cross-compilation libs
-    libstdc++5:i386=1:3.3.6-30 \
-    gcc-multilib=4:8.3.0-1 \
-    g++-multilib=4:8.3.0-1 \
-    # Install mysql & sqlite 32bit libs required if using libcod mysql options
-    default-libmysqlclient-dev:i386=1.0.5 \
-    libsqlite3-dev:i386=3.27.2-3
+# Install dependencies
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends ca-certificates=20190110
+RUN apt-get install -y --no-install-recommends git=1:2.20.1-2+deb10u1
+# Install 32 bits c++ libraries needed by cod2_lnxded and cross-compilation libs
+RUN apt-get install -y --no-install-recommends libstdc++5:i386=1:3.3.6-30
+RUN apt-get install -y --no-install-recommends gcc-multilib=4:8.3.0-1
+RUN apt-get install -y --no-install-recommends g++-multilib=4:8.3.0-1
+# Install mysql & sqlite 32bit libs required if using libcod mysql options
+RUN apt-get install -y --no-install-recommends default-libmysqlclient-dev:i386=1.0.5
+RUN apt-get install -y --no-install-recommends libsqlite3-dev:i386=3.27.2-3
 
 # Download libcod from "Voron00"
 RUN git clone ${LIBCOD_GIT_URL} ${TMPDIR}/${LIB_NAME}
@@ -31,7 +31,7 @@ WORKDIR ${TMPDIR}/${LIB_NAME}
 RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VER}
 RUN mv bin/libcod2_${COD2_VER}.so /lib/libcod2_${COD2_VER}.so
 
-# Copy server binary to make it runable
+# Copy server binary and make it runable
 COPY bin/cod2_lnxded_1_3_nodelay_va_loc /bin/cod2_lnxded
 RUN chmod +x /bin/cod2_lnxded
 
