@@ -40,7 +40,7 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Runtime stage
-FROM alpine:3.11.3
+FROM alpine:3.11.5
 LABEL maintainer='bgauduch'
 
 # Copy needed libraries from build stage
