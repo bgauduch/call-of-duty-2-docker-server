@@ -19,10 +19,9 @@ Full credits goes to them for their awesome work !
 ## Prerequisites
 You will need the following things:
 
-1. The linux dedicated server binary, which can be found in this repository in the [`bin`](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) folder;
 1. The orginal game, as it's contents are used by the dedicated server;
 1. A host machine of your choice with x86_64 architecture;
-1. [Docker](https://docs.docker.com/install/linux/docker-ce/debian/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and configured on your host machine.
+1. [Docker](https://docs.docker.com/install/linux/docker-ce/debian/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and configured on your host machine, minimal knowledge in using both is recommended.
 
 ## Setup
 Clone or download the repository and follow theses steps to get the server up and running:
@@ -58,16 +57,21 @@ From the project root, you can:
   docker-compose down
   ```
 
-## Troobleshooting
-* For `docker-compose` to pick up potential changes in the Dockerfile, force the image build:
+## Development guidelines
+If you wish to [contribute to and improve](#contribution) this project, you can do so by cloning it and then follow theses guidelines :
 
-  ``` bash
-  docker-compose up --build
+### Launch the service locally
+In order to test your changes, you can use this command to build the local Docker image and launch the service:
+  ```bash
+  ./dev-up.sh
   ```
-* To choose another server binary, symply edit this file in the Dockerfile:
-  ```docker
-  COPY bin/BINARY_OF_YOUR_CHOICE /bin/cod2_lnxded
-  ```
+> Remember that you will need the game files in the main folder, as specified in the ["prerequisite"](#prerequisites) section.
+
+### Cleanup
+To remove everything once your tests are over, you can do the following:
+```bash
+./dev-down.sh
+```
 
 ## Notes
 
@@ -85,12 +89,10 @@ From the project root, you can:
 * The gcc3 library can be found in the [`lib`](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/lib) folder, have a look at the `readme`
 * If you need to use iptables in conjonction with Docker, please follow the [official documentation tips](https://docs.docker.com/network/iptables/)
 
-## Docker
-If you are not familiar with docker (docker engine, docker hub, dockerfiles, docker images and containers), I suggest you have a look at the [documentation](https://docs.docker.com/) (especially the [dockerfiles](https://docs.docker.com/reference/builder/) part).
-
-I also strongly recommend reading the [best practices for writing dockerfiles](https://docs.docker.com/articles/dockerfile_best-practices/) for a better understanding and a cleaner writing of dockerfiles.
-
-[Docker](https://www.docker.com/) is useful, give it a try ;-)
-
 ## Roadmap
 Project roadmap & issues can be tracked on the [project page](https://github.com/bgauduch/call-of-duty-2-docker-server/projects/2).
+
+## Contribution
+Any contribution to this project is welcome ! Feel free to [open an issue](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/new) to ask for help or a new feature, and it will be discussed there.
+
+If you wish to contribute to the code, start by reading the [development guidelines](#development-guidelines) and then feel free to [open a pull-request](https://github.com/bgauduch/call-of-duty-2-docker-server/pulls).
