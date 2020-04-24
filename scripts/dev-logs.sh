@@ -2,4 +2,4 @@
 set -euo pipefail
 
 # tail stack logs
-docker-compose logs -f
+docker-compose logs -f cod2_server
