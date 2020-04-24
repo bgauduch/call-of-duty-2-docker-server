@@ -36,7 +36,7 @@ COPY bin/cod2_lnxded_1_3_nodelay_va_loc /bin/cod2_lnxded
 RUN chmod +x /bin/cod2_lnxded
 
 # Copy entrypoint and make it runnable
-COPY entrypoint.sh /entrypoint.sh
+COPY scripts/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Runtime stage
@@ -55,7 +55,7 @@ COPY --from=build /bin/cod2_lnxded /server/cod2_lnxded
 # Copy the entrypoint from build stage
 COPY --from=build /entrypoint.sh /entrypoint.sh
 
-# Expose server ports
+# Exposed server ports
 EXPOSE 20500/udp 20510/udp 28960/tcp 28960/udp
 
 # Set the server dir

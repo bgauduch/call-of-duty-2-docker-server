@@ -3,4 +3,4 @@
 
 # manually include files that need to be copied
 !bin/
-!entrypoint.sh
+!scripts/entrypoint.sh
