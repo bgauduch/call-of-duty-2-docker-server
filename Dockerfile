@@ -1,12 +1,14 @@
+# Available build arguments and default configuration
+ARG COD2_VERSION="1_3"
+ARG LIBCOD_GIT_URL="https://github.com/voron00/libcod"
+# Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
+ARG LIBCOD_MYSQL_TYPE=1
+
 # Throwaway build stage
 FROM debian:buster-20190708-slim AS build
-
-# Configuration
-ENV COD2_VER="1_3" \
-  LIB_NAME="libcod2" \
-  LIBCOD_GIT_URL="https://github.com/voron00/libcod" \
-  # Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
-  LIBCOD_MYSQL_TYPE=1
+ARG COD2_VERSION
+ARG LIBCOD_GIT_URL
+ARG LIBCOD_MYSQL_TYPE
 
 # Add i386 architecture support
 RUN dpkg --add-architecture i386
@@ -24,14 +26,14 @@ RUN apt-get install -y --no-install-recommends default-libmysqlclient-dev:i386=1
 RUN apt-get install -y --no-install-recommends libsqlite3-dev:i386=3.27.2-3
 
 # Download libcod from "Voron00"
-RUN git clone ${LIBCOD_GIT_URL} ${TMPDIR}/${LIB_NAME}
+RUN git clone ${LIBCOD_GIT_URL} ${TMPDIR}/libcod2
 
 # Build libcod2
-WORKDIR ${TMPDIR}/${LIB_NAME}
-RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VER}
-RUN mv bin/libcod2_${COD2_VER}.so /lib/libcod2_${COD2_VER}.so
+WORKDIR ${TMPDIR}/libcod2
+RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}
+RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 
-# Copy server binary and make it runable
+# Copy server binary and make it runnable
 COPY bin/cod2_lnxded_1_3_nodelay_va_loc /bin/cod2_lnxded
 RUN chmod +x /bin/cod2_lnxded
 
@@ -41,28 +43,32 @@ RUN chmod +x /entrypoint.sh
 
 # Runtime stage
 FROM alpine:3.11.6
-LABEL maintainer='bgauduch'
+ARG COD2_VERSION
+LABEL maintainer='bgauduch@github'
 
-# Copy needed libraries from build stage
-COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
+# Copy needed libraries and binaries from build stage
 COPY --from=build /usr/lib/i386-linux-gnu/ /usr/lib/i386-linux-gnu/
+COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
 COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
-COPY --from=build /lib/libcod2_1_3.so /lib/libcod2_1_3.so
-
-# Copy cod2 server binary from build stage
-COPY --from=build /bin/cod2_lnxded /server/cod2_lnxded
+COPY --from=build /lib/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
+COPY --from=build /bin/cod2_lnxded /home/cod2/cod2_lnxded
 
 # Copy the entrypoint from build stage
 COPY --from=build /entrypoint.sh /entrypoint.sh
 
+# setup the server non-root user
+ENV SERVER_USER="cod2"
+RUN addgroup -S ${SERVER_USER} && adduser -S -D -G ${SERVER_USER} ${SERVER_USER}
+USER ${SERVER_USER}
+
 # Exposed server ports
 EXPOSE 20500/udp 20510/udp 28960/tcp 28960/udp
 
-# Set the server dir
-WORKDIR /server
-
 # Server "main" folder volume
-VOLUME [ "/server/main" ]
+VOLUME [ "/home/${SERVER_USER}/main" ]
 
-# Launch server at container startup, using libcod library
+# Set the server dir
+WORKDIR /home/${SERVER_USER}
+
+# Launch server at container startup
 ENTRYPOINT [ "/entrypoint.sh"]

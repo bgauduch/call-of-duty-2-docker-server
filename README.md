@@ -74,6 +74,12 @@ You can use this script to display and follow the server logs:
 ./scripts/dev-logs.sh
 ```
 
+### Launch a shell in the container
+You can use this script to launch a shell in the running container:
+```sh
+./scripts/dev-exec.sh
+```
+
 ### Cleanup
 You can use this script to remove everything once your tests are over:
 ```sh
