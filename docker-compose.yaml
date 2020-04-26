@@ -8,5 +8,5 @@ services:
       - "28960:28960/tcp"
       - "28960:28960/udp"
     volumes:
-      - ./cod2server/main:/server/main:ro
+      - ./cod2server/main:/home/cod2/main:ro
     restart: unless-stopped
