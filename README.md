@@ -6,6 +6,7 @@ Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikiped
 
 ## 📦 Supported tags and respective `Dockerfile` links
 * `bgauduch/cod2server:latest` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
+* `bgauduch/cod2server:2.1` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/2.1/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/2.1)
 * `bgauduch/cod2server:2.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/2.0/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/2.0)
 * `bgauduch/cod2server:1.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/v1.0/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/v1.0) 
 
