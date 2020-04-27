@@ -96,5 +96,14 @@ Kicks and temporarily bans player by client id from server
 Unban every player banned with [name]. If you want to unban a single player whose name appears more than once, you should edit "ban.txt" manually.
 
 ## Server config
-* `set fs_basepath`: set the game folder.
+* `set fs_basepath`: set the game folder, where the `config` and `.iwd` files are.
 * `set fs_homepath`: set the multiplayer log file and live config folder.
+
+## Server logs
+There is to type of logs:
+* The **server** logs:
+  * It's the output of the server binary when executed.
+  * It contains server informations, map rotation, etc.
+* The **game** logs:
+  * It's written by the server bynary to a file, created under `$fs_homepath/main/games_mp.log` by default.
+  * It contains all game information (kills, dammages, players join / quit, chat message, etc)

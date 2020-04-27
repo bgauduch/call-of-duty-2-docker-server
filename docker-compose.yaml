@@ -10,7 +10,7 @@ services:
       - "28960:28960/udp"
     volumes:
       - ./cod2server/main:/home/cod2/main:ro
-    # load the config as an argument to the entrypoint
+    # set server parameters as an argument to the entrypoint
     command: ["+exec", "config.cfg"]
     # Allow server shell interaction
     stdin_open: true
