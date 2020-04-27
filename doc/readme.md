@@ -1,10 +1,6 @@
 # Call Of Duty 2 - server documentation
 Full credit goes to http://anarchyrules.co.uk/cod2/server%20commands.html
 
-## Server config
-* `set fs_basepath`: set the game folder.
-* `set fs_homepath`: set the multiplayer log file and live config folder.
-
 ## Map Name
 All maps are available in each gamemodes:
 - `dm`: death match
@@ -29,13 +25,18 @@ Map name list:
 - `mp_trainstation`
 
 ## Console Commands
-Here are the available commands you can use in the server terminal.
+Here are the available commands you can use to control your server.
 
-You can use commands in-game from the console: add the `/rcon` prefix and allow in-game console in server configuration (`sv_disableClientConsole=0`).
+Usage :
+* from the server console: just type the command directly.
+* from the in-game console:
+  * Enable in-game console in server configuration (`sv_disableClientConsole=0`);
+  * Log in using [`rcon login`](#rcon);
+  * add the `/rcon` prefix to the command.
 
 ### rcon
 * `/rcon login [rconpassword]`:
-Login to remote rcon. **Be carreful not leaking your password when using rcon login !**
+Login to remote rcon. **Be VERY carreful not leaking your password when using rcon login !**
 
 ### Common
 * `status`:
@@ -94,5 +95,6 @@ Kicks and temporarily bans player by client id from server
 * `unban [name]`:
 Unban every player banned with [name]. If you want to unban a single player whose name appears more than once, you should edit "ban.txt" manually.
 
-
-
+## Server config
+* `set fs_basepath`: set the game folder.
+* `set fs_homepath`: set the multiplayer log file and live config folder.
