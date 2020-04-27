@@ -37,10 +37,6 @@ RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 COPY bin/cod2_lnxded_1_3_nodelay_va_loc /bin/cod2_lnxded
 RUN chmod +x /bin/cod2_lnxded
 
-# Copy entrypoint and make it runnable
-COPY scripts/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Runtime stage
 FROM alpine:3.11.6
 ARG COD2_VERSION
@@ -52,9 +48,6 @@ COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
 COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
 COPY --from=build /lib/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 COPY --from=build /bin/cod2_lnxded /home/cod2/cod2_lnxded
-
-# Copy the entrypoint from build stage
-COPY --from=build /entrypoint.sh /entrypoint.sh
 
 # setup the server non-root user
 ENV SERVER_USER="cod2"
@@ -70,5 +63,6 @@ VOLUME [ "/home/${SERVER_USER}/main" ]
 # Set the server dir
 WORKDIR /home/${SERVER_USER}
 
-# Launch server at container startup
-ENTRYPOINT [ "/entrypoint.sh"]
+# Launch server at container startup using libcod library
+ENV LD_PRELOAD="/lib/libcod2_1_3.so"
+ENTRYPOINT [ "./cod2_lnxded" ]
