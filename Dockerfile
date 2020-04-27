@@ -42,17 +42,17 @@ FROM alpine:3.11.6
 ARG COD2_VERSION
 LABEL maintainer='bgauduch@github'
 
+# setup the server non-root user
+ENV SERVER_USER="cod2"
+RUN addgroup -S ${SERVER_USER} && adduser -S -D -G ${SERVER_USER} ${SERVER_USER}
+USER ${SERVER_USER}
+
 # Copy needed libraries and binaries from build stage
 COPY --from=build /usr/lib/i386-linux-gnu/ /usr/lib/i386-linux-gnu/
 COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
 COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
 COPY --from=build /lib/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
-COPY --from=build /bin/cod2_lnxded /home/cod2/cod2_lnxded
-
-# setup the server non-root user
-ENV SERVER_USER="cod2"
-RUN addgroup -S ${SERVER_USER} && adduser -S -D -G ${SERVER_USER} ${SERVER_USER}
-USER ${SERVER_USER}
+COPY --from=build /bin/cod2_lnxded /home/${SERVER_USER}/cod2_lnxded
 
 # Exposed server ports
 EXPOSE 20500/udp 20510/udp 28960/tcp 28960/udp
@@ -62,6 +62,11 @@ VOLUME [ "/home/${SERVER_USER}/main" ]
 
 # Set the server dir
 WORKDIR /home/${SERVER_USER}
+
+# redirect server multiplayer logs to container stdout
+RUN mkdir -p /home/${SERVER_USER}/.callofduty2/main/ \
+  && touch /home/${SERVER_USER}/.callofduty2/main/games_mp.log \
+  && ln -sf /dev/stdout /home/${SERVER_USER}/.callofduty2/main/games_mp.log
 
 # Launch server at container startup using libcod library
 ENV LD_PRELOAD="/lib/libcod2_1_3.so"
