@@ -6,7 +6,8 @@ Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikiped
 
 ## 📦 Supported tags and respective `Dockerfile` links
 * `bgauduch/cod2server:latest` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
-* `bgauduch/cod2server:1.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/v1.0/Dockerfile)
+* `bgauduch/cod2server:2.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/2.0/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/2.0)
+* `bgauduch/cod2server:1.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/v1.0/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/v1.0) 
 
 ## 🔧 What's inside
 * The `cod2_lnxded_1_3_nodelay_va_loc` server binary from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by [Kung Foo Man](https://github.com/kungfooman), [Mitch](https://github.com/M-itch) and anyone that contributed;
