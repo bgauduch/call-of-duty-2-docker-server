@@ -34,7 +34,7 @@ RUN apt-get install -y --no-install-recommends libsqlite3-dev:i386=3.27.2-3
 # Download and build libcod2 from "Voron00"
 RUN git clone ${LIBCOD_GIT_URL} "${TMPDIR}/libcod2"
 WORKDIR ${TMPDIR}/libcod2
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=DL4006
 RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}
 RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 
