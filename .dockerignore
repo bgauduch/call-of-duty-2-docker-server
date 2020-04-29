@@ -1,5 +1,5 @@
 # discar anything to be send to docker buid context
 *
 
-# manually include files that need to be copied
-!bin/
+# include server binaries
+!bin/cod2_lnxded*

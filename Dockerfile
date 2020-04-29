@@ -1,5 +1,6 @@
 # Available build arguments and default configuration
 ARG COD2_VERSION="1_3"
+ARG COD2_LNXDED_TYPE="_nodelay_va_loc"
 ARG LIBCOD_GIT_URL="https://github.com/voron00/libcod"
 # Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
 ARG LIBCOD_MYSQL_TYPE=1
@@ -7,8 +8,13 @@ ARG LIBCOD_MYSQL_TYPE=1
 # Throwaway build stage
 FROM debian:buster-20190708-slim AS build
 ARG COD2_VERSION
+ARG COD2_LNXDED_TYPE
 ARG LIBCOD_GIT_URL
 ARG LIBCOD_MYSQL_TYPE
+
+# Copy server binary and make it runnable
+COPY bin/cod2_lnxded_${COD2_VERSION}${COD2_LNXDED_TYPE} /bin/cod2_lnxded
+RUN chmod +x /bin/cod2_lnxded
 
 # Add i386 architecture support
 RUN dpkg --add-architecture i386
@@ -25,17 +31,11 @@ RUN apt-get install -y --no-install-recommends g++-multilib=4:8.3.0-1
 RUN apt-get install -y --no-install-recommends default-libmysqlclient-dev:i386=1.0.5
 RUN apt-get install -y --no-install-recommends libsqlite3-dev:i386=3.27.2-3
 
-# Download libcod from "Voron00"
+# Download and build libcod2 from "Voron00"
 RUN git clone ${LIBCOD_GIT_URL} ${TMPDIR}/libcod2
-
-# Build libcod2
 WORKDIR ${TMPDIR}/libcod2
 RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}
 RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
-
-# Copy server binary and make it runnable
-COPY bin/cod2_lnxded_1_3_nodelay_va_loc /bin/cod2_lnxded
-RUN chmod +x /bin/cod2_lnxded
 
 # Runtime stage
 FROM alpine:3.11.6
@@ -65,9 +65,8 @@ WORKDIR /home/${SERVER_USER}
 
 # redirect server multiplayer logs to container stdout
 RUN mkdir -p /home/${SERVER_USER}/.callofduty2/main/ \
-  && touch /home/${SERVER_USER}/.callofduty2/main/games_mp.log \
   && ln -sf /dev/stdout /home/${SERVER_USER}/.callofduty2/main/games_mp.log
 
 # Launch server at container startup using libcod library
-ENV LD_PRELOAD="/lib/libcod2_1_3.so"
+ENV LD_PRELOAD="/lib/libcod2_${COD2_VERSION}.so"
 ENTRYPOINT [ "./cod2_lnxded" ]
