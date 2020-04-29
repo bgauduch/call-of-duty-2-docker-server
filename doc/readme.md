@@ -99,6 +99,8 @@ Unban every player banned with [name]. If you want to unban a single player whos
 * `set fs_basepath`: set the game folder, where the `config` and `.iwd` files are.
 * `set fs_homepath`: set the multiplayer log file and live config folder.
 
+Server config generator: https://www.opferlamm-clan.de/config-generator-cod2.html
+
 ## Server logs
 There is to type of logs:
 * The **server** logs:
