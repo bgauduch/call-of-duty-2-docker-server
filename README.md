@@ -8,7 +8,7 @@ Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikiped
 * `bgauduch/cod2server:latest` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
 * `bgauduch/cod2server:2.1` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/2.1/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/2.1)
 * `bgauduch/cod2server:2.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/2.0/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/2.0)
-* `bgauduch/cod2server:1.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/v1.0/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/v1.0) 
+* `bgauduch/cod2server:1.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/v1.0/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/v1.0)
 
 ## 🔧 What's inside
 * The `cod2_lnxded_1_3_nodelay_va_loc` server binary from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by [Kung Foo Man](https://github.com/kungfooman), [Mitch](https://github.com/M-itch) and anyone that contributed;
@@ -17,9 +17,9 @@ Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikiped
 > Full credits goes to them for their awesome work !
 
 ## 📝 Requirements
-1. The orginal game, as it's content is used by the dedicated server;
-1. A host machine of your choice with x86_64 architecture;
-1. [Docker](https://docs.docker.com/install/linux/docker-ce/debian/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and configured on your host machine.
+* The orginal game, as it's content is used by the dedicated server;
+* A host machine of your choice with x86_64 architecture;
+* [Docker](https://docs.docker.com/install/linux/docker-ce/debian/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and configured on your host machine.
 Minimal knowledge in using both is recommended.
 
 ## 🚀 Usage
@@ -31,15 +31,15 @@ Minimal knowledge in using both is recommended.
     1. Copy all the `iw_XX.iwd` from 00 to 15 to the `cod2server/main` folder;
     1. Copy all the localizations `localized_english_iwXX.iwd` to the `cod2server/main` (it might be another language).
 1. Edit the config file located in `cod2server/main/config.cfg` to suits your needs:
-   * **[MANDATORY] Set the RCON password to something strong and private!**
-   * Tweak the rest as you see fit, don't forget to updated the placeholders (server name, admin, etc).
+    1. **[MANDATORY] Set the RCON password to something strong and private!**
+    1. Tweak the rest as you see fit, don't forget to updated the placeholders (server name, admin, etc).
 1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available (see required open ports in the `EXPOSE` section of the [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)).
 
 ### Launch the server
 From the project root:
-  ``` bash
-  docker-compose up -d
-  ```
+``` bash
+docker-compose up -d
+```
 
 ### Server interactions
 From the project root, you can:

@@ -1,5 +1,11 @@
-# Docker-compose override for dev purpose
-version: '3.6'
+# Docker-compose override for development
+version: "3.6"
 services:
   cod2_server:
+    build:
+      context: .
+      args:
+        COD2_VERSION: "1_3"
+        COD2_LNXDED_TYPE: "_nodelay_va_loc"
+        LIBCOD_MYSQL_TYPE: "1"
     image: bgauduch/cod2-server:dev
