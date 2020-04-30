@@ -7,7 +7,7 @@ env:
   IMAGE_NAME: bgauduch/cod2server
 
 jobs:
-  dockerfile_lint:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,9 +19,9 @@ jobs:
         with:
           dockerfile: "Dockerfile"
 
-  image_build:
+  build:
     runs-on: ubuntu-latest
-    needs: dockerfile_lint
+    needs: lint
 
     steps:
       - name: Check out the repo
@@ -42,7 +42,7 @@ jobs:
 
   image_push:
     runs-on: ubuntu-latest
-    needs: image_build
+    needs: build
 
     steps:
       - name: download image artifact
@@ -50,6 +50,9 @@ jobs:
         with:
           name: image
           path: image.tar
+
+      - name: list files
+        run: ls -la
 
       - name: load image
         run: docker image load --input image.tar
