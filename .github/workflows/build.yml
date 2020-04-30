@@ -10,10 +10,13 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+
     steps:
     - name: Check out the repo
       uses: actions/checkout@v2
+
     - name: Branch name
       run: echo running on branch ${GITHUB_REF##*/}
+
     - name: Build Docker image
       run: docker build . --file Dockerfile --tag $IMAGE_NAME:${GITHUB_REF##*/}
