@@ -76,7 +76,7 @@ jobs:
     env:
       COD2_VERSION: ${{ matrix.versions.cod2_version }}
       COD2_LNXDED_TYPE: ${{ matrix.versions.cod2_lnxded_type }}
-      IMAGE_TAG: $COD2_VERSION$COD2_LNXDED_TYPE
+      IMAGE_TAG: ${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
 
     steps:
       - name: Check out the repo
