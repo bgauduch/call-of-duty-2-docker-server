@@ -5,6 +5,7 @@ on:
 
 env:
   IMAGE_NAME: bgauduch/cod2server
+  IMAGE_TAG: ${GITHUB_REF##*/}
 
 jobs:
   lint:
@@ -27,12 +28,15 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      # build the image with latest cracked cod2_lnxded
+      - name: Overidde image tag to latest if on master branch
+        if: contains(github.ref, "master")
+        run: echo "::set-env name=IMAGE_TAG::latest"
+
       - name: Build image
-        run: docker image build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:latest
+        run: docker image build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:$IMAGE_TAG
 
       - name: save image
-        run: docker image save -o image.tar $IMAGE_NAME:latest
+        run: docker image save -o $IMAGE_NAME:$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
@@ -40,10 +44,9 @@ jobs:
           name: image
           path: image.tar
 
-  push_latest:
+  push:
     runs-on: ubuntu-latest
     needs: build
-    # if: ${GITHUB_REF##*/}=="master"
 
     steps:
       - name: download image artifact
@@ -58,7 +61,7 @@ jobs:
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push image to registry
-        run: docker push $IMAGE_NAME:latest
+        run: docker push $IMAGE_NAME:$IMAGE_TAG
 
   build_all:
     runs-on: ubuntu-latest
@@ -120,13 +123,13 @@ jobs:
       - name: download image $IMAGE_NAME:IMAGE_TAG artifact
         uses: actions/download-artifact@v2
         with:
-          name: image_IMAGE_TAG
+          name: image_$IMAGE_TAG
 
       - name: load image $IMAGE_NAME:IMAGE_TAG
-        run: docker image load --input image_IMAGE_TAG.tar
+        run: docker image load --input image_$IMAGE_TAG.tar
 
       - name: Login to Docker Hub registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: Push image $IMAGE_NAME:IMAGE_TAG to registry
-        run: docker push $IMAGE_NAME:IMAGE_TAG
+      - name: Push image $IMAGE_NAME:$IMAGE_TAG to registry
+        run: docker push $IMAGE_NAME:$IMAGE_TAG
