@@ -1,4 +1,4 @@
-![image build](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/lint-build-push/badge.svg)
+[![image build](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/lint-build-push/badge.svg)](https://github.com/bgauduch/call-of-duty-2-docker-server/actions?query=workflow%3Alint-build-push)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/)
 
 # Call of Duty 2 server meets docker
@@ -6,8 +6,7 @@ Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikiped
 
 ## 📦 Supported tags and respective `Dockerfile` links
 This repository use a multi-build setup to provide images for all server binaries located in the [`/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin).
-
-All image tags can be found on the [Docker Hub registry](https://hub.docker.com/r/bgauduch/cod2server/tags)
+All image tags can be found on the [Docker Hub registry](https://hub.docker.com/r/bgauduch/cod2server/tags).
 
 The following convention is applied:
 * `bgauduch/cod2server:latest` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
@@ -62,7 +61,7 @@ From the project root, you can:
   # cod2_server refer to the name of the service in the compose file
   docker-compose logs -f cod2_server
   ```
-* Attach a shell to the server to run commands (see available commands in [/doc/readme.md](doc/readme.md)):
+* Attach a shell to the server to run commands, see available commands in [/doc/readme.md](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/doc/readme.md):
   ```sh
   docker container attach call-of-duty-2-docker-server_cod2_server_1
   # exemple commands
@@ -91,7 +90,7 @@ If you wish to contribute to and improve this project, you can do so by cloning 
 ```
 
 ### Execute server commands
-Attach a shell to the running server to run a command (see available commands in [/doc/readme.md](doc/readme.md)):
+Attach a shell to the running server to run a command, see available commands in [/doc/readme.md](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/doc/readme.md):
 ```sh
 ./scripts/dev-attach.sh
 # Exemple commands
