@@ -95,7 +95,7 @@ jobs:
 
     strategy:
       matrix:
-        image_tags:
+        versions:
           - {cod2_version: "1_3", cod2_lnxded_type: ""}
           - {cod2_version: "1_3", cod2_lnxded_type: "_cracked"}
           - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay"}
