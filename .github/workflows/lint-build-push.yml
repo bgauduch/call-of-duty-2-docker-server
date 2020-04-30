@@ -36,7 +36,7 @@ jobs:
         run: docker image build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:$IMAGE_TAG
 
       - name: save image
-        run: docker image save -o $IMAGE_NAME:$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
+        run: docker image save -o image.tar $IMAGE_NAME:$IMAGE_TAG
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
