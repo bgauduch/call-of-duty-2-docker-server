@@ -36,13 +36,13 @@ jobs:
         run: docker image build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:$IMAGE_TAG
 
       - name: save image
-        run: docker image save -o image.tar $IMAGE_NAME:$IMAGE_TAG
+        run: docker image save -o image-$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
         with:
           name: image
-          path: image.tar
+          path: image-${{ $IMAGE_TAG }}.tar
 
   push:
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
           name: image
 
       - name: load image
-        run: docker image load --input image.tar
+        run: docker image load --input image-$IMAGE_TAG.tar
 
       - name: Login to Docker Hub registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
@@ -93,13 +93,13 @@ jobs:
         run: docker image build . --file Dockerfile --build-arg COD2_VERSION=$COD2_VERSION --build-arg COD2_LNXDED_TYPE=$COD2_LNXDED_TYPE --tag $IMAGE_NAME:$IMAGE_TAG
 
       - name: save image $IMAGE_NAME:$IMAGE_TAG
-        run: docker image save -o image_$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
+        run: docker image save -o image-$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
 
       - name: Upload image $IMAGE_NAME:$IMAGE_TAG artifact
         uses: actions/upload-artifact@v2
         with:
-          name: image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
-          path: image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}.tar
+          name: image-${{ $IMAGE_TAG }}
+          path: image-${{ $IMAGE_TAG }}.tar
 
   push_all:
     runs-on: ubuntu-latest
@@ -121,7 +121,7 @@ jobs:
       - name: download image $IMAGE_NAME:IMAGE_TAG artifact
         uses: actions/download-artifact@v2
         with:
-          name: image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
+          name: image-${{ $IMAGE_TAG }}
 
       - name: load image $IMAGE_NAME:IMAGE_TAG
         run: docker image load --input image_$IMAGE_TAG.tar
