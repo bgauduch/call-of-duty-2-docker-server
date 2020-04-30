@@ -124,7 +124,7 @@ jobs:
           name: image-${{ env.IMAGE_TAG }}
 
       - name: load image $IMAGE_NAME:IMAGE_TAG
-        run: docker image load --input image_$IMAGE_TAG.tar
+        run: docker image load --input image-$IMAGE_TAG.tar
 
       - name: Login to Docker Hub registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
