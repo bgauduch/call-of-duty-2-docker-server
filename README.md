@@ -5,13 +5,22 @@
 Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikipedia.org/wiki/Call_of_Duty_2) multiplayer game server, including libcod.
 
 ## 📦 Supported tags and respective `Dockerfile` links
+This repository use a multi-build setup to provide images for all server binaries located in the [`/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin).
+
+All image tags can be found on the [Docker Hub registry](https://hub.docker.com/r/bgauduch/cod2server/tags)
+
+The following convention is applied:
 * `bgauduch/cod2server:latest` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
-* `bgauduch/cod2server:2.1` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/2.1/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/2.1)
-* `bgauduch/cod2server:2.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/2.0/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/2.0)
-* `bgauduch/cod2server:1.0` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/v1.0/Dockerfile) - [release details](https://github.com/bgauduch/call-of-duty-2-docker-server/releases/tag/v1.0)
+  * uses latest available cracked server binary and libcod library.
+* `bgauduch/cod2server:X_Y_zzzzzz`
+  * where `X_Y` is the server binary and libcod library version in [1_0, 1_2, 1_3];
+  * where `zzzzzz` is the server binary declination. Report to the [readme in the `/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) for explanations.
+
+Please report to the [releases section](https://github.com/bgauduch/call-of-duty-2-docker-server/releases) for the changelogs.
+
 
 ## 🔧 What's inside
-* The `cod2_lnxded_1_3_nodelay_va_loc` server binary from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by [Kung Foo Man](https://github.com/kungfooman), [Mitch](https://github.com/M-itch) and anyone that contributed;
+* The `cod2_lnxded` server binary from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by [Kung Foo Man](https://github.com/kungfooman), [Mitch](https://github.com/M-itch) and anyone that contributed;
 * The [custom `libcod`](https://github.com/voron00/libcod) from [Voron00](https://github.com/voron00), follow the repository forks for a complete list of creators and contributors.
 
 > Full credits goes to them for their awesome work !
