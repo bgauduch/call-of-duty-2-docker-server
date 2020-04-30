@@ -1,6 +1,6 @@
 # Available build arguments and default configuration
-ARG COD2_VERSION="1_3"
-ARG COD2_LNXDED_TYPE="_nodelay_va_loc"
+ARG COD2_VERSION
+ARG COD2_LNXDED_TYPE
 ARG LIBCOD_GIT_URL="https://github.com/voron00/libcod"
 # Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
 ARG LIBCOD_MYSQL_TYPE=1

@@ -4,7 +4,6 @@ on:
   push:
 
 jobs:
-
   linter:
     runs-on: ubuntu-latest
 

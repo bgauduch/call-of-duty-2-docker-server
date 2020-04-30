@@ -1,25 +1,26 @@
-name: push latest
+name: push-latest
 
 on:
   push:
+    # branches:
+    #   - master
 
 env:
   IMAGE_NAME: bgauduch/cod2server
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out the repo
-      uses: actions/checkout@v2
+      - name: Check out the repo
+        uses: actions/checkout@v2
 
-    - name: Build Docker image
-      run: docker build . --file Dockerfile --tag $IMAGE_NAME:latest
+      - name: Build Docker image
+        run: docker build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:latest
 
-    - name: Login to Docker Hub registry
-      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Login to Docker Hub registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-    - name: Push image to Docker Hub registry
-      run: docker push $IMAGE_NAME:latest
+      - name: Push image to Docker Hub registry
+        run: docker push $IMAGE_NAME:latest
