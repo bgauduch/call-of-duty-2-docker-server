@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: image
-          path: math-homework.txt
+          path: image.tar
 
   image_push:
     needs: image_build
