@@ -1,0 +1,135 @@
+name: lint-build-push
+
+on:
+  push:
+
+env:
+  IMAGE_NAME: bgauduch/cod2server
+  IMAGE_TAG: latest
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Lint Dockerfile
+        uses: brpaz/hadolint-action@master
+        with:
+          dockerfile: "Dockerfile"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Overidde image tag with branch name if not on master
+        if: contains(github.ref, 'master') != true
+        run: echo "::set-env name=IMAGE_TAG::${GITHUB_REF##*/}"
+
+      - name: Build image
+        run: docker image build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:$IMAGE_TAG
+
+      - name: save image
+        run: docker image save -o $IMAGE_NAME:$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: image
+          path: image.tar
+
+  push:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: download image artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: image
+
+      - name: load image
+        run: docker image load --input image.tar
+
+      - name: Login to Docker Hub registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push image to registry
+        run: docker push $IMAGE_NAME:$IMAGE_TAG
+
+  build_all:
+    runs-on: ubuntu-latest
+    needs: lint
+
+    strategy:
+      matrix:
+        versions:
+          - { cod2_version: "1_3", cod2_lnxded_type: "" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_cracked" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_patch_va_loc" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay_va_loc" }
+
+    env:
+      COD2_VERSION: ${{ matrix.versions.cod2_version }}
+      COD2_LNXDED_TYPE: ${{ matrix.versions.cod2_lnxded_type }}
+      IMAGE_TAG: ${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: test
+        run: |
+          echo cod2_ver=$COD2_VERSION
+          echo cod2_lnxded_type=$COD2_LNXDED_TYPE
+          echo image_tag=$IMAGE_TAG
+
+      - name: Build image $IMAGE_NAME:$IMAGE_TAG
+        run: docker image build . --file Dockerfile --build-arg COD2_VERSION=$COD2_VERSION --build-arg COD2_LNXDED_TYPE=$COD2_LNXDED_TYPE --tag $IMAGE_NAME:$IMAGE_TAG
+
+      - name: save image $IMAGE_NAME:$IMAGE_TAG
+        run: docker image save -o image_$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
+
+      - name: Upload image $IMAGE_NAME:$IMAGE_TAG artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: image_$IMAGE_TAG
+          path: image_$IMAGE_TAG.tar
+
+  push_all:
+    runs-on: ubuntu-latest
+    needs: build_all
+
+    strategy:
+      matrix:
+        versions:
+          - { cod2_version: "1_3", cod2_lnxded_type: "" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_cracked" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_patch_va_loc" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay_va_loc" }
+
+    env:
+      IMAGE_TAG: ${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
+
+    steps:
+      - name: download image $IMAGE_NAME:IMAGE_TAG artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: image_$IMAGE_TAG
+
+      - name: load image $IMAGE_NAME:IMAGE_TAG
+        run: docker image load --input image_$IMAGE_TAG.tar
+
+      - name: Login to Docker Hub registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push image $IMAGE_NAME:$IMAGE_TAG to registry
+        run: docker push $IMAGE_NAME:$IMAGE_TAG
