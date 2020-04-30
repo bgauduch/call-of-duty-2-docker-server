@@ -1,8 +1,7 @@
-name: image build
+name: build
 
 on:
   push:
-  pull_request:
 
 env:
   IMAGE_NAME: bgauduch/cod2server
@@ -10,12 +9,10 @@ env:
 jobs:
 
   build:
-
-    # needs: lint
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: Build Docker image
       run: docker build . --file Dockerfile --tag $IMAGE_NAME:latest
+    - name: Save Docker image
+      run: docker image save -o image.tar $IMAGE_NAME:latest

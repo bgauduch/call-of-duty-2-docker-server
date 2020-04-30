@@ -1,8 +1,7 @@
-name: lint dockerfile
+name: lint
 
 on:
   push:
-  pull_request:
 
 jobs:
   linter:
