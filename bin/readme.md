@@ -1,5 +1,5 @@
 # Server binary
-You can find here original and cracked server binary files backups.
+You can find here original and cracked server binary files.
 
 ## Sources
 Cracked server binary files credits goes to **Kung Foo Man** and **Mitch** from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)).
