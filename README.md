@@ -2,7 +2,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/)
 ![lint dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/lint/badge.svg)
 ![lint dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/build/badge.svg)
-![image build](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/push/badge.svg)
+![image build](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/push-latest/badge.svg)
 
 # Call of Duty 2 server meets docker
 Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikipedia.org/wiki/Call_of_Duty_2) multiplayer game server, including libcod.
