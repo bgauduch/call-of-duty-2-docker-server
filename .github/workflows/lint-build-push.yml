@@ -41,8 +41,8 @@ jobs:
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
         with:
-          name: image-${{ env.$IMAGE_TAG }}
-          path: image-${{ env.$IMAGE_TAG }}.tar
+          name: image-${{ env.IMAGE_TAG }}
+          path: image-${{ env.IMAGE_TAG }}.tar
 
   push:
     runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
       - name: download image artifact
         uses: actions/download-artifact@v2
         with:
-          name: image-${{ env.$IMAGE_TAG }}
+          name: image-${{ env.IMAGE_TAG }}
 
       - name: load image
         run: docker image load --input image-$IMAGE_TAG.tar
@@ -98,8 +98,8 @@ jobs:
       - name: Upload image $IMAGE_NAME:$IMAGE_TAG artifact
         uses: actions/upload-artifact@v2
         with:
-          name: image-${{ env.$IMAGE_TAG }}
-          path: image-${{ env.$IMAGE_TAG }}.tar
+          name: image-${{ env.IMAGE_TAG }}
+          path: image-${{ env.IMAGE_TAG }}.tar
 
   push_all:
     runs-on: ubuntu-latest
@@ -121,7 +121,7 @@ jobs:
       - name: download image $IMAGE_NAME:IMAGE_TAG artifact
         uses: actions/download-artifact@v2
         with:
-          name: image-${{ env.$IMAGE_TAG }}
+          name: image-${{ env.IMAGE_TAG }}
 
       - name: load image $IMAGE_NAME:IMAGE_TAG
         run: docker image load --input image_$IMAGE_TAG.tar
