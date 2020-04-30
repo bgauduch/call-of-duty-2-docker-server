@@ -5,7 +5,7 @@ on:
 
 env:
   IMAGE_NAME: bgauduch/cod2server
-  IMAGE_TAG: ${GITHUB_REF##*/}
+  IMAGE_TAG: latest
 
 jobs:
   lint:
@@ -28,9 +28,9 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: Overidde image tag to latest if on master branch
-        if: contains(github.ref, 'master')
-        run: echo "::set-env name=IMAGE_TAG::latest"
+      - name: Overidde image tag with branch name if not on master
+        if: ! contains(github.ref, 'master')
+        run: echo "::set-env name=IMAGE_TAG::${GITHUB_REF##*/}"
 
       - name: Build image
         run: docker image build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:$IMAGE_TAG
