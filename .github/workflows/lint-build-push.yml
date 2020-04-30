@@ -70,11 +70,11 @@ jobs:
     strategy:
       matrix:
         versions:
-          - {cod2_version: "1_3", cod2_lnxded_type: ""}
-          - {cod2_version: "1_3", cod2_lnxded_type: "_cracked"}
-          - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay"}
-          - {cod2_version: "1_3", cod2_lnxded_type: "_patch_va_loc"}
-          - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay_va_loc"}
+          - { cod2_version: "1_3", cod2_lnxded_type: "" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_cracked" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_patch_va_loc" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay_va_loc" }
 
     env:
       COD2_VERSION: ${{ matrix.versions.cod2_version }}
@@ -110,11 +110,11 @@ jobs:
     strategy:
       matrix:
         versions:
-          - {cod2_version: "1_3", cod2_lnxded_type: ""}
-          - {cod2_version: "1_3", cod2_lnxded_type: "_cracked"}
-          - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay"}
-          - {cod2_version: "1_3", cod2_lnxded_type: "_patch_va_loc"}
-          - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay_va_loc"}
+          - { cod2_version: "1_3", cod2_lnxded_type: "" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_cracked" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_patch_va_loc" }
+          - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay_va_loc" }
 
     env:
       IMAGE_TAG: ${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
