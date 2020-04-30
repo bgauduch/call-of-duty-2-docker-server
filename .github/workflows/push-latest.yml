@@ -9,18 +9,40 @@ env:
   IMAGE_NAME: bgauduch/cod2server
 
 jobs:
-  build:
+  image_build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: Build Docker image
+      # build the image with latest cracked cod2_lnxded
+      - name: Build image
         run: docker build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:latest
+
+      - name: save image
+        run: docker image save -o image.tar $IMAGE_NAME:latest
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: image
+          path: math-homework.txt
+
+  image_push:
+    needs: image_build
+    runs-on: ubuntu-latest
+    steps:
+      - name: download image artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: image
+
+      - name: load image
+        run: docker image load --input image.tar
 
       - name: Login to Docker Hub registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: Push image to Docker Hub registry
+      - name: Push image to registry
         run: docker push $IMAGE_NAME:latest
