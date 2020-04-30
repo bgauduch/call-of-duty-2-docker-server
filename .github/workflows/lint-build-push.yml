@@ -29,7 +29,7 @@ jobs:
 
       # build the image with latest cracked cod2_lnxded
       - name: Build image
-        run: docker build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:latest
+        run: docker image build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:latest
 
       - name: save image
         run: docker image save -o image.tar $IMAGE_NAME:latest
@@ -40,18 +40,16 @@ jobs:
           name: image
           path: image.tar
 
-  image_push:
+  push_latest:
     runs-on: ubuntu-latest
     needs: build
+    # if: {{ github.event.pull_request && ${GITHUB_REF##*/}=="master" }}
 
     steps:
       - name: download image artifact
         uses: actions/download-artifact@v2
         with:
           name: image
-
-      - name: list files
-        run: ls -la
 
       - name: load image
         run: docker image load --input image.tar
@@ -61,3 +59,60 @@ jobs:
 
       - name: Push image to registry
         run: docker push $IMAGE_NAME:latest
+
+  build_all:
+    runs-on: ubuntu-latest
+    needs: lint
+
+    strategy:
+      matrix:
+        image_tags:
+          - {cod2_version: "1_3", cod2_lnxded_type: ""}
+          - {cod2_version: "1_3", cod2_lnxded_type: "_cracked"}
+          - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay"}
+          - {cod2_version: "1_3", cod2_lnxded_type: "_patch_va_loc"}
+          - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay_va_loc"}
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Build image
+        run: docker image build . --file Dockerfile --build-arg COD2_VERSION=${{ matrix.cod2_version }} --build-arg COD2_LNXDED_TYPE=${{ matrix.cod2_lnxded_type }} --tag $IMAGE_NAME:${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+
+      - name: save image
+        run: docker image save -o image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}.tar $IMAGE_NAME:${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+          path: image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}.tar
+
+  push_all:
+    runs-on: ubuntu-latest
+    needs: build_all
+
+    strategy:
+      matrix:
+        image_tags:
+          - {cod2_version: "1_3", cod2_lnxded_type: ""}
+          - {cod2_version: "1_3", cod2_lnxded_type: "_cracked"}
+          - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay"}
+          - {cod2_version: "1_3", cod2_lnxded_type: "_patch_va_loc"}
+          - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay_va_loc"}
+
+    steps:
+      - name: download image artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+
+      - name: load image
+        run: docker image load --input image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}.tar
+
+      - name: Login to Docker Hub registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push image to registry
+        run: docker push $IMAGE_NAME:${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
