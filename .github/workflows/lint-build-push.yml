@@ -36,13 +36,13 @@ jobs:
         run: docker image build . --file Dockerfile --build-arg COD2_VERSION="1_3" --build-arg COD2_LNXDED_TYPE="_nodelay_va_loc" --tag $IMAGE_NAME:$IMAGE_TAG
 
       - name: save image
-        run: docker image save -o image-$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
+        run: docker image save -o image.tar $IMAGE_NAME:$IMAGE_TAG
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v2
         with:
           name: image
-          path: image-$IMAGE_TAG.tar
+          path: image.tar
 
   push:
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
           name: image
 
       - name: load image
-        run: docker image load --input image-$IMAGE_TAG.tar
+        run: docker image load --input image.tar
 
       - name: Login to Docker Hub registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
