@@ -66,7 +66,7 @@ jobs:
 
     strategy:
       matrix:
-        image_tags:
+        versions:
           - {cod2_version: "1_3", cod2_lnxded_type: ""}
           - {cod2_version: "1_3", cod2_lnxded_type: "_cracked"}
           - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay"}
@@ -77,17 +77,17 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker image build . --file Dockerfile --build-arg COD2_VERSION=${{ matrix.cod2_version }} --build-arg COD2_LNXDED_TYPE=${{ matrix.cod2_lnxded_type }} --tag $IMAGE_NAME:${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+      - name: Build image $IMAGE_NAME:${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
+        run: docker image build . --file Dockerfile --build-arg COD2_VERSION=${{ matrix.versions.cod2_version }} --build-arg COD2_LNXDED_TYPE=${{ matrix.versions.cod2_lnxded_type }} --tag $IMAGE_NAME:${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
 
-      - name: save image
-        run: docker image save -o image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}.tar $IMAGE_NAME:${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+      - name: save image $IMAGE_NAME:${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
+        run: docker image save -o image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}.tar $IMAGE_NAME:${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
 
-      - name: Upload image artifact
+      - name: Upload image $IMAGE_NAME:${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }} artifact
         uses: actions/upload-artifact@v2
         with:
-          name: image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
-          path: image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}.tar
+          name: image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
+          path: image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}.tar
 
   push_all:
     runs-on: ubuntu-latest
@@ -103,16 +103,16 @@ jobs:
           - {cod2_version: "1_3", cod2_lnxded_type: "_nodelay_va_loc"}
 
     steps:
-      - name: download image artifact
+      - name: download image $IMAGE_NAME:${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }} artifact
         uses: actions/download-artifact@v2
         with:
-          name: image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+          name: image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
 
-      - name: load image
-        run: docker image load --input image_${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}.tar
+      - name: load image $IMAGE_NAME:${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
+        run: docker image load --input image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}.tar
 
       - name: Login to Docker Hub registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: Push image to registry
-        run: docker push $IMAGE_NAME:${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+      - name: Push image $IMAGE_NAME:${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }} to registry
+        run: docker push $IMAGE_NAME:${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
