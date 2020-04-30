@@ -1,4 +1,4 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/builds/)
+![image build](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/lint-build-push/badge.svg)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/)
 
 # Call of Duty 2 server meets docker

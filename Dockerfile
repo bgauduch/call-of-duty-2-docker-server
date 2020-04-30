@@ -1,6 +1,6 @@
 # Available build arguments and default configuration
-ARG COD2_VERSION="1_3"
-ARG COD2_LNXDED_TYPE="_nodelay_va_loc"
+ARG COD2_VERSION
+ARG COD2_LNXDED_TYPE
 ARG LIBCOD_GIT_URL="https://github.com/voron00/libcod"
 # Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
 ARG LIBCOD_MYSQL_TYPE=1
@@ -32,8 +32,9 @@ RUN apt-get install -y --no-install-recommends default-libmysqlclient-dev:i386=1
 RUN apt-get install -y --no-install-recommends libsqlite3-dev:i386=3.27.2-3
 
 # Download and build libcod2 from "Voron00"
-RUN git clone ${LIBCOD_GIT_URL} ${TMPDIR}/libcod2
+RUN git clone ${LIBCOD_GIT_URL} "${TMPDIR}/libcod2"
 WORKDIR ${TMPDIR}/libcod2
+# hadolint ignore=DL4006
 RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}
 RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 
