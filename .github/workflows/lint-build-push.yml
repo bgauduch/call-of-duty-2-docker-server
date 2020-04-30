@@ -98,8 +98,8 @@ jobs:
       - name: Upload image $IMAGE_NAME:$IMAGE_TAG artifact
         uses: actions/upload-artifact@v2
         with:
-          name: image_$IMAGE_TAG
-          path: image_$IMAGE_TAG.tar
+          name: image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
+          path: image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}.tar
 
   push_all:
     runs-on: ubuntu-latest
@@ -121,7 +121,7 @@ jobs:
       - name: download image $IMAGE_NAME:IMAGE_TAG artifact
         uses: actions/download-artifact@v2
         with:
-          name: image_$IMAGE_TAG
+          name: image_${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
 
       - name: load image $IMAGE_NAME:IMAGE_TAG
         run: docker image load --input image_$IMAGE_TAG.tar
