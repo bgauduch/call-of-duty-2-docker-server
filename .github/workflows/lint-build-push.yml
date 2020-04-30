@@ -75,6 +75,13 @@ jobs:
     strategy:
       matrix:
         versions:
+          - { cod2_version: "1_0", cod2_lnxded_type: "a" }
+          - { cod2_version: "1_0", cod2_lnxded_type: "a_va" }
+          - { cod2_version: "1_0", cod2_lnxded_type: "a_va_loc" }
+          - { cod2_version: "1_2", cod2_lnxded_type: "c" }
+          - { cod2_version: "1_2", cod2_lnxded_type: "c_nodelay" }
+          - { cod2_version: "1_2", cod2_lnxded_type: "c_nodelay_va_loc" }
+          - { cod2_version: "1_2", cod2_lnxded_type: "c_patch_va_loc" }
           - { cod2_version: "1_3", cod2_lnxded_type: "" }
           - { cod2_version: "1_3", cod2_lnxded_type: "_cracked" }
           - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay" }
@@ -90,13 +97,13 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: Build image $IMAGE_NAME:$IMAGE_TAG
+      - name: Build image
         run: docker image build . --file Dockerfile --build-arg COD2_VERSION=$COD2_VERSION --build-arg COD2_LNXDED_TYPE=$COD2_LNXDED_TYPE --tag $IMAGE_NAME:$IMAGE_TAG
 
-      - name: save image $IMAGE_NAME:$IMAGE_TAG
+      - name: save image
         run: docker image save -o image-$IMAGE_TAG.tar $IMAGE_NAME:$IMAGE_TAG
 
-      - name: Upload image $IMAGE_NAME:$IMAGE_TAG artifact
+      - name: Upload image artifact
         uses: actions/upload-artifact@v2
         with:
           name: image-${{ env.IMAGE_TAG }}
@@ -110,6 +117,13 @@ jobs:
     strategy:
       matrix:
         versions:
+          - { cod2_version: "1_0", cod2_lnxded_type: "a" }
+          - { cod2_version: "1_0", cod2_lnxded_type: "a_va" }
+          - { cod2_version: "1_0", cod2_lnxded_type: "a_va_loc" }
+          - { cod2_version: "1_2", cod2_lnxded_type: "c" }
+          - { cod2_version: "1_2", cod2_lnxded_type: "c_nodelay" }
+          - { cod2_version: "1_2", cod2_lnxded_type: "c_nodelay_va_loc" }
+          - { cod2_version: "1_2", cod2_lnxded_type: "c_patch_va_loc" }
           - { cod2_version: "1_3", cod2_lnxded_type: "" }
           - { cod2_version: "1_3", cod2_lnxded_type: "_cracked" }
           - { cod2_version: "1_3", cod2_lnxded_type: "_nodelay" }
@@ -120,16 +134,16 @@ jobs:
       IMAGE_TAG: ${{ matrix.versions.cod2_version }}${{ matrix.versions.cod2_lnxded_type }}
 
     steps:
-      - name: download image $IMAGE_NAME:IMAGE_TAG artifact
+      - name: download image artifact
         uses: actions/download-artifact@v2
         with:
           name: image-${{ env.IMAGE_TAG }}
 
-      - name: load image $IMAGE_NAME:IMAGE_TAG
+      - name: load image
         run: docker image load --input image-$IMAGE_TAG.tar
 
       - name: Login to Docker Hub registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: Push image $IMAGE_NAME:$IMAGE_TAG to registry
+      - name: Push image to registry
         run: docker push $IMAGE_NAME:$IMAGE_TAG
