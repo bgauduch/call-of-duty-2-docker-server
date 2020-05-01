@@ -15,22 +15,22 @@ services:
     # Configure server parameters
     command:
       [
-        "+sets",
+        "+set",
         "dedicated",
         "2",
-        "+sets",
+        "+set",
         "net_port",
         "28960",
-        "+sets",
+        "+set",
         "sv_cheat",
         "0",
-        "+sets",
+        "+set",
         "sv_punkbuster",
         "1",
         "+exec",
-        "server_config.cfg",
+        "punkbuster.cfg",
         "+exec",
-        "punkbuster_config.cfg"
+        "server_mp.cfg"
       ]
     # Allow server shell interaction
     stdin_open: true
