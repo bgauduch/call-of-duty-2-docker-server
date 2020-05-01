@@ -1,6 +1,8 @@
-version: '3.6'
+version: "3.6"
 services:
   cod2_server:
+    # You can chose a different server version, see available image tags:
+    # https://hub.docker.com/r/bgauduch/cod2server/tags
     image: bgauduch/cod2-server:latest
     restart: unless-stopped
     ports:
@@ -9,9 +11,27 @@ services:
       - "28960:28960/tcp"
       - "28960:28960/udp"
     volumes:
-      - ./cod2server/main:/home/cod2/main:ro
-    # set server parameters as an argument to the entrypoint
-    command: ["+exec", "config.cfg"]
+      - ./cod2server/main:/home/cod2/main
+    # Configure server parameters
+    command:
+      [
+        "+sets",
+        "dedicated",
+        "2",
+        "+sets",
+        "net_port",
+        "28960",
+        "+sets",
+        "sv_cheat",
+        "0",
+        "+sets",
+        "sv_punkbuster",
+        "1",
+        "+exec",
+        "server_config.cfg",
+        "+exec",
+        "punkbuster_config.cfg"
+      ]
     # Allow server shell interaction
     stdin_open: true
     tty: true
