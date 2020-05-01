@@ -96,13 +96,16 @@ Kicks and temporarily bans player by client id from server
 Unban every player banned with [name]. If you want to unban a single player whose name appears more than once, you should edit "ban.txt" manually.
 
 ## Server config
+Server config files can be found in the [/cod2server/main](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/cod2server/main) directory.
+
+A note on server path:
 * `set fs_basepath`: set the game folder, where the `config` and `.iwd` files are.
 * `set fs_homepath`: set the multiplayer log file and live config folder.
 
 Server config generator: https://www.opferlamm-clan.de/config-generator-cod2.html
 
 ## Server logs
-There is to type of logs:
+There is two types of logs:
 * The **server** logs:
   * It's the output of the server binary when executed.
   * It contains server informations, map rotation, etc.
