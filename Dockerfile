@@ -54,7 +54,7 @@ COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
 COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
 COPY --from=build /lib/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 COPY --from=build /bin/cod2_lnxded /home/${SERVER_USER}/cod2_lnxded
-COPY lib/pb/ /home/${SERVER_USER}/pb/
+COPY lib/pb/v1.760_A1383_C2.208/ /home/${SERVER_USER}/pb/
 
 # Exposed server ports
 EXPOSE 20500/udp 20510/udp 28960/tcp 28960/udp
