@@ -2,6 +2,11 @@ name: lint-build-push
 
 on:
   push:
+    tags-ignore:
+      - "*.*"
+    paths-ignore:
+      - "doc/**"
+      - "README.md"
   release:
     types: [published]
 
