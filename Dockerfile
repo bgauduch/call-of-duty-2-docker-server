@@ -48,12 +48,13 @@ ENV SERVER_USER="cod2"
 RUN addgroup -S ${SERVER_USER} && adduser -S -D -G ${SERVER_USER} ${SERVER_USER}
 USER ${SERVER_USER}
 
-# Copy needed libraries and binaries from build stage
+# Copy needed libraries and binaries
 COPY --from=build /usr/lib/i386-linux-gnu/ /usr/lib/i386-linux-gnu/
 COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
 COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
 COPY --from=build /lib/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 COPY --from=build /bin/cod2_lnxded /home/${SERVER_USER}/cod2_lnxded
+COPY lib/pb/v1.760_A1383_C2.208/ /home/${SERVER_USER}/pb/
 
 # Exposed server ports
 EXPOSE 20500/udp 20510/udp 28960/tcp 28960/udp

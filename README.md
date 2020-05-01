@@ -9,14 +9,14 @@ This repository use a multi-build setup to provide images for all server binarie
 All image tags can be found on the [Docker Hub registry](https://hub.docker.com/r/bgauduch/cod2server/tags).
 
 The following convention is applied:
-* `bgauduch/cod2server:latest` - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
-  * uses latest available cracked server binary and libcod library.
-* `bgauduch/cod2server:X_Y_zzzzzz`
-  * where `X_Y` is the server binary and libcod library version in [1_0, 1_2, 1_3];
-  * where `zzzzzz` is the server binary declination. Report to the [readme in the `/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) for explanations.
+* **`bgauduch/cod2server:latest`** - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
+  * uses latest available cracked server binary and libcod library, build from `master` branch.
+* **`bgauduch/cod2server:3.0`** - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/3.0/Dockerfile) - equivalent to `latest` on release tag.
+* **`bgauduch/cod2server:X_Y_zzzzzz`**
+  * **`X_Y`** is the server binary and libcod library version in [`1_0`, `1_2`, `1_3`];
+  * **`zzzzzz`** is the server binary declination. Report to the [readme in the `/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) for explanations.
 
-Please report to the [releases section](https://github.com/bgauduch/call-of-duty-2-docker-server/releases) for the changelogs.
-
+Please report to the [releases section](https://github.com/bgauduch/call-of-duty-2-docker-server/releases) for the changelogs. Any other image tag is not supported.
 
 ## 🔧 What's inside
 * The `cod2_lnxded` server binary from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by [Kung Foo Man](https://github.com/kungfooman), [Mitch](https://github.com/M-itch) and anyone that contributed;
@@ -97,6 +97,12 @@ Attach a shell to the running server to run a command, see available commands in
 status
 map_rotate
 # Use the escape sequence to detach: `CTRL+P`, `CTRL+Q`
+```
+
+### Run a shell in the server container
+You can debug directly inside the server container (show file structure, tail logs, etc):
+```sh
+./scripts/dev-exec.sh
 ```
 
 ### Cleanup

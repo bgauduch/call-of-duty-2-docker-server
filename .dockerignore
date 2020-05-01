@@ -3,3 +3,6 @@
 
 # include server binaries
 !bin/cod2_lnxded*
+
+# include PunkBuster libraries
+!lib/pb/*
