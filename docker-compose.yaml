@@ -26,7 +26,7 @@ services:
         "0",
         "+set",
         "sv_punkbuster",
-        "1",
+        "0",
         "+exec",
         "punkbuster.cfg",
         "+exec",
