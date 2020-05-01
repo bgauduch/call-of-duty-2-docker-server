@@ -3,10 +3,12 @@ name: lint-build-push
 on:
   push:
     tags-ignore:
-      - "*.*"
-    paths-ignore:
-      - "doc/**"
-      - "README.md"
+      - "**"
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - master
   release:
     types: [published]
 
