@@ -2,6 +2,7 @@ name: lint-build-push
 
 on:
   push:
+  release:
 
 env:
   IMAGE_NAME: bgauduch/cod2server
