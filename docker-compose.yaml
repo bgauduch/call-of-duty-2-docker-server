@@ -3,7 +3,7 @@ services:
   cod2_server:
     # You can chose a different server version, see available image tags:
     # https://hub.docker.com/r/bgauduch/cod2server/tags
-    image: bgauduch/cod2-server:latest
+    image: bgauduch/cod2server:latest
     restart: unless-stopped
     ports:
       - "20500:20500/udp"
