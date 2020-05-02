@@ -34,13 +34,16 @@ Minimal knowledge in using both is recommended.
 
 ### Setup the server
 1. Clone or download this repository on your host machine;
-1. Copy the required data from the game to the server:
-    1. Go in the `main` folder of your original game (install directory or retail DVD);
+1. Copy required data from the `main` folder of your original game (install directory or retail DVD) to the server:
     1. Copy all the `iw_XX.iwd` from 00 to 15 to the `cod2server/main` folder;
     1. Copy all the localizations `localized_english_iwXX.iwd` to the `cod2server/main` (it might be another language).
-1. Edit the config file located in `cod2server/main/config.cfg` to suits your needs:
+1. Edit the config file located in `cod2server/main/server_mp.cfg` to suits your needs:
     1. **[MANDATORY] Set the RCON password to something strong and private!**
     1. Tweak the rest as you see fit, don't forget to updated the placeholders (server name, admin, etc).
+1. [Optional] If you need Punkbuster:
+  1. Activate it by changing `sv_punkbuster` from `0` to `1` in the command arguments of the `docker-compose.yaml`file;
+  1. Edit the `cod2server/main/punkbuster.cfg` configuration to suits your needs.
+1. [Optional] Edit the `bgauduch/cod2server` image tag in `docker-compose.yaml` to choose a different server version;
 1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available (see required open ports in the `EXPOSE` section of the [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)).
 
 ### Launch the server
@@ -90,7 +93,7 @@ If you wish to contribute to and improve this project, you can do so by cloning 
 ```
 
 ### Execute server commands
-Attach a shell to the running server to run a command, see available commands in [/doc/readme.md](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/doc/readme.md):
+Attach a shell to the running server process to run a command, see available commands in [/doc/readme.md](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/doc/readme.md):
 ```sh
 ./scripts/dev-attach.sh
 # Exemple commands
