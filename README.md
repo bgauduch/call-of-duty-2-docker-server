@@ -40,10 +40,10 @@ Minimal knowledge in using both is recommended.
 1. Edit the config file located in `cod2server/main/server_mp.cfg` to suits your needs:
     1. **[MANDATORY] Set the RCON password to something strong and private!**
     1. Tweak the rest as you see fit, don't forget to updated the placeholders (server name, admin, etc).
-1. [Optional] If you need Punkbuster:
-  1. Activate it by changing `sv_punkbuster` from `0` to `1` in the command arguments of the `docker-compose.yaml`file;
-  1. Edit the `cod2server/main/punkbuster.cfg` configuration to suits your needs.
-1. [Optional] Edit the `bgauduch/cod2server` image tag in `docker-compose.yaml` to choose a different server version;
+1. *[Optional]* If you need Punkbuster:
+    1. Activate it by changing `sv_punkbuster` from `0` to `1` in the command arguments of the `docker-compose.yaml`file;
+    1. Edit the `cod2server/main/punkbuster.cfg` configuration to suits your needs.
+1. *[Optional]* Edit the `bgauduch/cod2server` image tag in `docker-compose.yaml` to choose a different server version;
 1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available (see required open ports in the `EXPOSE` section of the [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)).
 
 ### Launch the server
