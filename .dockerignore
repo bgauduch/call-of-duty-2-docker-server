@@ -6,3 +6,6 @@
 
 # include PunkBuster libraries
 !lib/pb/*
+
+# include entrypoint
+!entrypoint.sh
