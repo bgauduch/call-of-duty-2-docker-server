@@ -16,10 +16,6 @@ ARG LIBCOD_MYSQL_TYPE
 COPY bin/cod2_lnxded_${COD2_VERSION}${COD2_LNXDED_TYPE} /bin/cod2_lnxded
 RUN chmod +x /bin/cod2_lnxded
 
-# Copy entrypoint and make it runnable
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Add i386 architecture support
 RUN dpkg --add-architecture i386
 
@@ -59,7 +55,12 @@ COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
 COPY --from=build /lib/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 COPY --from=build /bin/cod2_lnxded /home/${SERVER_USER}/cod2_lnxded
 COPY lib/pb/v1.760_A1383_C2.208/ /home/${SERVER_USER}/pb/
-COPY --from=build /entrypoint.sh /entrypoint.sh
+
+# Exposed server ports
+EXPOSE 20500/udp 20510/udp 28960/tcp 28960/udp
+
+# Server "main" folder volume
+VOLUME [ "/home/${SERVER_USER}/main" ]
 
 # Set the server dir
 WORKDIR /home/${SERVER_USER}
@@ -68,12 +69,6 @@ WORKDIR /home/${SERVER_USER}
 RUN mkdir -p /home/${SERVER_USER}/.callofduty2/main/ \
   && ln -sf /dev/stdout /home/${SERVER_USER}/.callofduty2/main/games_mp.log
 
-# Exposed server ports
-EXPOSE 20500/udp 20510/udp 28960/tcp 28960/udp
-
-# Server "main" folder volume
-VOLUME [ "/home/${SERVER_USER}/main" ]
-
 # Launch server at container startup using libcod library
 ENV LD_PRELOAD="/lib/libcod2_${COD2_VERSION}.so"
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "./cod2_lnxded" ]

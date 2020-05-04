@@ -11,18 +11,18 @@ services:
       - "28960:28960/tcp"
       - "28960:28960/udp"
     volumes:
-      - type: bind
-        source: ./cod2server/main
-        target: /home/cod2/main
-        read_only: true
-    # Configure server parameters and load configuration files
+      - ./cod2server/main:/home/cod2/main
+    # Configure server parameters
     command:
       [
+        "+set",
+        "dedicated",
+        "2",
         "+set",
         "net_port",
         "28960",
         "+set",
-        "sv_cheats",
+        "sv_cheat",
         "0",
         "+set",
         "sv_punkbuster",
