@@ -22,7 +22,7 @@ RUN dpkg --add-architecture i386
 # Install dependencies
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends ca-certificates=20190110
-RUN apt-get install -y --no-install-recommends git=1:2.20.1-2+deb10u1
+RUN apt-get install -y --no-install-recommends git=1:2.20.1-2+deb10u3
 # Install 32 bits c++ libraries needed by cod2_lnxded and cross-compilation libs
 RUN apt-get install -y --no-install-recommends libstdc++5:i386=1:3.3.6-30
 RUN apt-get install -y --no-install-recommends gcc-multilib=4:8.3.0-1
@@ -39,7 +39,7 @@ RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}
 RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 
 # Runtime stage
-FROM alpine:3.11.6
+FROM alpine:3.12.0
 ARG COD2_VERSION
 LABEL maintainer='bgauduch@github'
 
