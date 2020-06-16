@@ -110,5 +110,5 @@ There is two types of logs:
   * It's the output of the server binary when executed.
   * It contains server informations, map rotation, etc.
 * The **game** logs:
-  * It's written by the server bynary to a file, created under `$fs_homepath/main/games_mp.log` by default.
+  * It's written by the server binary to a file, created under `$fs_homepath/main/games_mp.log` by default.
   * It contains all game information (kills, dammages, players join / quit, chat message, etc)
