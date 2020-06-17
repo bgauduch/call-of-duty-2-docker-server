@@ -10,19 +10,17 @@ services:
       - "20510:20510/udp"
       - "28960:28960/tcp"
       - "28960:28960/udp"
+    # Mount required game files
     volumes:
       - ./cod2server/main:/home/cod2/main
     # Configure server parameters
     command:
       [
         "+set",
-        "dedicated",
-        "2",
-        "+set",
         "net_port",
         "28960",
         "+set",
-        "sv_cheat",
+        "sv_cheats",
         "0",
         "+set",
         "sv_punkbuster",
