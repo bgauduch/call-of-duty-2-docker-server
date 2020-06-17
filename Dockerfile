@@ -25,7 +25,6 @@ RUN apt-get install -y --no-install-recommends ca-certificates=20190110
 RUN apt-get install -y --no-install-recommends git=1:2.20.1-2+deb10u3
 # Install 32 bits c++ libraries needed by cod2_lnxded and cross-compilation libs
 RUN apt-get install -y --no-install-recommends libstdc++5:i386=1:3.3.6-30
-RUN apt-get install -y --no-install-recommends gcc-multilib=4:8.3.0-1
 RUN apt-get install -y --no-install-recommends g++-multilib=4:8.3.0-1
 # Install mysql & sqlite 32bit libs required if using libcod mysql options
 RUN apt-get install -y --no-install-recommends default-libmysqlclient-dev:i386=1.0.5
@@ -43,12 +42,8 @@ FROM alpine:3.12.0
 ARG COD2_VERSION
 LABEL maintainer='bgauduch@github'
 
-# setup the server non-root user
-ENV SERVER_USER="cod2"
-RUN addgroup -S ${SERVER_USER} && adduser -S -D -G ${SERVER_USER} ${SERVER_USER}
-USER ${SERVER_USER}
-
 # Copy needed libraries and binaries
+ENV SERVER_USER="cod2"
 COPY --from=build /usr/lib/i386-linux-gnu/ /usr/lib/i386-linux-gnu/
 COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
 COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
