@@ -6,7 +6,7 @@ ARG LIBCOD_GIT_URL="https://github.com/voron00/libcod"
 ARG LIBCOD_MYSQL_TYPE=1
 
 # Throwaway build stage
-FROM debian:buster-20201209-slim AS build
+FROM debian:buster-20210311-slim AS build
 ARG COD2_VERSION
 ARG COD2_LNXDED_TYPE
 ARG LIBCOD_GIT_URL
@@ -21,7 +21,7 @@ RUN dpkg --add-architecture i386
 
 # Install dependencies
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends ca-certificates=20190110
+RUN apt-get install -y --no-install-recommends ca-certificates=20200601~deb10u2
 RUN apt-get install -y --no-install-recommends git=1:2.20.1-2+deb10u3
 # Install 32 bits c++ libraries needed by cod2_lnxded and cross-compilation libs
 RUN apt-get install -y --no-install-recommends libstdc++5:i386=1:3.3.6-30
@@ -38,7 +38,7 @@ RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}
 RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 
 # Runtime stage
-FROM alpine:3.13.1
+FROM alpine:3.13.2
 ARG COD2_VERSION
 LABEL maintainer='bgauduch@github'
 
