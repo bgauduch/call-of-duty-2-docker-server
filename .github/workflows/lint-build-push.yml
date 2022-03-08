@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Lint Dockerfile
         uses: brpaz/hadolint-action@master
@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Overidde image tag with branch name if not on master
         if: contains(github.ref, 'master') != true
@@ -104,7 +104,7 @@ jobs:
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build image
         run: docker image build . --file Dockerfile --build-arg COD2_VERSION=$COD2_VERSION --build-arg COD2_LNXDED_TYPE=$COD2_LNXDED_TYPE --tag $IMAGE_NAME:$IMAGE_TAG
