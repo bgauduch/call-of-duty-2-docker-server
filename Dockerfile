@@ -38,7 +38,7 @@ RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}
 RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 
 # Runtime stage
-FROM alpine:3.15.3
+FROM alpine:3.15.4
 ARG COD2_VERSION
 LABEL maintainer='bgauduch@github'
 
