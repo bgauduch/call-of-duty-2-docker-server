@@ -16,11 +16,10 @@ ARG LIBCOD_MYSQL_TYPE
 COPY bin/cod2_lnxded_${COD2_VERSION}${COD2_LNXDED_TYPE} /bin/cod2_lnxded
 RUN chmod +x /bin/cod2_lnxded
 
-# Add i386 architecture support
-RUN dpkg --add-architecture i386
-
-# Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Add i386 architecture support and install dependencies
+# hadolint ignore=DL3008
+RUN dpkg --add-architecture i386 \
+    && apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     git \
     # Install 32 bits c++ libraries needed by cod2_lnxded and cross-compilation libs
@@ -44,7 +43,7 @@ ARG COD2_VERSION
 LABEL maintainer='bgauduch@github'
 
 # Install netcat for healthcheck
-RUN apk add --no-cache netcat-openbsd
+RUN apk add --no-cache netcat-openbsd=1.226-r0
 
 # Copy needed libraries and binaries
 ENV SERVER_USER="cod2"
