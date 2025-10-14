@@ -1,5 +1,38 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
-  ]
+    "config:recommended"
+  ],
+  "schedule": [
+    "before 6am on monday"
+  ],
+  "labels": ["dependencies"],
+  "assignees": ["bgauduch"],
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major"],
+      "labels": ["docker", "major-update"],
+      "automerge": false
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "labels": ["docker", "minor-update"],
+      "automerge": false
+    },
+    {
+      "matchDatasources": ["github-actions"],
+      "labels": ["github-actions"],
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "assignees": ["bgauduch"]
+  },
+  "lockFileMaintenance": {
+    "enabled": false
+  }
 }

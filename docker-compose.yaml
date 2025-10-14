@@ -33,3 +33,12 @@ services:
     # Allow server shell interaction
     stdin_open: true
     tty: true
+    # Resource limits for production safety
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 256M
