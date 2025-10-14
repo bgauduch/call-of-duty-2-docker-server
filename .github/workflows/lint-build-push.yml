@@ -2,13 +2,12 @@ name: lint-build-push
 
 on:
   push:
-    tags-ignore:
-      - "**"
     branches:
-      - "**"
+      - master
   pull_request:
     branches:
       - master
+    types: [opened, synchronize, reopened]
   release:
     types: [published]
 
