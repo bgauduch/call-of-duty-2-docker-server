@@ -25,30 +25,32 @@ Please report to the [releases section](https://github.com/bgauduch/call-of-duty
 > Full credits goes to them for their awesome work !
 
 ## 📝 Requirements
-* The orginal game, as it's content is used by the dedicated server;
+* The original game, as its content is used by the dedicated server;
 * A host machine of your choice with x86_64 architecture;
-* [Docker](https://docs.docker.com/install/linux/docker-ce/debian/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and configured on your host machine.
-Minimal knowledge in using both is recommended.
+* [Docker](https://docs.docker.com/install/linux/docker-ce/debian/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and configured on your host machine. Minimal knowledge in using both is recommended.
 
 ## 🚀 Usage
 
 ### Setup the server
+
 1. Clone or download this repository on your host machine;
 1. Copy required data from the `main` folder of your original game (install directory or retail DVD) to the server:
     1. Copy all the `iw_XX.iwd` from 00 to 15 to the `cod2server/main` folder;
     1. Copy all the localizations `localized_english_iwXX.iwd` to the `cod2server/main` (it might be another language).
 1. Edit the config file located in `cod2server/main/server_mp.cfg` to suits your needs:
-    1. **[MANDATORY] Set the RCON password to something strong and private!**
-    1. Tweak the rest as you see fit, don't forget to updated the placeholders (server name, admin, etc).
+    1. **[MANDATORY] Set the RCON password to something strong and private!** See [SECURITY.md](.github/SECURITY.md) for security best practices.
+    1. Tweak the rest as you see fit, don't forget to update the placeholders (server name, admin, etc).
 1. *[Optional]* If you need Punkbuster:
-  1. Activate it by changing `sv_punkbuster` from `0` to `1` in the command arguments of the `docker-compose.yaml`file;
-  1. Edit the `cod2server/main/punkbuster.cfg` configuration to suits your needs.
+    1. Activate it by changing `sv_punkbuster` from `0` to `1` in the command arguments of the `docker-compose.yaml` file;
+    1. Edit the `cod2server/main/punkbuster.cfg` configuration to suits your needs.
 1. *[Optional]* Edit the `bgauduch/cod2server` image tag in `docker-compose.yaml` to choose a different server version;
 1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available (see required open ports in the `EXPOSE` section of the [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)).
 
 ### Launch the server
+
 From the project root:
-``` bash
+
+```bash
 docker-compose up -d
 ```
 
@@ -78,41 +80,15 @@ From the project root, you can:
   docker-compose down
   ```
 
-## 💻 Development guidelines
-If you wish to contribute to and improve this project, you can do so by cloning it and then follow theses guidelines :
+## 💻 Development & Contributing
 
-### Start / restart the server locally
-```sh
-./scripts/dev-up.sh
-```
-> Note that you will need the game files in the main folder, as specified in the "Requirements" section.
+If you wish to contribute to and improve this project, please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
-### Show server logs
-```sh
-./scripts/dev-logs.sh
-```
-
-### Execute server commands
-Attach a shell to the running server process to run a command, see available commands in [/doc/readme.md](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/doc/readme.md):
-```sh
-./scripts/dev-attach.sh
-# Exemple commands
-status
-map_rotate
-# Use the escape sequence to detach: `CTRL+P`, `CTRL+Q`
-```
-
-### Run a shell in the server container
-You can debug directly inside the server container (show file structure, tail logs, etc):
-```sh
-./scripts/dev-exec.sh
-```
-
-### Cleanup
-Remove everything once your tests are over:
-```sh
-./scripts/dev-down.sh
-```
+- Development environment setup
+- Detailed script usage (`dev-up.sh`, `dev-logs.sh`, `dev-attach.sh`, etc.)
+- Code style guidelines
+- Testing procedures
+- Pull request process
 
 ## 🗂️ Notes & resources
 
@@ -128,9 +104,14 @@ Remove everything once your tests are over:
 Project roadmap & issues can be tracked on the [project page](https://github.com/bgauduch/call-of-duty-2-docker-server/projects/2).
 
 ## 🙏 Contribution
-Any contribution to this project is welcome ! Feel free to [open an issue](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/new) to ask for help or a new feature, and it will be discussed there.
 
-If you wish to contribute to the code, start by reading the development guidelines and then feel free to [open a pull-request](https://github.com/bgauduch/call-of-duty-2-docker-server/pulls).
+Any contribution to this project is welcome! Feel free to [open an issue](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/new) to ask for help or request a new feature.
+
+If you wish to contribute code, please read [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and then feel free to [open a pull request](https://github.com/bgauduch/call-of-duty-2-docker-server/pulls).
+
+## 🔒 Security
+
+For security best practices and vulnerability reporting, please see [SECURITY.md](.github/SECURITY.md).
 
 ## 📖 License
 This project is under the [MIT License](https://choosealicense.com/licenses/mit/).

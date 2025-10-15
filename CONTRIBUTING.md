@@ -51,15 +51,76 @@ We welcome various types of contributions:
 
 ### Local Development Setup
 
-Follow the development guidelines in the [README.md](README.md#-development-guidelines) to set up your local environment:
+The project includes several helper scripts in the `scripts/` directory to streamline local development:
+
+#### Start / Restart the Server Locally
 
 ```bash
-./scripts/dev-up.sh      # Start the server
-./scripts/dev-logs.sh    # View logs
-./scripts/dev-attach.sh  # Attach to server console
-./scripts/dev-exec.sh    # Execute commands in container
-./scripts/dev-down.sh    # Stop and cleanup
+./scripts/dev-up.sh
 ```
+
+This script will:
+- Build the Docker image locally using development configuration
+- Start the CoD2 server container in detached mode
+- Use the `docker-compose.yaml` and `docker-compose.dev.yaml` configuration files
+
+> **Note:** You will need the game files in the `cod2server/main` folder, as specified in the [README.md](README.md#-requirements) Requirements section.
+
+#### Show Server Logs
+
+```bash
+./scripts/dev-logs.sh
+```
+
+This script tails the server logs in real-time, showing:
+- Server startup messages
+- Connection logs
+- Game events
+- Error messages
+
+Use `CTRL+C` to stop following logs.
+
+#### Execute Server Commands
+
+```bash
+./scripts/dev-attach.sh
+```
+
+This script attaches to the running server process, allowing you to run server console commands directly. Available commands are documented in [/doc/readme.md](doc/readme.md).
+
+Example commands:
+```
+status          # Show server status
+map_rotate      # Rotate to next map
+map_restart     # Restart current map
+```
+
+> **Important:** Use the escape sequence `CTRL+P`, `CTRL+Q` to detach from the container without stopping it.
+
+#### Run a Shell in the Server Container
+
+```bash
+./scripts/dev-exec.sh
+```
+
+This script opens an interactive shell (`sh`) inside the running server container. Useful for:
+- Inspecting file structure
+- Checking file permissions
+- Debugging configuration issues
+- Manually testing commands
+
+Exit the shell with `exit` or `CTRL+D`.
+
+#### Cleanup
+
+```bash
+./scripts/dev-down.sh
+```
+
+This script stops and removes all containers, networks, and resources created by docker-compose. Use this when:
+- You're done with development/testing
+- You need to start fresh
+- You want to free up system resources
 
 ### Code Style
 
