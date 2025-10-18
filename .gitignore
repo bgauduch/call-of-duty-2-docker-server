@@ -1,5 +1,10 @@
 # exclude cod2 game server files
 *.iwd
 
+# Test artifacts
+container-structure-test-linux-amd64
+server_output.log
+*.tar
+
 # OSX
 .DS_Store

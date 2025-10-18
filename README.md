@@ -1,4 +1,5 @@
-[![image build](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/lint-build-push/badge.svg)](https://github.com/bgauduch/call-of-duty-2-docker-server/actions?query=workflow%3Alint-build-push)
+[![Lint](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/Lint/badge.svg)](https://github.com/bgauduch/call-of-duty-2-docker-server/actions?query=workflow%3ALint)
+[![Build & Test](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/Build%20%26%20Test/badge.svg)](https://github.com/bgauduch/call-of-duty-2-docker-server/actions?query=workflow%3A%22Build+%26+Test%22)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/)
 
 # Call of Duty 2 server meets docker
@@ -7,19 +8,43 @@ Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikiped
 
 ## 📦 Supported tags and respective `Dockerfile` links
 
-This repository use a multi-build setup to provide images for all server binaries located in the [`/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin).
+This repository uses automated CI/CD with semantic versioning to provide images for all server binaries located in the [`/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin).
 All image tags can be found on the [Docker Hub registry](https://hub.docker.com/r/bgauduch/cod2server/tags).
 
-The following convention is applied:
+### Tagging Strategy
 
-* **`bgauduch/cod2server:latest`** - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
-  * uses latest available cracked server binary and libcod library, build from `master` branch.
-* **`bgauduch/cod2server:3.0`** - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/3.0/Dockerfile) - equivalent to `latest` on release tag.
-* **`bgauduch/cod2server:X_Y_zzzzzz`**
-  * **`X_Y`** is the server binary and libcod library version in [`1_0`, `1_2`, `1_3`];
-  * **`zzzzzz`** is the server binary declination. Report to the [readme in the `/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) for explanations.
+**For production use, always pin to immutable tags (full semver + variant) for reproducibility.**
 
-Please report to the [releases section](https://github.com/bgauduch/call-of-duty-2-docker-server/releases) for the changelogs. Any other image tag is not supported.
+#### Mutable Tags (updated with new builds)
+
+* **`bgauduch/cod2server:latest`** - Latest build from `master` branch (COD2 1.3 nodelay_va_loc variant)
+* **`bgauduch/cod2server:4`** - Latest major version 4.x.x (all variants)
+* **`bgauduch/cod2server:4.2`** - Latest minor version 4.2.x (all variants)
+* **`bgauduch/cod2server:4.2.0`** - Specific version (all variants)
+* **`bgauduch/cod2server:1_3_nodelay_va_loc`** - Latest build of specific server variant
+
+#### Immutable Tags (never overwritten - recommended for production)
+
+* **`bgauduch/cod2server:4.2.0-1_3_nodelay_va_loc`** - Full semver + server variant
+
+#### Server Variant Format
+
+* **`X_Y_zzzzzz`** where:
+  * **`X_Y`** is the COD2 server version: [`1_0`, `1_2`, `1_3`]
+  * **`zzzzzz`** is the server binary type (e.g., `_nodelay_va_loc`, `_cracked`, etc.)
+  * See [readme in the `/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) for variant explanations
+
+**Example usage:**
+
+```yaml
+# Production - use immutable tag
+image: bgauduch/cod2server:4.2.0-1_3_nodelay_va_loc
+
+# Development - use latest
+image: bgauduch/cod2server:latest
+```
+
+Please refer to the [releases section](https://github.com/bgauduch/call-of-duty-2-docker-server/releases) for changelogs.
 
 ## 🔧 What's inside
 

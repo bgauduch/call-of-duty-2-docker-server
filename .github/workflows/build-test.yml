@@ -1,0 +1,123 @@
+name: Build & Test
+
+on:
+  pull_request:
+    paths:
+      - 'Dockerfile'
+      - 'bin/**'
+      - 'lib/**'
+      - 'docker-compose.yaml'
+      - 'tests/**'
+      - '.github/workflows/build-*.yml'
+      - '.github/workflows/_reusable-*.yml'
+  push:
+    branches:
+      - master
+    paths:
+      - 'Dockerfile'
+      - 'bin/**'
+      - 'lib/**'
+      - 'docker-compose.yaml'
+      - 'tests/**'
+      - '.github/workflows/build-*.yml'
+      - '.github/workflows/_reusable-*.yml'
+
+permissions:
+  contents: read
+  security-events: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  IMAGE_NAME: bgauduch/cod2server
+
+jobs:
+  build:
+    name: Build Docker Images
+    uses: ./.github/workflows/_reusable-build.yml
+    permissions:
+      contents: read
+      security-events: write
+    with:
+      # Build only default variant for PRs, all variants for master/release
+      build_variant: ${{ github.event_name == 'pull_request' && 'single' || 'all' }}
+      enable_trivy: true
+
+  test-structure:
+    name: Container Structure Tests
+    runs-on: ubuntu-latest
+    needs: build
+    if: always() && needs.build.result == 'success'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # Test only the default variant on PRs
+        include:
+          - cod2_version: "1_3"
+            cod2_lnxded_type: "_nodelay_va_loc"
+
+    env:
+      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.2.2
+
+      - name: Download image artifact
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: image-${{ env.IMAGE_TAG }}
+
+      - name: Load Docker image
+        run: docker image load --input image-${{ env.IMAGE_TAG }}.tar
+
+      - name: Verify image loaded successfully
+        run: |
+          docker images ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          if [ -z "$(docker images -q ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }})" ]; then
+            echo "Error: Image not found after loading"
+            exit 1
+          fi
+
+      - name: Run container structure tests
+        uses: plexsystems/container-structure-test-action@cc689017bbb16a3c98e6e87b0e07f92ad35a9df1 # v0.3.0
+        with:
+          image: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          config: tests/container-structure-test.yaml
+
+  test-health:
+    name: Container Health & Runtime Tests
+    runs-on: ubuntu-latest
+    needs: build
+    if: always() && needs.build.result == 'success'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - cod2_version: "1_3"
+            cod2_lnxded_type: "_nodelay_va_loc"
+
+    env:
+      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.2.2
+
+      - name: Download image artifact
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: image-${{ env.IMAGE_TAG }}
+
+      - name: Load Docker image
+        run: docker image load --input image-${{ env.IMAGE_TAG }}.tar
+
+      - name: Run container health check test
+        timeout-minutes: 3
+        run: |
+          chmod +x tests/test-container-health.sh
+          ./tests/test-container-health.sh ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
