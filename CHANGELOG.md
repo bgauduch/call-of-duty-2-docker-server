@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v4.2.0...v4.3.0) (2025-10-18)
+
+
+### Features
+
+* Add automated release management with Release Please ([#109](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/109)) ([6fd79ee](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/6fd79ee72e9e14282d67076aaa9bef8130be88b6))
+
 ## [Unreleased]
 
 ## [4.2.0] - 2025-10-18
