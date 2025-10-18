@@ -1,0 +1,39 @@
+version: 2
+updates:
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    assignees:
+      - "bgauduch"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    pull-request-branch-name:
+      separator: "/"
+    open-pull-requests-limit: 10
+
+  # Docker base images in Dockerfile
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    labels:
+      - "dependencies"
+      - "docker"
+    assignees:
+      - "bgauduch"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    pull-request-branch-name:
+      separator: "/"
+    open-pull-requests-limit: 5
