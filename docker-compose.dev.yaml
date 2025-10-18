@@ -1,5 +1,4 @@
 # Docker-compose override for development
-version: "3.6"
 services:
   cod2_server:
     build:

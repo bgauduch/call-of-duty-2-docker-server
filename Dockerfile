@@ -6,7 +6,7 @@ ARG LIBCOD_GIT_URL="https://github.com/voron00/libcod"
 ARG LIBCOD_MYSQL_TYPE=1
 
 # Throwaway build stage
-FROM debian:bookworm-slim AS build
+FROM debian:bookworm-20250110-slim AS build
 ARG COD2_VERSION
 ARG COD2_LNXDED_TYPE
 ARG LIBCOD_GIT_URL
@@ -42,7 +42,16 @@ RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 # Runtime stage
 FROM alpine:3.20
 ARG COD2_VERSION
-LABEL maintainer='bgauduch@github'
+
+# OCI standard labels
+LABEL org.opencontainers.image.title="Call of Duty 2 Server"
+LABEL org.opencontainers.image.description="Minimal & lightweight containerized Call of Duty 2 multiplayer game server with libcod"
+LABEL org.opencontainers.image.authors="Baptiste Gauduchon <bgauduch@users.noreply.github.com>"
+LABEL org.opencontainers.image.url="https://github.com/bgauduch/call-of-duty-2-docker-server"
+LABEL org.opencontainers.image.source="https://github.com/bgauduch/call-of-duty-2-docker-server"
+LABEL org.opencontainers.image.documentation="https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/README.md"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.vendor="Baptiste Gauduchon"
 
 # Install netcat for healthcheck
 RUN apk add --no-cache netcat-openbsd=1.226-r0
