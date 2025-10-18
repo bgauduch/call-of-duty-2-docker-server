@@ -7,15 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.2.0] - 2025-10-18
+
 ### Added
-- CHANGELOG.md to track version history
-- Comprehensive CLAUDE.md configuration file for AI assistant guidance
+- CHANGELOG.md to track version history following Keep a Changelog format
+- CODE_OF_CONDUCT.md based on Contributor Covenant v2.0
+- CLAUDE.md configuration file for AI assistant guidance
+- .gitattributes for consistent line endings across platforms
+- Comprehensive versioning and tagging strategy documentation in CONTRIBUTING.md
+- OCI standard image labels in Dockerfile
+- Dependabot configuration for automated dependency updates
+- ShellCheck linting for shell scripts in CI pipeline
 
 ### Changed
-- Updated LICENSE copyright year to 2015-2025
+- Removed deprecated `version` field from docker-compose files (V2 specification)
+- Updated LICENSE copyright year to 2015-2025 with full name
+- Pinned all GitHub Actions to SHA commits with version comments for supply chain security
+- Switched to official hadolint/hadolint-action for Dockerfile linting
+- Replaced manual docker login with official docker/login-action in CI workflow
+- Enhanced CONTRIBUTING.md with detailed versioning strategy and tag lifecycle documentation
 
 ### Fixed
 - Replaced hardcoded container names with docker-compose commands in dev scripts
+- Fixed .gitignore typo: .DS_store → .DS_Store (case-sensitive)
+- Fixed .gitignore comment typo: exlude → exclude
 
 ## [4.1.0] - 2025-01-17
 
@@ -79,8 +94,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Development helper scripts
 - Basic documentation
 
-[Unreleased]: https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v4.1.0...HEAD
-[4.1.0]: https://github.com/bgauduch/call-of-duty-2-docker-server/compare/4.0...v4.1.0
+[Unreleased]: https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v4.2.0...HEAD
+[4.2.0]: https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v4.1...v4.2.0
+[4.1.0]: https://github.com/bgauduch/call-of-duty-2-docker-server/compare/4.0...v4.1
 [4.0]: https://github.com/bgauduch/call-of-duty-2-docker-server/compare/3.1...4.0
 [3.1]: https://github.com/bgauduch/call-of-duty-2-docker-server/compare/3.0...3.1
 [3.0]: https://github.com/bgauduch/call-of-duty-2-docker-server/compare/2.1...3.0
