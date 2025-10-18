@@ -1,4 +1,3 @@
-version: "3.6"
 services:
   cod2_server:
     # You can chose a different server version, see available image tags:
