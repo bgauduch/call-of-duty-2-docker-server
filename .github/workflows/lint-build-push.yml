@@ -56,7 +56,7 @@ jobs:
           output: 'trivy-results.sarif'
 
       - name: Upload Trivy results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@42213152a85ae7569bdb6bec7bcd74cd691bfe41 # v3.28.0
+        uses: github/codeql-action/upload-sarif@16140ae1a102900babc80a33c44059580f687047 # v3.28.0
         if: always()
         with:
           sarif_file: 'trivy-results.sarif'
@@ -137,7 +137,7 @@ jobs:
           output: 'trivy-results-${{ env.IMAGE_TAG }}.sarif'
 
       - name: Upload Trivy results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@42213152a85ae7569bdb6bec7bcd74cd691bfe41 # v3.28.0
+        uses: github/codeql-action/upload-sarif@16140ae1a102900babc80a33c44059580f687047 # v3.28.0
         if: always()
         with:
           sarif_file: 'trivy-results-${{ env.IMAGE_TAG }}.sarif'
