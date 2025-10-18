@@ -1,3 +1,4 @@
+# trigger build
 # Available build arguments and default configuration
 ARG COD2_VERSION
 ARG COD2_LNXDED_TYPE
