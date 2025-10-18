@@ -6,7 +6,7 @@ ARG LIBCOD_GIT_URL="https://github.com/voron00/libcod"
 ARG LIBCOD_MYSQL_TYPE=1
 
 # Throwaway build stage
-FROM debian:bookworm-20250110-slim AS build
+FROM debian:bookworm-20250929-slim AS build
 ARG COD2_VERSION
 ARG COD2_LNXDED_TYPE
 ARG LIBCOD_GIT_URL
