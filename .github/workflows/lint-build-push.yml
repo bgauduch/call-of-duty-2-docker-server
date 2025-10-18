@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.2.2
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v4.2.2
 
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@2332a7b74a6de0dda2e2221d575162eba76ba5e5 # v3.3.0
@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.2.2
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v4.2.2
 
       - name: Override image tag with branch name if not on master
         if: contains(github.ref, 'master') != true
@@ -124,7 +124,7 @@ jobs:
 
     steps:
       - name: Check out the repo
-        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.2.2
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v4.2.2
 
       - name: Build image
         run: docker image build . --file Dockerfile --build-arg COD2_VERSION=$COD2_VERSION --build-arg COD2_LNXDED_TYPE=$COD2_LNXDED_TYPE --tag $IMAGE_NAME:$IMAGE_TAG
