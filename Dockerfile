@@ -40,7 +40,7 @@ RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}
 RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 
 # Runtime stage
-FROM alpine:3.20
+FROM alpine:3.22
 ARG COD2_VERSION
 
 # OCI standard labels
