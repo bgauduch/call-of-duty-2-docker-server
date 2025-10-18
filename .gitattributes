@@ -1,0 +1,20 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Shell scripts should always use LF
+*.sh text eol=lf
+
+# Markdown files
+*.md text
+
+# YAML files
+*.yml text
+*.yaml text
+
+# Docker files
+Dockerfile text
+docker-compose*.yaml text
+
+# Documentation
+LICENSE text
+*.txt text
