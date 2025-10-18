@@ -29,7 +29,7 @@ jobs:
           dockerfile: Dockerfile
 
       - name: Lint shell scripts
-        uses: ludeeus/action-shellcheck@00b27ae6c48670c7f4c0dd9aba0c2c6374b7be56 # v2.0.0
+        uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # v2.0.0
         with:
           scandir: './scripts'
 
