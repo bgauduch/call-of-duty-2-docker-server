@@ -8,7 +8,7 @@ Thank you for your interest in contributing to this project! We welcome contribu
 - [Getting Started](#getting-started)
 - [How to Contribute](#how-to-contribute)
 - [Development Guidelines](#development-guidelines)
-- [Versioning and Tagging Strategy](#versioning-and-tagging-strategy)
+- [Versioning and Release Strategy](#versioning-and-release-strategy)
 - [Pull Request Process](#pull-request-process)
 - [Reporting Issues](#reporting-issues)
 
@@ -61,6 +61,7 @@ The project includes several helper scripts in the `scripts/` directory to strea
 ```
 
 This script will:
+
 - Build the Docker image locally using development configuration
 - Start the CoD2 server container in detached mode
 - Use the `docker-compose.yaml` and `docker-compose.dev.yaml` configuration files
@@ -74,6 +75,7 @@ This script will:
 ```
 
 This script tails the server logs in real-time, showing:
+
 - Server startup messages
 - Connection logs
 - Game events
@@ -104,7 +106,9 @@ map_restart     # Restart current map
 ./scripts/dev-exec.sh
 ```
 
-This script opens an interactive shell (`sh`) inside the running server container. Useful for:
+This script opens an interactive shell (`sh`) inside the running server
+container. Useful for:
+
 - Inspecting file structure
 - Checking file permissions
 - Debugging configuration issues
@@ -118,7 +122,9 @@ Exit the shell with `exit` or `CTRL+D`.
 ./scripts/dev-down.sh
 ```
 
-This script stops and removes all containers, networks, and resources created by docker-compose. Use this when:
+This script stops and removes all containers, networks, and resources created
+by docker-compose. Use this when:
+
 - You're done with development/testing
 - You need to start fresh
 - You want to free up system resources
@@ -143,11 +149,13 @@ This script stops and removes all containers, networks, and resources created by
 Before submitting a pull request:
 
 1. Build the Docker image locally:
+
    ```bash
    ./scripts/dev-up.sh
    ```
 
 2. Test that the server starts correctly:
+
    ```bash
    ./scripts/dev-logs.sh
    ```
@@ -155,41 +163,63 @@ Before submitting a pull request:
 3. Verify you can connect to the server and it functions as expected
 
 4. Run the linter:
+
    ```bash
    docker run --rm -i hadolint/hadolint < Dockerfile
    ```
 
-## Versioning and Tagging Strategy
+## Versioning and Release Strategy
 
-This project follows a dual-tagging strategy for Git repository tags and Docker image tags to support multiple server binary versions.
+This project follows a dual-tagging approach:
 
-### Git Repository Tags
+1. **Git Repository Tags** - Version the codebase and infrastructure (e.g., `v4.2.0`)
+2. **Docker Image Tags** - Identify specific server binary variants (e.g., `1_3_nodelay_va_loc`)
 
-We use [Semantic Versioning](https://semver.org/) with a `v` prefix for repository releases:
+**For complete details on the automated release process, see [.github/RELEASE_PROCESS.md](.github/RELEASE_PROCESS.md).**
 
-**Format**: `vMAJOR.MINOR.PATCH`
+### Git Repository Versioning
 
-- `vMAJOR`: Breaking changes or major feature releases
-- `vMINOR`: New features, backward-compatible
-- `vPATCH`: Bug fixes and patches
+We use [Semantic Versioning](https://semver.org/) with a `v` prefix for
+repository releases:
 
-**Examples**:
+- **Format**: `vMAJOR.MINOR.PATCH` (e.g., `v4.2.0`)
+- **Purpose**: Track infrastructure, Docker setup, and project evolution
+- **Examples**: `v4.1.0`, `v4.2.0`, `v5.0.0`
 
-- `v4.1` - Current release with security fixes
-- `v5.0` - Future major release with breaking changes
-- `v4.2` - Future minor release with new features
+**Automated Release Process:**
 
-**Historical Note**: Versions prior to `v4.1` used inconsistent tagging (`2.0`, `3.0`, `v1.0`). Starting with `v4.1`, we consistently use the `v` prefix following industry best practices adopted by projects like Kubernetes, Docker, and Linux kernel.
+Releases are fully automated via
+[Release Please](https://github.com/googleapis/release-please):
+
+1. Use [Conventional Commits](https://www.conventionalcommits.org/) in your
+   PRs (`feat:`, `fix:`, etc.)
+2. Release Please creates a release PR automatically with version bump and
+   CHANGELOG
+3. Merge the release PR when ready → Release is published automatically
+4. Git tag is created (e.g., `v4.3.0`)
+5. Docker images are built and published to Docker Hub
+
+**Conventional Commit Examples:**
+
+- `feat: Add new feature` → Minor version bump (v4.Y.0)
+- `fix: Bug fix` → Patch version bump (v4.2.Y)
+- `feat!: Breaking change` → Major version bump (vX.0.0)
+
+**Historical Note**: Versions prior to `v4.1` used inconsistent tagging
+(`2.0`, `3.0`, `v1.0`). Starting with `v4.1`, we consistently use the `v`
+prefix.
 
 ### Docker Image Tags
 
-Docker images are published to [Docker Hub](https://hub.docker.com/r/bgauduch/cod2server) with multiple tag formats to support various use cases:
+Docker images are published to
+[Docker Hub](https://hub.docker.com/r/bgauduch/cod2server) with multiple tag
+formats to support various use cases:
 
 #### Tag Format Convention
 
 **1. Latest Tag** (recommended for most users)
 
-```
+```text
 bgauduch/cod2server:latest
 ```
 
@@ -199,7 +229,7 @@ bgauduch/cod2server:latest
 
 **2. Release Version Tags**
 
-```
+```text
 bgauduch/cod2server:v4.1
 bgauduch/cod2server:v4.0
 ```
@@ -210,19 +240,20 @@ bgauduch/cod2server:v4.0
 
 **3. Server Binary Version Tags**
 
-```
+```text
 bgauduch/cod2server:X_Y_zzzzzz
 ```
 
 Where:
 
 - `X_Y` = CoD2 server binary version (`1_0`, `1_2`, or `1_3`)
-- `zzzzzz` = Binary declination/variant (see [bin folder README](bin/readme.md))
+- `zzzzzz` = Binary declination/variant
+  (see [bin folder README](bin/readme.md))
 
 **Examples**:
 
-```
-bgauduch/cod2server:1_3_nodelay_va_loc  # Version 1.3 with nodelay and VA location
+```text
+bgauduch/cod2server:1_3_nodelay_va_loc  # Version 1.3 with nodelay and VA
 bgauduch/cod2server:1_2_c_nodelay       # Version 1.2 cracked with nodelay
 bgauduch/cod2server:1_0_a_va            # Version 1.0 with VA
 ```
@@ -237,41 +268,7 @@ bgauduch/cod2server:1_0_a_va            # Version 1.0 with VA
 
 For detailed explanations of binary variants, see the [bin folder README](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin).
 
-### Tag Lifecycle and Maintenance
-
-#### When Creating a New Release
-
-1. **Test thoroughly** using development workflow
-2. **Update version** if making breaking changes
-3. **Tag the release** using semantic versioning:
-
-   ```bash
-   git tag -a v4.2 -m "Release v4.2: Description of changes"
-   git push origin v4.2
-   ```
-
-4. **Create GitHub release** with detailed changelog
-5. **CI/CD automatically builds** and publishes Docker images
-
-#### Docker Image Build Strategy
-
-The [GitHub Actions workflow](.github/workflows/lint-build-push.yml) automatically:
-
-- **On Pull Request**: Builds and tests images (no push)
-- **On Push to Master**: Builds and pushes `latest` tag
-- **On Release**: Builds and pushes:
-  - Version-specific tag (e.g., `v4.1`)
-  - All server binary variant tags
-  - Updates `latest` tag
-
-#### Tag Immutability
-
-- **Git tags**: Never delete or move published release tags
-- **Docker release tags**: Immutable once published (e.g., `v4.1` never changes)
-- **Docker `latest` tag**: Mutable, always points to newest release
-- **Docker binary tags**: Rebuilt on releases to incorporate security updates
-
-### Choosing the Right Tag
+#### Choosing the Right Docker Image Tag
 
 **For Production Users**:
 
@@ -288,68 +285,67 @@ The [GitHub Actions workflow](.github/workflows/lint-build-push.yml) automatical
 - Use binary version tags: `bgauduch/cod2server:1_2_c_nodelay`
 - Choose based on your server requirements
 
-### Version Numbering Guidelines
-
-**MAJOR version** (vX.0.0) - Increment when:
-
-- Breaking changes to container interface
-- Removal of deprecated features
-- Major architectural changes
-- Changes requiring user migration steps
-
-**MINOR version** (v4.X.0) - Increment when:
-
-- New features added (backward-compatible)
-- New server binary versions supported
-- Significant improvements
-- Dependencies updated with new features
-
-**PATCH version** (v4.1.X) - Increment when:
-
-- Bug fixes
-- Security patches
-- Documentation updates
-- Minor dependency updates
-
 ## Pull Request Process
 
 1. **Create a branch** for your changes:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 2. **Make your changes** following the development guidelines
 
-3. **Commit your changes** with clear, descriptive commit messages:
+3. **Commit your changes** using
+   [Conventional Commits](https://www.conventionalcommits.org/) format:
+
    ```bash
-   git commit -m "Add feature: brief description"
+   git commit -m "feat: Add feature description"
+   git commit -m "fix: Fix bug description"
    ```
 
-   Good commit messages:
+   **Important**: Use conventional commit format to enable automatic
+   versioning:
+
+   - `feat:` - New feature (minor version bump)
+   - `fix:` - Bug fix (patch version bump)
+   - `docs:` - Documentation changes
+   - `refactor:` - Code refactoring
+   - `chore:` - Maintenance tasks
+   - `feat!:` or `BREAKING CHANGE:` - Breaking changes (major version bump)
+
+   See [.github/RELEASE_PROCESS.md](.github/RELEASE_PROCESS.md) for more
+   details.
+
+   Good commit message practices:
+
    - Use the present tense ("Add feature" not "Added feature")
    - Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
    - Limit the first line to 72 characters or less
    - Reference issues and pull requests when relevant
 
 4. **Keep your branch up to date** with upstream:
+
    ```bash
    git fetch upstream
    git rebase upstream/master
    ```
 
 5. **Push to your fork**:
+
    ```bash
    git push origin feature/your-feature-name
    ```
 
 6. **Open a Pull Request** on GitHub with:
+
    - A clear title and description
    - Reference to any related issues
    - Screenshots or logs if applicable
    - List of changes made
    - Any breaking changes or migration notes
 
-7. **Wait for review**: A maintainer will review your PR. Be prepared to make changes based on feedback.
+7. **Wait for review**: A maintainer will review your PR. Be prepared to
+   make changes based on feedback.
 
 ### PR Checklist
 

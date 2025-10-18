@@ -2,13 +2,16 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/)
 
 # Call of Duty 2 server meets docker
+
 Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikipedia.org/wiki/Call_of_Duty_2) multiplayer game server, including libcod.
 
 ## 📦 Supported tags and respective `Dockerfile` links
+
 This repository use a multi-build setup to provide images for all server binaries located in the [`/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin).
 All image tags can be found on the [Docker Hub registry](https://hub.docker.com/r/bgauduch/cod2server/tags).
 
 The following convention is applied:
+
 * **`bgauduch/cod2server:latest`** - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)
   * uses latest available cracked server binary and libcod library, build from `master` branch.
 * **`bgauduch/cod2server:3.0`** - [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/3.0/Dockerfile) - equivalent to `latest` on release tag.
@@ -19,12 +22,14 @@ The following convention is applied:
 Please report to the [releases section](https://github.com/bgauduch/call-of-duty-2-docker-server/releases) for the changelogs. Any other image tag is not supported.
 
 ## 🔧 What's inside
+
 * The `cod2_lnxded` server binary from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by [Kung Foo Man](https://github.com/kungfooman), [Mitch](https://github.com/M-itch) and anyone that contributed;
 * The [custom `libcod`](https://github.com/voron00/libcod) from [Voron00](https://github.com/voron00), follow the repository forks for a complete list of creators and contributors.
 
 > Full credits goes to them for their awesome work !
 
 ## 📝 Requirements
+
 * The original game, as its content is used by the dedicated server;
 * A host machine of your choice with x86_64 architecture;
 * [Docker](https://docs.docker.com/install/linux/docker-ce/debian/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and configured on your host machine. Minimal knowledge in using both is recommended.
@@ -55,18 +60,24 @@ docker-compose up -d
 ```
 
 ### Server interactions
+
 From the project root, you can:
 
 * Restart the server (to pick up config change for instance):
+
   ```sh
   docker-compose restart
   ```
+
 * Tail the server logs:
+
   ```sh
   # cod2_server refer to the name of the service in the compose file
   docker-compose logs -f cod2_server
   ```
+
 * Attach a shell to the server to run commands, see available commands in [/doc/readme.md](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/doc/readme.md):
+
   ```sh
   docker container attach call-of-duty-2-docker-server_cod2_server_1
   # exemple commands
@@ -76,6 +87,7 @@ From the project root, you can:
   ```
   >
 * Completely stop the server:
+
   ```sh
   docker-compose down
   ```
@@ -84,11 +96,11 @@ From the project root, you can:
 
 If you wish to contribute to and improve this project, please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
-- Development environment setup
-- Detailed script usage (`dev-up.sh`, `dev-logs.sh`, `dev-attach.sh`, etc.)
-- Code style guidelines
-- Testing procedures
-- Pull request process
+* Development environment setup
+* $Detailed script usage (`dev-up.sh`, `dev-logs.sh`, `dev-attach.sh`, etc.)
+* $Code style guidelines
+* $Testing procedures
+* $Pull request process
 
 ## 🗂️ Notes & resources
 
@@ -99,9 +111,6 @@ If you wish to contribute to and improve this project, please refer to [CONTRIBU
 * There is a similar repository on github proposing a Call of Duty 2 server based on CentOS: [hberntsen/docker-cod2](https://github.com/hberntsen/docker-cod2)
 * Original and cracked server binaries can be found in the [`bin`](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) folder, have a look at the `readme`
 * If you need to use iptables in conjonction with Docker, please follow the [official documentation tips](https://docs.docker.com/network/iptables/)
-
-## 🚧 Roadmap
-Project roadmap & issues can be tracked on the [project page](https://github.com/bgauduch/call-of-duty-2-docker-server/projects/2).
 
 ## 🙏 Contribution
 
