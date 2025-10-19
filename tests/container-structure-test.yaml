@@ -45,15 +45,13 @@ commandTests:
 # Container metadata tests
 metadataTest:
   exposedPorts:
-    - "20500/udp"
-    - "20510/udp"
-    - "28960/tcp"
-    - "28960/udp"
+    - "20500"
+    - "28960"
   volumes:
     - "/home/cod2/main"
   workdir: "/home/cod2"
   user: "cod2"
-  env:
+  envVars:
     - key: 'SERVER_USER'
       value: 'cod2'
 
