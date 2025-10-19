@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.1](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v5.0.0...v5.0.1) (2025-10-19)
+
+
+### Bug Fixes
+
+* Add release trigger to build-test workflow ([#113](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/113)) ([dd5d814](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/dd5d814d6eb7eb7dc7e3b6bd02efcc203488a679))
+
 ## [5.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v4.3.0...v5.0.0) (2025-10-19)
 
 
