@@ -1,0 +1,61 @@
+schemaVersion: '2.0.0'
+
+# File existence and permissions tests
+fileExistenceTests:
+  - name: 'Server binary exists and is executable'
+    path: '/home/cod2/cod2_lnxded'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+
+  - name: 'PunkBuster directory exists'
+    path: '/home/cod2/pb'
+    shouldExist: true
+
+  - name: 'Server logs symlink exists'
+    path: '/home/cod2/.callofduty2/main/games_mp.log'
+    shouldExist: true
+
+# Command execution tests
+commandTests:
+  - name: 'Netcat utility is available for healthcheck'
+    command: 'which'
+    args: ['nc']
+    expectedOutput: ['/usr/bin/nc']
+
+  - name: 'Container runs as non-root user'
+    command: 'whoami'
+    expectedOutput: ['cod2']
+
+  - name: 'Working directory is set correctly'
+    command: 'pwd'
+    expectedOutput: ['/home/cod2']
+
+  - name: 'Server user home directory is accessible'
+    command: 'ls'
+    args: ['-la', '/home/cod2']
+    exitCode: 0
+
+  - name: 'Required 32-bit libraries are available'
+    command: 'sh'
+    args:
+      - '-c'
+      - 'test -f /lib/ld-linux.so.2 && echo "found"'
+    expectedOutput: ['found']
+
+# Container metadata tests
+metadataTest:
+  exposedPorts:
+    - "20500"
+    - "28960"
+  volumes:
+    - "/home/cod2/main"
+  workdir: "/home/cod2"
+  user: "cod2"
+  envVars:
+    - key: 'SERVER_USER'
+      value: 'cod2'
+
+# License tests - verify OCI labels
+licenseTests:
+  - debian: false
+    files: []

@@ -26,6 +26,7 @@ RUN dpkg --add-architecture i386 \
     git \
     # Install 32 bits c++ libraries needed by cod2_lnxded and cross-compilation libs
     libstdc++5:i386 \
+    libstdc++6:i386 \
     g++-multilib \
     # Install mysql & sqlite 32bit libs required if using libcod mysql options
     default-libmysqlclient-dev:i386 \
@@ -78,14 +79,17 @@ VOLUME [ "/home/${SERVER_USER}/main" ]
 # Set the server dir
 WORKDIR /home/${SERVER_USER}
 
-# redirect server multiplayer logs to container stdout
+# Redirect server multiplayer logs to container stdout
 RUN mkdir -p /home/${SERVER_USER}/.callofduty2/main/ \
   && ln -sf /dev/stdout /home/${SERVER_USER}/.callofduty2/main/games_mp.log \
   && chown -R ${SERVER_USER}:${SERVER_USER} /home/${SERVER_USER}/.callofduty2
 
-# Health check to verify server is responsive
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD nc -z -u localhost 28960 || exit 1
+# Health checks :
+# - check server process is running and responsive
+# - check games log are written to file (Uses -e to check symlink/file exists)
+HEALTHCHECK --interval=5s --timeout=1s --start-period=5s --retries=3 \
+  CMD pgrep -x cod2_lnxded > /dev/null && \
+      test -e /home/${SERVER_USER}/.callofduty2/main/games_mp.log || exit 1
 
 # Switch to non-root user
 USER ${SERVER_USER}

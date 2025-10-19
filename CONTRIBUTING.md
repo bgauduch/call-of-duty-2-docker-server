@@ -146,27 +146,63 @@ by docker-compose. Use this when:
 
 ### Testing Your Changes
 
-Before submitting a pull request:
+Before submitting a pull request, ensure all tests pass locally:
 
-1. Build the Docker image locally:
+1. **Lint your code:**
+
+   ```bash
+   # Lint Dockerfile
+   docker run --rm -i hadolint/hadolint < Dockerfile
+
+   # Lint shell scripts
+   docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable scripts/*.sh
+   ```
+
+2. **Build the Docker image locally:**
 
    ```bash
    ./scripts/dev-up.sh
    ```
 
-2. Test that the server starts correctly:
+3. **Test that the server starts correctly:**
 
    ```bash
    ./scripts/dev-logs.sh
    ```
 
-3. Verify you can connect to the server and it functions as expected
-
-4. Run the linter:
+4. **Run container structure tests (optional):**
 
    ```bash
-   docker run --rm -i hadolint/hadolint < Dockerfile
+   # Install container-structure-test
+   curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64
+   chmod +x container-structure-test-linux-amd64
+
+   # Run tests
+   ./container-structure-test-linux-amd64 test \
+     --image bgauduch/cod2server:local \
+     --config tests/container-structure-test.yaml
    ```
+
+5. **Run health check tests:**
+
+   ```bash
+   ./tests/test-container-health.sh bgauduch/cod2server:local
+   ```
+
+6. **Verify you can connect to the server and it functions as expected**
+
+### Continuous Integration
+
+This project uses automated GitHub Actions workflows that run on every PR:
+
+- **Lint** - Validates Dockerfile and shell scripts
+- **Build & Test** - Builds images and runs comprehensive tests:
+  - Container structure validation
+  - Health check verification
+  - Security scanning with Trivy
+- **Push & Release** - Automatically publishes images on release
+
+Your PR must pass all checks before it can be merged. You can view workflow results in the "Checks" tab of your pull request.
 
 ## Versioning and Release Strategy
 
@@ -211,57 +247,53 @@ prefix.
 
 ### Docker Image Tags
 
-Docker images are published to
-[Docker Hub](https://hub.docker.com/r/bgauduch/cod2server) with multiple tag
-formats to support various use cases:
+Docker images are published to [Docker Hub](https://hub.docker.com/r/bgauduch/cod2server) using semantic versioning with multiple tag formats to support various use cases.
 
 #### Tag Format Convention
 
-**1. Latest Tag** (recommended for most users)
+This project uses a comprehensive tagging strategy that combines semantic versioning with server variant identification:
+
+##### Immutable Tags (recommended for production)
+
+These tags are never overwritten and provide reproducible deployments:
 
 ```text
-bgauduch/cod2server:latest
+bgauduch/cod2server:4.2.0-1_3_nodelay_va_loc
 ```
 
-- Always points to the newest stable release
-- Uses the default server binary (1.3 with nodelay_va_loc)
-- Built from `master` branch on each release
+Format: `MAJOR.MINOR.PATCH-SERVER_VARIANT`
 
-**2. Release Version Tags**
+##### Mutable Tags (updated with new releases)
+
+These tags are updated and point to the latest builds:
 
 ```text
-bgauduch/cod2server:v4.1
-bgauduch/cod2server:v4.0
+bgauduch/cod2server:latest          # Latest stable from master (1.3 nodelay_va_loc)
+bgauduch/cod2server:4               # Latest v4.x.x release (all variants)
+bgauduch/cod2server:4.2             # Latest v4.2.x release (all variants)
+bgauduch/cod2server:4.2.0           # Specific version v4.2.0 (all variants)
+bgauduch/cod2server:1_3_nodelay_va_loc  # Latest build of this variant
 ```
 
-- Specific release versions for reproducibility
-- Matches Git repository tags
-- Immutable - never changes once published
+#### Server Variant Format
 
-**3. Server Binary Version Tags**
-
-```text
-bgauduch/cod2server:X_Y_zzzzzz
-```
-
-Where:
+Server variants follow the format `X_Y_zzzzzz`:
 
 - `X_Y` = CoD2 server binary version (`1_0`, `1_2`, or `1_3`)
-- `zzzzzz` = Binary declination/variant
-  (see [bin folder README](bin/readme.md))
+- `zzzzzz` = Binary declination/variant (see [bin folder README](bin/readme.md))
 
 **Examples**:
 
 ```text
-bgauduch/cod2server:1_3_nodelay_va_loc  # Version 1.3 with nodelay and VA
-bgauduch/cod2server:1_2_c_nodelay       # Version 1.2 cracked with nodelay
-bgauduch/cod2server:1_0_a_va            # Version 1.0 with VA
+1_3_nodelay_va_loc  # Version 1.3 with nodelay and VA (default)
+1_2_c_nodelay       # Version 1.2 cracked with nodelay
+1_0_a_va            # Version 1.0 with VA
 ```
 
 #### Available Server Binary Versions
 
-| Version | Description | Tags |
-|---------|-------------|------|
+| Version | Description | Available Variants |
+|---------|-------------|--------------------|
 | 1.0 | Original release | `1_0_a`, `1_0_a_va`, `1_0_a_va_loc` |
 | 1.2 | Cracked version | `1_2_c`, `1_2_c_nodelay`, `1_2_c_nodelay_va_loc`, `1_2_c_patch_va_loc` |
 | 1.3 | Latest stable | `1_3`, `1_3_cracked`, `1_3_nodelay`, `1_3_patch_va_loc`, `1_3_nodelay_va_loc` |
@@ -270,20 +302,32 @@ For detailed explanations of binary variants, see the [bin folder README](https:
 
 #### Choosing the Right Docker Image Tag
 
-**For Production Users**:
+##### For Production Deployments
 
-- Use specific version tags for predictability: `bgauduch/cod2server:v4.1`
-- Pin to exact versions in `docker-compose.yaml`
+Use immutable tags for reproducibility and stability:
 
-**For Development/Testing**:
+```yaml
+# docker-compose.yaml
+image: bgauduch/cod2server:4.2.0-1_3_nodelay_va_loc
+```
 
-- Use `latest` tag: `bgauduch/cod2server:latest`
-- Always pulls newest features and fixes
+##### For Development/Testing
 
-**For Specific Server Binary Needs**:
+Use mutable tags for latest features:
 
-- Use binary version tags: `bgauduch/cod2server:1_2_c_nodelay`
-- Choose based on your server requirements
+```yaml
+# docker-compose.yaml
+image: bgauduch/cod2server:latest
+```
+
+##### For Specific Server Binary Needs
+
+Use variant tags to pin to a specific server version:
+
+```yaml
+# docker-compose.yaml
+image: bgauduch/cod2server:1_2_c_nodelay
+```
 
 ## Pull Request Process
 
