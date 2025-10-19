@@ -1,17 +1,14 @@
 name: Push & Release
 
 on:
-  # Trigger on successful build-test workflow completion on master
+  # Trigger on successful build-test workflow completion
+  # This runs after build-test completes for:
+  # - Push to master (pushes 'latest' tag)
+  # - Release published (pushes semantic version tags)
   workflow_run:
     workflows: ["Build & Test"]
     types:
       - completed
-    branches:
-      - master
-
-  # Trigger on release publication for versioned tags
-  release:
-    types: [published]
 
 permissions:
   contents: read
@@ -28,10 +25,11 @@ jobs:
   push-latest:
     name: Push Latest Tag
     runs-on: ubuntu-latest
-    # Only run on workflow_run if it was successful
+    # Only run when workflow_run was triggered by push to master (not releases)
     if: |
-      github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success'
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'master'
 
     env:
       # Default variant for 'latest' tag
@@ -63,7 +61,10 @@ jobs:
   push-release:
     name: Push Release Tags
     runs-on: ubuntu-latest
-    if: github.event_name == 'release'
+    # Only run when workflow_run was triggered by a release event
+    if: |
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'release'
 
     strategy:
       fail-fast: false
@@ -90,6 +91,8 @@ jobs:
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
           name: image-${{ env.IMAGE_TAG }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Load Docker image
         run: docker image load --input image-${{ env.IMAGE_TAG }}.tar
@@ -102,9 +105,11 @@ jobs:
 
       - name: Extract version components
         id: version
+        env:
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
         run: |
-          # Extract version from tag (e.g., v4.2.0 -> 4.2.0)
-          VERSION="${{ github.event.release.tag_name }}"
+          # Extract version from head_branch which contains the tag (e.g., v4.2.0)
+          VERSION="${HEAD_BRANCH}"
           VERSION="${VERSION#v}"  # Remove 'v' prefix
 
           echo "full=$VERSION" >> $GITHUB_OUTPUT

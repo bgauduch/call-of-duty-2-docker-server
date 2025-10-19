@@ -21,6 +21,8 @@ on:
       - 'tests/**'
       - '.github/workflows/build-*.yml'
       - '.github/workflows/_reusable-*.yml'
+  release:
+    types: [published]
 
 permissions:
   contents: read
