@@ -1,4 +1,3 @@
-# # trigger build
 # Available build arguments and default configuration
 ARG COD2_VERSION
 ARG COD2_LNXDED_TYPE
@@ -27,6 +26,7 @@ RUN dpkg --add-architecture i386 \
     git \
     # Install 32 bits c++ libraries needed by cod2_lnxded and cross-compilation libs
     libstdc++5:i386 \
+    libstdc++6:i386 \
     g++-multilib \
     # Install mysql & sqlite 32bit libs required if using libcod mysql options
     default-libmysqlclient-dev:i386 \
