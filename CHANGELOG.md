@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v4.3.0...v5.0.0) (2025-10-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* The monolithic lint-build-push workflow has been replaced with modular workflows (lint.yml, build-test.yml, push-release.yml). Users relying on the old workflow file or specific job names in their automation must update to reference the new workflow structure.
+
+### Features
+
+* Refactor GitHub Actions into modular workflows with comprehensive testing ([#111](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/111)) ([2f0428c](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/2f0428c5ecc3462dcd99cde1178799736c84fc1a))
+
 ## [4.3.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v4.2.0...v4.3.0) (2025-10-18)
 
 
