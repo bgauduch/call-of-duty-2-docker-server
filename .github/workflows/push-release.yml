@@ -105,9 +105,11 @@ jobs:
 
       - name: Extract version components
         id: version
+        env:
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
         run: |
           # Extract version from head_branch which contains the tag (e.g., v4.2.0)
-          VERSION="${{ github.event.workflow_run.head_branch }}"
+          VERSION="${HEAD_BRANCH}"
           VERSION="${VERSION#v}"  # Remove 'v' prefix
 
           echo "full=$VERSION" >> $GITHUB_OUTPUT
