@@ -196,13 +196,16 @@ Before submitting a pull request, ensure all tests pass locally:
 This project uses automated GitHub Actions workflows that run on every PR:
 
 - **Lint** - Validates Dockerfile and shell scripts
-- **Build & Test** - Builds images and runs comprehensive tests:
-  - Container structure validation
-  - Health check verification
-  - Security scanning with Trivy
-- **Push & Release** - Automatically publishes images on release
+- **Build, Test & Push** - Comprehensive pipeline that:
+  - Builds Docker images for all server variants (12 total)
+  - Runs container structure validation tests on all variants
+  - Performs health check verification (optional, may fail without game files)
+  - Executes Trivy security scanning
+  - Automatically pushes images to Docker Hub on master commits and releases
 
 Your PR must pass all checks before it can be merged. You can view workflow results in the "Checks" tab of your pull request.
+
+**Note:** All variants are built and tested on every PR to ensure changes work across all server binaries before release.
 
 ## Versioning and Release Strategy
 

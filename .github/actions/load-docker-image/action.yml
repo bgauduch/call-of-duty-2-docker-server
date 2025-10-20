@@ -1,0 +1,61 @@
+name: 'Load Docker Image from Artifact'
+description: 'Downloads and loads a Docker image artifact from a workflow run'
+
+inputs:
+  image_tag:
+    description: 'Docker image tag to load'
+    required: true
+  image_name:
+    description: 'Docker image name (will use config default if not provided)'
+    required: false
+  github_token:
+    description: 'GitHub token for downloading artifacts'
+    required: false
+    default: ${{ github.token }}
+  run_id:
+    description: 'Workflow run ID to download artifact from (defaults to current run)'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup configuration
+      id: config
+      if: inputs.image_name == ''
+      uses: ./.github/actions/setup-config
+
+    - name: Resolve image name
+      id: resolve
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.image_name }}" ]; then
+          IMAGE_NAME="${{ inputs.image_name }}"
+        else
+          IMAGE_NAME="${{ steps.config.outputs.image_name }}"
+        fi
+        echo "image_name=$IMAGE_NAME" >> $GITHUB_OUTPUT
+        echo "Using image name: $IMAGE_NAME"
+
+    - name: Download image artifact
+      uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+      with:
+        name: image-${{ inputs.image_tag }}
+        github-token: ${{ inputs.github_token }}
+        run-id: ${{ inputs.run_id }}
+
+    - name: Load Docker image
+      shell: bash
+      run: docker image load --input image-${{ inputs.image_tag }}.tar
+
+    - name: Verify image loaded successfully
+      shell: bash
+      run: |
+        IMAGE_NAME="${{ steps.resolve.outputs.image_name }}"
+        IMAGE_TAG="${{ inputs.image_tag }}"
+
+        docker images ${IMAGE_NAME}:${IMAGE_TAG}
+        if [ -z "$(docker images -q ${IMAGE_NAME}:${IMAGE_TAG})" ]; then
+          echo "Error: Image ${IMAGE_NAME}:${IMAGE_TAG} not found after loading"
+          exit 1
+        fi
+        echo "✓ Successfully loaded ${IMAGE_NAME}:${IMAGE_TAG}"
