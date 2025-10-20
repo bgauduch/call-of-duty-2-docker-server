@@ -45,7 +45,14 @@ runs:
 
     - name: Load Docker image
       shell: bash
-      run: docker image load --input image-${{ inputs.image_tag }}.tar
+      run: |
+        IMAGE_FILE="image-${{ inputs.image_tag }}.tar.gz"
+        if [ -f "$IMAGE_FILE" ]; then
+          gunzip -c "$IMAGE_FILE" | docker image load
+        else
+          # Fallback for uncompressed (backward compatibility)
+          docker image load --input "image-${{ inputs.image_tag }}.tar"
+        fi
 
     - name: Verify image loaded successfully
       shell: bash
