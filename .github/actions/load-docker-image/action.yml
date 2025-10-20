@@ -3,11 +3,11 @@ description: 'Downloads and loads a Docker image artifact from a workflow run'
 
 inputs:
   image_tag:
-    description: 'Docker image tag to load'
+    description: 'Docker image tag to load (e.g., 1_3_nodelay_va_loc)'
     required: true
   image_name:
-    description: 'Docker image name (will use config default if not provided)'
-    required: false
+    description: 'Docker image name (e.g., bgauduch/cod2server)'
+    required: true
   github_token:
     description: 'GitHub token for downloading artifacts'
     required: false
@@ -19,23 +19,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Setup configuration
-      id: config
-      if: inputs.image_name == ''
-      uses: ./.github/actions/setup-config
-
-    - name: Resolve image name
-      id: resolve
-      shell: bash
-      run: |
-        if [ -n "${{ inputs.image_name }}" ]; then
-          IMAGE_NAME="${{ inputs.image_name }}"
-        else
-          IMAGE_NAME="${{ steps.config.outputs.image_name }}"
-        fi
-        echo "image_name=$IMAGE_NAME" >> $GITHUB_OUTPUT
-        echo "Using image name: $IMAGE_NAME"
-
     - name: Download image artifact
       uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
       with:
@@ -48,18 +31,23 @@ runs:
       run: |
         IMAGE_FILE="image-${{ inputs.image_tag }}.tar.gz"
         if [ -f "$IMAGE_FILE" ]; then
+          echo "Loading compressed image..."
           gunzip -c "$IMAGE_FILE" | docker image load
-        else
-          # Fallback for uncompressed (backward compatibility)
+        elif [ -f "image-${{ inputs.image_tag }}.tar" ]; then
+          echo "Loading uncompressed image..."
           docker image load --input "image-${{ inputs.image_tag }}.tar"
+        else
+          echo "Error: No image file found"
+          ls -la
+          exit 1
         fi
 
     - name: Verify image loaded successfully
       shell: bash
+      env:
+        IMAGE_NAME: ${{ inputs.image_name }}
+        IMAGE_TAG: ${{ inputs.image_tag }}
       run: |
-        IMAGE_NAME="${{ steps.resolve.outputs.image_name }}"
-        IMAGE_TAG="${{ inputs.image_tag }}"
-
         docker images ${IMAGE_NAME}:${IMAGE_TAG}
         if [ -z "$(docker images -q ${IMAGE_NAME}:${IMAGE_TAG})" ]; then
           echo "Error: Image ${IMAGE_NAME}:${IMAGE_TAG} not found after loading"

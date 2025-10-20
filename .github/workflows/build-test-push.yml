@@ -136,8 +136,12 @@ jobs:
       IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
 
     steps:
-      - name: Check out the repo
+      - name: Check out the repo (test config only)
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.2.2
+        with:
+          sparse-checkout: |
+            tests
+            .github/actions
 
       - name: Load Docker image
         uses: ./.github/actions/load-docker-image
@@ -166,8 +170,12 @@ jobs:
       IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
 
     steps:
-      - name: Check out the repo
+      - name: Check out the repo (test scripts only)
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.2.2
+        with:
+          sparse-checkout: |
+            tests
+            .github/actions
 
       - name: Load Docker image
         uses: ./.github/actions/load-docker-image
