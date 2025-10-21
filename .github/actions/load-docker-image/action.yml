@@ -29,15 +29,13 @@ runs:
     - name: Load Docker image
       shell: bash
       run: |
-        IMAGE_FILE="image-${{ inputs.image_tag }}.tar.gz"
+        IMAGE_FILE="image-${{ inputs.image_tag }}.tar"
         if [ -f "$IMAGE_FILE" ]; then
-          echo "Loading compressed image..."
-          gunzip -c "$IMAGE_FILE" | docker image load
-        elif [ -f "image-${{ inputs.image_tag }}.tar" ]; then
-          echo "Loading uncompressed image..."
-          docker image load --input "image-${{ inputs.image_tag }}.tar"
+          echo "Loading image from artifact..."
+          docker image load --input "$IMAGE_FILE"
         else
-          echo "Error: No image file found"
+          echo "Error: Image file not found: $IMAGE_FILE"
+          echo "Available files:"
           ls -la
           exit 1
         fi

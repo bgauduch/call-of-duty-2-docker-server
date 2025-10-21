@@ -111,16 +111,17 @@ jobs:
 
       - name: Save image artifact
         run: |
-          docker image save ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} | gzip > image-${{ env.IMAGE_TAG }}.tar.gz
-          echo "Compressed image size: $(du -h image-${{ env.IMAGE_TAG }}.tar.gz | cut -f1)"
+          docker image save -o image-${{ env.IMAGE_TAG }}.tar ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          echo "Image size: $(du -h image-${{ env.IMAGE_TAG }}.tar | cut -f1)"
 
       - name: Upload image artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.5.0
         with:
           name: image-${{ env.IMAGE_TAG }}
-          path: image-${{ env.IMAGE_TAG }}.tar.gz
+          path: image-${{ env.IMAGE_TAG }}.tar
           retention-days: ${{ needs.setup.outputs.artifact_retention_days }}
-          compression-level: 0  # Already compressed with gzip
+          # Uses default compression-level: 6 (zstd)
+          if-no-files-found: error
 
   test-structure:
     name: Container Structure Tests
@@ -205,7 +206,7 @@ jobs:
 
       - name: Load Docker image
         run: |
-          gunzip -c image-${{ needs.setup.outputs.default_variant }}.tar.gz | docker image load
+          docker image load --input image-${{ needs.setup.outputs.default_variant }}.tar
           docker images ${{ needs.setup.outputs.image_name }}:${{ needs.setup.outputs.default_variant }}
 
       - name: Login to Docker Hub
@@ -253,7 +254,7 @@ jobs:
 
       - name: Load Docker image
         run: |
-          gunzip -c image-${{ env.IMAGE_TAG }}.tar.gz | docker image load
+          docker image load --input image-${{ env.IMAGE_TAG }}.tar
           docker images ${{ needs.setup.outputs.image_name }}:${{ env.IMAGE_TAG }}
 
       - name: Login to Docker Hub

@@ -55,8 +55,8 @@ graph TD
 2. **build** - Builds all 12 Docker image variants in parallel
    - Uses matrix strategy from centralized config
    - Runs Trivy security scanning on all variants
-   - Compresses images with gzip (~50% size reduction)
-   - Uploads compressed artifacts for downstream jobs
+   - Saves images as tar files
+   - Uploads artifacts with automatic zstd compression (level 6)
    - Uses GitHub Actions cache for Docker layer caching
 
 3. **test-structure** - Validates container structure (all variants)
@@ -159,8 +159,7 @@ Reusable actions to reduce duplication:
 - `run_id` (optional) - Workflow run to download from (defaults to current run)
 
 **Features:**
-- Supports both compressed (`.tar.gz`) and uncompressed (`.tar`) artifacts
-- Automatic decompression for gzip-compressed images
+- Downloads tar artifacts (compressed by GitHub Actions)
 - Verification step ensures image loaded successfully
 - Clear error messages with file listing on failure
 
@@ -249,13 +248,7 @@ Reusable actions to reduce duplication:
 
 ### Artifact Compression
 
-Docker image artifacts are compressed with gzip to reduce storage and transfer costs:
-
-- **Before**: ~500MB per variant (uncompressed tar)
-- **After**: ~250MB per variant (gzip compressed)
-- **Total savings**: ~3GB for all 12 variants
-
-The `load-docker-image` composite action automatically handles both compressed and uncompressed artifacts for backward compatibility.
+Docker image artifacts are automatically compressed by `actions/upload-artifact` using zstd compression (level 6).
 
 ### Sparse Checkout
 
