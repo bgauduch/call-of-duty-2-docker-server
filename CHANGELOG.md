@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.2](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v5.0.1...v5.0.2) (2025-10-21)
+
+
+### Code Refactoring
+
+* Simplify workflows and minimize code duplication ([#121](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/121)) ([5a9ed90](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/5a9ed90a85f52a23e479db8f6524f9db95f707ba))
+
 ## [5.0.1](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v5.0.0...v5.0.1) (2025-10-19)
 
 
