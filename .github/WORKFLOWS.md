@@ -60,14 +60,14 @@ graph TD
    - Uses GitHub Actions cache for Docker layer caching
 
 3. **test-structure** - Validates container structure (all variants)
-   - Uses sparse checkout (tests + .github/actions only)
-   - Downloads and decompresses image artifacts
+   - Uses sparse checkout (tests only)
+   - Downloads and loads image artifacts
    - Runs container-structure-test on all 12 variants
    - Ensures all variants meet quality standards
 
 4. **test-health** - Health check validation (all variants, optional)
-   - Uses sparse checkout (tests + .github/actions only)
-   - Downloads and decompresses image artifacts
+   - Uses sparse checkout (tests only)
+   - Downloads and loads image artifacts
    - May fail without game files (expected in CI)
    - Marked as `continue-on-error: true`
 
@@ -132,36 +132,19 @@ Single source of truth for:
 
 ## Composite Actions
 
-Reusable actions to reduce duplication:
-
 ### `setup-config`
 
 **Location:** `.github/actions/setup-config/action.yml`
 
-**Purpose:** Loads and parses variants.json
+**Purpose:** Loads and parses centralized configuration
 
 **Outputs:**
 - `image_name` - Docker image name
-- `default_variant` - Default variant tag
+- `default_variant` - Default variant tag (e.g., `1_3_nodelay_va_loc`)
 - `variants_matrix` - JSON matrix for all variants
 - `artifact_retention_days` - Artifact retention period
 
-### `load-docker-image`
-
-**Location:** `.github/actions/load-docker-image/action.yml`
-
-**Purpose:** Downloads, loads, and verifies Docker image artifacts
-
-**Inputs:**
-- `image_tag` (required) - Tag of image to load (e.g., `1_3_nodelay_va_loc`)
-- `image_name` (required) - Docker image name (e.g., `bgauduch/cod2server`)
-- `github_token` (optional) - For artifact download (defaults to current token)
-- `run_id` (optional) - Workflow run to download from (defaults to current run)
-
-**Features:**
-- Downloads tar artifacts (compressed by GitHub Actions)
-- Verification step ensures image loaded successfully
-- Clear error messages with file listing on failure
+**Usage:** Called at the start of the build-test-push workflow to provide configuration for all subsequent jobs
 
 ## Docker Image Tags
 

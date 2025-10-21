@@ -140,15 +140,17 @@ jobs:
       - name: Check out the repo (test config only)
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.2.2
         with:
-          sparse-checkout: |
-            tests
-            .github/actions
+          sparse-checkout: tests
+
+      - name: Download image artifact
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: image-${{ env.IMAGE_TAG }}
 
       - name: Load Docker image
-        uses: ./.github/actions/load-docker-image
-        with:
-          image_tag: ${{ env.IMAGE_TAG }}
-          image_name: ${{ needs.setup.outputs.image_name }}
+        run: |
+          docker image load --input image-${{ env.IMAGE_TAG }}.tar
+          docker images ${{ needs.setup.outputs.image_name }}:${{ env.IMAGE_TAG }}
 
       - name: Run container structure tests
         uses: plexsystems/container-structure-test-action@cc689017bbb16a3c98e6e87b0e07f92ad35a9df1 # v0.3.0
@@ -174,15 +176,17 @@ jobs:
       - name: Check out the repo (test scripts only)
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.2.2
         with:
-          sparse-checkout: |
-            tests
-            .github/actions
+          sparse-checkout: tests
+
+      - name: Download image artifact
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: image-${{ env.IMAGE_TAG }}
 
       - name: Load Docker image
-        uses: ./.github/actions/load-docker-image
-        with:
-          image_tag: ${{ env.IMAGE_TAG }}
-          image_name: ${{ needs.setup.outputs.image_name }}
+        run: |
+          docker image load --input image-${{ env.IMAGE_TAG }}.tar
+          docker images ${{ needs.setup.outputs.image_name }}:${{ env.IMAGE_TAG }}
 
       - name: Run container health check test
         timeout-minutes: 3
