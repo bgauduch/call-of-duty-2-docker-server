@@ -1,5 +1,5 @@
 [![Lint](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/Lint/badge.svg)](https://github.com/bgauduch/call-of-duty-2-docker-server/actions?query=workflow%3ALint)
-[![Build & Test](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/Build%20%26%20Test/badge.svg)](https://github.com/bgauduch/call-of-duty-2-docker-server/actions?query=workflow%3A%22Build+%26+Test%22)
+[![Build, Test & Push](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/Build%2C%20Test%20%26%20Push/badge.svg)](https://github.com/bgauduch/call-of-duty-2-docker-server/actions?query=workflow%3A%22Build%2C+Test+%26+Push%22)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/)
 
 # Call of Duty 2 server meets docker
