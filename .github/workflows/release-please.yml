@@ -19,6 +19,10 @@ jobs:
           # Configuration files centralized in .github/config
           config-file: .github/config/release-please-config.json
           manifest-file: .github/config/release-please-manifest.json
+          # Use PAT to trigger downstream workflows (build-test-push)
+          # GITHUB_TOKEN doesn't trigger workflows to prevent recursive triggers
+          # See: https://docs.github.com/en/actions/concepts/security/github_token
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
 
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}

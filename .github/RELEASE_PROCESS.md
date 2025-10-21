@@ -152,7 +152,9 @@ Following [Semantic Versioning](https://semver.org/):
 - Verify Docker Hub credentials are configured in repository secrets:
   - `DOCKERHUB_USERNAME`
   - `DOCKERHUB_PASSWORD`
+- Verify `RELEASE_PLEASE_TOKEN` secret is configured (see below)
 - Ensure release was properly created (not just tagged)
+- Check that `build-test-push.yml` workflow was triggered by the release event
 
 ### Version not incrementing correctly
 
@@ -160,9 +162,51 @@ Following [Semantic Versioning](https://semver.org/):
 - Check for `BREAKING CHANGE:` in commit body for major bumps
 - Verify `.release-please-manifest.json` has correct current version
 
+## Required Repository Secrets
+
+The release process requires the following GitHub repository secrets:
+
+### DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD
+
+Docker Hub credentials for pushing images.
+
+**Setup:**
+
+1. Go to Settings → Secrets and variables → Actions
+2. Add `DOCKERHUB_USERNAME` (your Docker Hub username)
+3. Add `DOCKERHUB_PASSWORD` (your Docker Hub access token)
+
+### RELEASE_PLEASE_TOKEN
+
+Personal Access Token (PAT) to trigger downstream workflows.
+
+**Why needed:** GitHub's `GITHUB_TOKEN` cannot trigger other workflows (security policy to prevent recursive runs). This blocks `build-test-push.yml` from running when releases are created.
+
+**Required scopes:**
+
+- `repo` - Full control of repositories (create releases, commit changes)
+- `workflow` - Update GitHub Actions workflows (trigger build-test-push.yml)
+
+**Setup:**
+
+1. Create token: <https://github.com/settings/tokens> → Generate new token (classic)
+   - Note: `RELEASE_PLEASE_TOKEN for call-of-duty-2-docker-server`
+   - Expiration: 90 days recommended
+   - Select scopes: `repo` + `workflow`
+   - Generate and copy token
+
+2. Add to repository: Settings → Secrets → Actions → New repository secret
+   - Name: `RELEASE_PLEASE_TOKEN`
+   - Value: Paste token
+
+3. Verify: Next release should trigger `build-test-push.yml` workflow
+
+**Reference:** <https://docs.github.com/en/actions/concepts/security/github_token>
+
 ## Resources
 
 - [Release Please Documentation](https://github.com/googleapis/release-please)
 - [Conventional Commits Specification](https://www.conventionalcommits.org/)
 - [Semantic Versioning](https://semver.org/)
 - [Keep a Changelog](https://keepachangelog.com/)
+- [GitHub GITHUB_TOKEN Limitations](https://docs.github.com/en/actions/concepts/security/github_token)

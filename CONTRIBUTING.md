@@ -207,6 +207,16 @@ Your PR must pass all checks before it can be merged. You can view workflow resu
 
 **Note:** All variants are built and tested on every PR to ensure changes work across all server binaries before release.
 
+### Workflow Trigger Requirements
+
+The `build-test-push.yml` workflow is triggered by:
+
+- **Pull requests** to master (builds and tests, no push)
+- **Pushes to master** (builds, tests, and pushes `latest` tag)
+- **Release events** (builds, tests, and pushes all semver + variant tags)
+
+**Important:** The release-please workflow requires a `RELEASE_PLEASE_TOKEN` secret to trigger the build workflow when creating releases. This is necessary because GitHub's default `GITHUB_TOKEN` cannot trigger downstream workflows (security policy to prevent recursive workflow runs). See [.github/RELEASE_PROCESS.md](.github/RELEASE_PROCESS.md#required-repository-secrets) for setup details.
+
 ## Versioning and Release Strategy
 
 This project follows a dual-tagging approach:
