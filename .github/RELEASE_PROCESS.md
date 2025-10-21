@@ -180,28 +180,28 @@ Docker Hub credentials for pushing images.
 
 Personal Access Token (PAT) to trigger downstream workflows.
 
-**Why it's needed:**
+**Why needed:** GitHub's `GITHUB_TOKEN` cannot trigger other workflows (security policy to prevent recursive runs). This blocks `build-test-push.yml` from running when releases are created.
 
-GitHub's `GITHUB_TOKEN` has a security limitation that prevents it from triggering other workflows. This prevents recursive workflow runs but also blocks the `build-test-push.yml` workflow from running when Release Please creates a release.
+**Required scopes:**
 
-From [GitHub's official documentation](https://docs.github.com/en/actions/concepts/security/github_token):
-
-> When you use the repository's `GITHUB_TOKEN` to perform tasks, events triggered by the `GITHUB_TOKEN`, with the exception of `workflow_dispatch` and `repository_dispatch`, will not create a new workflow run. This prevents you from accidentally creating recursive workflow runs.
+- `repo` - Full control of repositories (create releases, commit changes)
+- `workflow` - Update GitHub Actions workflows (trigger build-test-push.yml)
 
 **Setup:**
 
-1. Create a Personal Access Token (classic) with permissions:
-   - `repo` (Full control of private repositories)
-   - `workflow` (Update GitHub Action workflows)
+1. Create token: <https://github.com/settings/tokens> → Generate new token (classic)
+   - Note: `RELEASE_PLEASE_TOKEN for call-of-duty-2-docker-server`
+   - Expiration: 90 days recommended
+   - Select scopes: `repo` + `workflow`
+   - Generate and copy token
 
-2. Add the token as a repository secret:
-   - Go to Settings → Secrets and variables → Actions
-   - Add new secret named `RELEASE_PLEASE_TOKEN`
-   - Paste the PAT as the value
+2. Add to repository: Settings → Secrets → Actions → New repository secret
+   - Name: `RELEASE_PLEASE_TOKEN`
+   - Value: Paste token
 
-**Alternative (recommended for organizations):**
+3. Verify: Next release should trigger `build-test-push.yml` workflow
 
-Use a GitHub App instead of a PAT for better security and granular permissions. See [GitHub's documentation on creating GitHub App tokens](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps).
+**Reference:** <https://docs.github.com/en/actions/concepts/security/github_token>
 
 ## Resources
 
