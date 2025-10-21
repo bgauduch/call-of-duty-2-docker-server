@@ -90,6 +90,7 @@ git commit -m "chore: Update Alpine base image to 3.20"
    - Tags repository with new version (e.g., `v4.3.0`)
    - Triggers Docker image build workflow
    - Builds and pushes all Docker image variants
+   - Updates Docker Hub repository description if README.md was modified
 
 ### Manual Intervention (if needed)
 
@@ -120,7 +121,9 @@ On release, the CI/CD workflow automatically:
    - For **all variants**: Immutable variant-specific tags (e.g., `5.0.0-1_3_nodelay_va_loc`) and variant tags (e.g., `1_3_nodelay_va_loc`)
    - For **default variant only** (`1_3_nodelay_va_loc`): Semver tags (`5.0.0`, `5.0`, `5`) and `latest`
 
-3. **Runs security scans** (Trivy) on all images
+3. **Updates Docker Hub description** from README.md (if modified)
+
+4. **Runs security scans** (Trivy) on all images
 
 ## Best Practices
 
@@ -168,13 +171,15 @@ The release process requires the following GitHub repository secrets:
 
 ### DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD
 
-Docker Hub credentials for pushing images.
+Docker Hub credentials for pushing images and updating repository descriptions.
 
 **Setup:**
 
 1. Go to Settings → Secrets and variables → Actions
 2. Add `DOCKERHUB_USERNAME` (your Docker Hub username)
-3. Add `DOCKERHUB_PASSWORD` (your Docker Hub access token)
+3. Add `DOCKERHUB_PASSWORD` (your Docker Hub access token or password)
+
+**Note:** These credentials are used by both the `build-test-push.yml` workflow (for pushing images) and the `dockerhub-description.yml` workflow (for updating the repository description from README.md).
 
 ### RELEASE_PLEASE_TOKEN
 
