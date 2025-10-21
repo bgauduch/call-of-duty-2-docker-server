@@ -215,6 +215,7 @@ This project uses automated GitHub Actions workflows that run on every PR:
   - Performs health check verification (optional, may fail without game files)
   - Executes Trivy security scanning
   - Automatically pushes images to Docker Hub on main commits and releases
+- **Update Docker Hub Description** - Automatically syncs README.md to Docker Hub repository description when changes are pushed to main
 
 Your PR must pass all checks before it can be merged. You can view workflow results in the "Checks" tab of your pull request.
 
@@ -222,11 +223,28 @@ Your PR must pass all checks before it can be merged. You can view workflow resu
 
 ### Workflow Trigger Requirements
 
+#### Build, Test & Push Workflow
+
 The `build-test-push.yml` workflow is triggered by:
 
 - **Pull requests** to main (builds and tests, no push)
 - **Pushes to main** (builds, tests, and pushes `latest` tag)
 - **Release events** (builds, tests, and pushes all semver + variant tags)
+
+#### Docker Hub Description Workflow
+
+The `dockerhub-description.yml` workflow is triggered by:
+
+- **Pushes to master** when `README.md` or the workflow file itself is modified
+- Automatically updates the Docker Hub repository description with the latest README content
+
+#### Required Repository Secrets
+
+The following secrets must be configured in the GitHub repository settings for the workflows to function properly:
+
+- **`DOCKERHUB_USERNAME`** - Docker Hub account username (required for pushing images and updating descriptions)
+- **`DOCKERHUB_PASSWORD`** - Docker Hub account password or Personal Access Token with read/write/delete scope (required for pushing images and updating descriptions)
+- **`RELEASE_PLEASE_TOKEN`** - GitHub Personal Access Token with `contents: write` and `pull-requests: write` permissions (required for release-please to trigger the build workflow)
 
 **Important:** The release-please workflow requires a `RELEASE_PLEASE_TOKEN` secret to trigger the build workflow when creating releases. This is necessary because GitHub's default `GITHUB_TOKEN` cannot trigger downstream workflows (security policy to prevent recursive workflow runs). See [.github/RELEASE_PROCESS.md](.github/RELEASE_PROCESS.md#required-repository-secrets) for setup details.
 
