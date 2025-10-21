@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.3](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v5.0.2...v5.0.3) (2025-10-21)
+
+
+### Bug Fixes
+
+* enable release-please to trigger build-test-push workflow ([#124](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/124)) ([28ffc84](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/28ffc84692a0c0a60f572d8b6fc1a88865556cfa))
+
+
+### Miscellaneous
+
+* **deps:** bump docker/build-push-action from 6.9.0 to 6.18.0 ([#119](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/119)) ([e287448](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/e28744837bf5ad2a7782578f73acaa574b2e8843))
+* **deps:** bump googleapis/release-please-action from 4.1.3 to 4.3.0 ([#120](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/120)) ([d60f609](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/d60f609af42ff64410a4a5954952505ab94f9282))
+* **deps:** update actions/checkout digest to 11bd719 ([#115](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/115)) ([2ab4f18](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/2ab4f188c0a3a48c7f8fcbd2e282a08731085646))
+* **deps:** update actions/upload-artifact digest to 6f51ac0 ([#116](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/116)) ([3d818de](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/3d818de86c9ab9ab7b9100fc7581e2ac4e8282f6))
+* **deps:** update github/codeql-action digest to 48ab28a ([#117](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/117)) ([b504f3a](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/b504f3a16c2294c385fb5134445f2716a0b629df))
+* **deps:** update plexsystems/container-structure-test-action digest to c0a028a ([#118](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/118)) ([b9f8a77](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/b9f8a77acdb2f9a1069b79dad2ab9e1b7e8d3f3b))
+
 ## [5.0.2](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v5.0.1...v5.0.2) (2025-10-21)
 
 
