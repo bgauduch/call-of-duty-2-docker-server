@@ -117,8 +117,8 @@ On release, the CI/CD workflow automatically:
    - Version 1.3: `1_3`, `1_3_cracked`, `1_3_nodelay`, `1_3_patch_va_loc`, `1_3_nodelay_va_loc`
 
 2. **Pushes to Docker Hub** with tags:
-   - `latest` (default: 1.3_nodelay_va_loc)
-   - All variant tags (e.g., `1_3_nodelay_va_loc`)
+   - For **all variants**: Immutable variant-specific tags (e.g., `5.0.0-1_3_nodelay_va_loc`) and variant tags (e.g., `1_3_nodelay_va_loc`)
+   - For **default variant only** (`1_3_nodelay_va_loc`): Semver tags (`5.0.0`, `5.0`, `5`) and `latest`
 
 3. **Runs security scans** (Trivy) on all images
 

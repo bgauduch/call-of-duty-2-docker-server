@@ -27,6 +27,7 @@ Containerized COD2 multiplayer dedicated server with libcod support using Docker
 
 | Command | Purpose |
 |---------|---------|
+| `./scripts/dev-build.sh` | Build local image |
 | `./scripts/dev-up.sh` | Build and start server (detached) |
 | `./scripts/dev-logs.sh` | View real-time logs |
 | `./scripts/dev-attach.sh` | Attach to console (detach: CTRL+P, CTRL+Q) |

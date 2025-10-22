@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# build local image
-docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml build
+# Get the script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# launch cod2 server using local image (docker-compose.dev override)
+# Build local image
+"${SCRIPT_DIR}/dev-build.sh"
+
+# Launch cod2 server using local image (docker-compose.dev override)
 docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d
