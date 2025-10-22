@@ -95,9 +95,6 @@ LABEL org.opencontainers.image.documentation="https://github.com/bgauduch/call-o
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.vendor="Baptiste Gauduchon"
 
-# Install netcat for healthcheck
-RUN apk add --no-cache netcat-openbsd=1.226-r0
-
 # Create non-root user for running the server
 ENV SERVER_USER="cod2"
 RUN addgroup -g 1000 ${SERVER_USER} && \
