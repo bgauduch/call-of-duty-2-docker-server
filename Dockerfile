@@ -10,7 +10,7 @@ ARG LIBCOD_IBUDDIEAT_VERSION="v14.0"
 # ==================================================================
 # Base builder with common dependencies
 # ==================================================================
-FROM debian:bookworm-20250929-slim AS build-base
+FROM debian:bookworm-20251020-slim AS build-base
 ARG COD2_VERSION
 ARG COD2_LNXDED_TYPE
 # Define temporary directory for build artifacts
