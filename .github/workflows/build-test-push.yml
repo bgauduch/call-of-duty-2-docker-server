@@ -275,10 +275,10 @@ jobs:
           tags: |
             # Full semver with variant (immutable)
             type=semver,pattern={{version}}-${{ env.IMAGE_TAG }}
-            # Semver tags (mutable)
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
+            # Semver tags (default variant only to prevent overwrite)
+            type=semver,pattern={{version}},enable=${{ env.IMAGE_TAG == needs.setup.outputs.default_variant }}
+            type=semver,pattern={{major}}.{{minor}},enable=${{ env.IMAGE_TAG == needs.setup.outputs.default_variant }}
+            type=semver,pattern={{major}},enable=${{ env.IMAGE_TAG == needs.setup.outputs.default_variant }}
             # Server variant tag
             type=raw,value=${{ env.IMAGE_TAG }}
             # Latest for default variant only

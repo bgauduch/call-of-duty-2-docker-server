@@ -54,6 +54,19 @@ We welcome various types of contributions:
 
 The project includes several helper scripts in the `scripts/` directory to streamline local development:
 
+#### Build the Docker Image
+
+```bash
+./scripts/dev-build.sh
+```
+
+This script builds the Docker image locally using the development configuration files (`docker-compose.yaml` and `docker-compose.dev.yaml`).
+
+Use this when you want to build the image without starting the server, for example:
+- After modifying the Dockerfile
+- To verify build changes
+- Before running tests
+
 #### Start / Restart the Server Locally
 
 ```bash
@@ -62,7 +75,7 @@ The project includes several helper scripts in the `scripts/` directory to strea
 
 This script will:
 
-- Build the Docker image locally using development configuration
+- Build the Docker image locally (calls `dev-build.sh`)
 - Start the CoD2 server container in detached mode
 - Use the `docker-compose.yaml` and `docker-compose.dev.yaml` configuration files
 
@@ -281,11 +294,11 @@ Format: `MAJOR.MINOR.PATCH-SERVER_VARIANT`
 These tags are updated and point to the latest builds:
 
 ```text
-bgauduch/cod2server:latest          # Latest stable from main (1.3 nodelay_va_loc)
-bgauduch/cod2server:4               # Latest v4.x.x release (all variants)
-bgauduch/cod2server:4.2             # Latest v4.2.x release (all variants)
-bgauduch/cod2server:4.2.0           # Specific version v4.2.0 (all variants)
-bgauduch/cod2server:1_3_nodelay_va_loc  # Latest build of this variant
+bgauduch/cod2server:latest          # Latest stable from main (default variant: 1_3_nodelay_va_loc)
+bgauduch/cod2server:4               # Latest v4.x.x release (default variant only)
+bgauduch/cod2server:4.2             # Latest v4.2.x release (default variant only)
+bgauduch/cod2server:4.2.0           # Specific version v4.2.0 (default variant only)
+bgauduch/cod2server:1_3_nodelay_va_loc  # Latest build of this variant (any variant available)
 ```
 
 #### Server Variant Format
