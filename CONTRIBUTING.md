@@ -345,45 +345,47 @@ This project uses a comprehensive tagging strategy that combines semantic versio
 These tags are never overwritten and provide reproducible deployments:
 
 ```text
-bgauduch/cod2server:4.2.0-1_3_nodelay_va_loc
+bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-voron
 ```
 
-Format: `MAJOR.MINOR.PATCH-SERVER_VARIANT`
+Format: `MAJOR.MINOR.PATCH-SERVER_VARIANT-LIBCOD_TYPE`
 
 ##### Mutable Tags (updated with new releases)
 
 These tags are updated and point to the latest builds:
 
 ```text
-bgauduch/cod2server:latest          # Latest stable from main (default variant: 1_3_nodelay_va_loc)
-bgauduch/cod2server:4               # Latest v4.x.x release (default variant only)
-bgauduch/cod2server:4.2             # Latest v4.2.x release (default variant only)
-bgauduch/cod2server:4.2.0           # Specific version v4.2.0 (default variant only)
-bgauduch/cod2server:1_3_nodelay_va_loc  # Latest build of this variant (any variant available)
+bgauduch/cod2server:latest                    # Latest stable from main (default variant: 1_3_nodelay_va_loc-voron)
+bgauduch/cod2server:6                         # Latest v6.x.x release (default variant only)
+bgauduch/cod2server:6.0                       # Latest v6.0.x release (default variant only)
+bgauduch/cod2server:6.0.0                     # Specific version v6.0.0 (default variant only)
+bgauduch/cod2server:1_3_nodelay_va_loc-voron  # Latest build of this variant (any variant available)
 ```
 
 #### Server Variant Format
 
-Server variants follow the format `X_Y_zzzzzz`:
+Server variants follow the format `X_Y_zzzzzz-LIBCOD`:
 
 - `X_Y` = CoD2 server binary version (`1_0`, `1_2`, or `1_3`)
 - `zzzzzz` = Binary declination/variant (see [bin folder README](bin/readme.md))
+- `LIBCOD` = LibCOD library type (`voron` or `ibuddieat`)
 
 **Examples**:
 
 ```text
-1_3_nodelay_va_loc  # Version 1.3 with nodelay and VA (default)
-1_2_c_nodelay       # Version 1.2 cracked with nodelay
-1_0_a_va            # Version 1.0 with VA
+1_3_nodelay_va_loc-voron     # Version 1.3 with nodelay, VA, and voron libcod (default)
+1_3_nodelay_va_loc-ibuddieat # Version 1.3 with nodelay, VA, and ibuddieat libcod
+1_2_c_nodelay-voron          # Version 1.2 cracked with nodelay and voron libcod
+1_0_a_va-voron               # Version 1.0 with VA and voron libcod
 ```
 
 #### Available Server Binary Versions
 
-| Version | Description | Available Variants |
-|---------|-------------|--------------------|
-| 1.0 | Original release | `1_0_a`, `1_0_a_va`, `1_0_a_va_loc` |
-| 1.2 | Cracked version | `1_2_c`, `1_2_c_nodelay`, `1_2_c_nodelay_va_loc`, `1_2_c_patch_va_loc` |
-| 1.3 | Latest stable | `1_3`, `1_3_cracked`, `1_3_nodelay`, `1_3_patch_va_loc`, `1_3_nodelay_va_loc` |
+| Version | Description | Available Variants | LibCOD Libraries |
+|---------|-------------|--------------------|--------------------|
+| 1.0 | Original release | `1_0_a`, `1_0_a_va`, `1_0_a_va_loc` | `voron` |
+| 1.2 | Cracked version | `1_2_c`, `1_2_c_nodelay`, `1_2_c_nodelay_va_loc`, `1_2_c_patch_va_loc` | `voron` |
+| 1.3 | Latest stable | `1_3`, `1_3_cracked`, `1_3_nodelay`, `1_3_patch_va_loc`, `1_3_nodelay_va_loc` | `voron`, `ibuddieat` |
 
 For detailed explanations of binary variants, see the [bin folder README](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/main/bin).
 
@@ -395,7 +397,7 @@ Use immutable tags for reproducibility and stability:
 
 ```yaml
 # docker-compose.yaml
-image: bgauduch/cod2server:4.2.0-1_3_nodelay_va_loc
+image: bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-voron
 ```
 
 ##### For Development/Testing
@@ -409,11 +411,13 @@ image: bgauduch/cod2server:latest
 
 ##### For Specific Server Binary Needs
 
-Use variant tags to pin to a specific server version:
+Use variant tags to pin to a specific server version and libcod library:
 
 ```yaml
 # docker-compose.yaml
-image: bgauduch/cod2server:1_2_c_nodelay
+image: bgauduch/cod2server:1_3_nodelay_va_loc-ibuddieat
+# or
+image: bgauduch/cod2server:1_2_c_nodelay-voron
 ```
 
 ## Pull Request Process

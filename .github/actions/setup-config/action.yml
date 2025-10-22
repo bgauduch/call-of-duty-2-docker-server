@@ -28,7 +28,8 @@ runs:
         IMAGE_NAME=$(jq -r '.image_name' "$CONFIG_FILE")
         DEFAULT_COD2_VERSION=$(jq -r '.default_variant.cod2_version' "$CONFIG_FILE")
         DEFAULT_LNXDED_TYPE=$(jq -r '.default_variant.cod2_lnxded_type' "$CONFIG_FILE")
-        DEFAULT_VARIANT="${DEFAULT_COD2_VERSION}${DEFAULT_LNXDED_TYPE}"
+        DEFAULT_LIBCOD_TYPE=$(jq -r '.default_variant.libcod_type' "$CONFIG_FILE")
+        DEFAULT_VARIANT="${DEFAULT_COD2_VERSION}${DEFAULT_LNXDED_TYPE}-${DEFAULT_LIBCOD_TYPE}"
         RETENTION_DAYS=$(jq -r '.artifact_retention_days' "$CONFIG_FILE")
 
         # Export as outputs
