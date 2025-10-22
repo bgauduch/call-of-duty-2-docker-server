@@ -171,19 +171,62 @@ Before submitting a pull request, ensure all tests pass locally:
    docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable scripts/*.sh
    ```
 
-2. **Build the Docker image locally:**
+2. **Test Dockerfile changes across multiple variants (REQUIRED for Dockerfile modifications):**
+
+   **CRITICAL:** If you modified the Dockerfile, you MUST test multiple variants to ensure compatibility across all COD2 versions and libcod libraries. CI/CD builds all 12 variants on every PR.
+
+   **Minimum test coverage required:**
+
+   ```bash
+   # Test v1.0 variant (oldest version)
+   docker build \
+     --build-arg COD2_VERSION=1_0 \
+     --build-arg COD2_LNXDED_TYPE=a \
+     --build-arg LIBCOD_TYPE=voron \
+     -t cod2server:1_0-test .
+
+   # Test v1.2 variant (cracked version)
+   docker build \
+     --build-arg COD2_VERSION=1_2 \
+     --build-arg COD2_LNXDED_TYPE=c_nodelay \
+     --build-arg LIBCOD_TYPE=voron \
+     -t cod2server:1_2-test .
+
+   # Test v1.3 with voron (default, most common)
+   docker build \
+     --build-arg COD2_VERSION=1_3 \
+     --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
+     --build-arg LIBCOD_TYPE=voron \
+     -t cod2server:1_3-voron-test .
+
+   # Test v1.3 with ibuddieat (alternative libcod)
+   docker build \
+     --build-arg COD2_VERSION=1_3 \
+     --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
+     --build-arg LIBCOD_TYPE=ibuddieat \
+     -t cod2server:1_3-ibuddieat-test .
+   ```
+
+   **Why test multiple variants?**
+
+   - Different COD2 versions (1.0/1.2/1.3) may have different libcod compilation requirements
+   - Both libcod libraries (voron/ibuddieat) use different build processes
+   - Ensures multi-stage build selects correct builder
+   - Catches version-specific issues before CI/CD fails
+
+3. **Build the Docker image locally (for non-Dockerfile changes):**
 
    ```bash
    ./scripts/dev-up.sh
    ```
 
-3. **Test that the server starts correctly:**
+4. **Test that the server starts correctly:**
 
    ```bash
    ./scripts/dev-logs.sh
    ```
 
-4. **Run container structure tests (optional):**
+5. **Run container structure tests (optional):**
 
    ```bash
    # Install container-structure-test
@@ -196,13 +239,13 @@ Before submitting a pull request, ensure all tests pass locally:
      --config tests/container-structure-test.yaml
    ```
 
-5. **Run health check tests:**
+6. **Run health check tests:**
 
    ```bash
    ./tests/test-container-health.sh bgauduch/cod2server:local
    ```
 
-6. **Verify you can connect to the server and it functions as expected**
+7. **Verify you can connect to the server and it functions as expected**
 
 ### Continuous Integration
 

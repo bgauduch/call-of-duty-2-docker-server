@@ -1,16 +1,16 @@
 # Available build arguments and default configuration
-ARG COD2_VERSION
-ARG COD2_LNXDED_TYPE
-ARG LIBCOD_GIT_URL="https://github.com/voron00/libcod"
+ARG COD2_VERSION="1.3"
+ARG COD2_LNXDED_TYPE="_nodelay_va_loc"
+ARG LIBCOD_TYPE="voron"
 # Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]
 ARG LIBCOD_MYSQL_TYPE=1
 
-# Throwaway build stage
-FROM debian:bookworm-20250929-slim AS build
+# ==================================================================
+# Base builder with common dependencies
+# ==================================================================
+FROM debian:bookworm-20250929-slim AS build-base
 ARG COD2_VERSION
 ARG COD2_LNXDED_TYPE
-ARG LIBCOD_GIT_URL
-ARG LIBCOD_MYSQL_TYPE
 # Define temporary directory for build artifacts
 ARG TMPDIR=/tmp
 
@@ -33,14 +33,49 @@ RUN dpkg --add-architecture i386 \
     libsqlite3-dev:i386 \
     && rm -rf /var/lib/apt/lists/*
 
-# Download and build libcod2 from "Voron00"
-RUN git clone ${LIBCOD_GIT_URL} "${TMPDIR}/libcod2"
+# ==================================================================
+# Builder for "voron" libcod
+# ==================================================================
+FROM build-base AS build-voron
+ARG COD2_VERSION
+ARG LIBCOD_MYSQL_TYPE
+ARG TMPDIR=/tmp
+
+RUN git clone https://github.com/voron00/libcod "${TMPDIR}/libcod2"
 WORKDIR ${TMPDIR}/libcod2
+
+# Note: doit.sh exits with code 141 (SIGPIPE) when piping yes into it, which is expected behavior
+# We catch this specific exit code to allow the build to succeed
 # hadolint ignore=DL4006
-RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}
+RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh cod2_${COD2_VERSION}  || [ $? -eq 141 ]
 RUN mv bin/libcod2_${COD2_VERSION}.so /lib/libcod2_${COD2_VERSION}.so
 
-# Runtime stage
+# ==================================================================
+# Builder for "ibuddieat" libcod
+# ==================================================================
+FROM build-base AS build-ibuddieat
+ARG COD2_VERSION
+ARG LIBCOD_MYSQL_TYPE
+ARG TMPDIR=/tmp
+
+RUN git clone https://github.com/ibuddieat/zk_libcod "${TMPDIR}/libcod2"
+WORKDIR ${TMPDIR}/libcod2/code
+
+# Note: doit.sh exits with code 141 (SIGPIPE) when piping yes into it, which is expected behavior
+# We catch this specific exit code to allow the build to succeed
+# hadolint ignore=DL4006
+RUN yes ${LIBCOD_MYSQL_TYPE} | ./doit.sh nospeex || [ $? -eq 141 ]
+RUN mv bin/libcod2.so /lib/libcod2_${COD2_VERSION}.so
+
+# ==================================================================
+# Dynamic build source selector alias
+# ==================================================================
+# hadolint ignore=DL3006
+FROM build-${LIBCOD_TYPE} AS build
+
+# ==================================================================
+# Runtime image
+# ==================================================================
 FROM alpine:3.20
 ARG COD2_VERSION
 
@@ -62,7 +97,7 @@ ENV SERVER_USER="cod2"
 RUN addgroup -g 1000 ${SERVER_USER} && \
     adduser -D -u 1000 -G ${SERVER_USER} ${SERVER_USER}
 
-# Copy needed libraries and binaries
+# Copy needed libraries and binaries from the selected build stage
 COPY --from=build /usr/lib/i386-linux-gnu/ /usr/lib/i386-linux-gnu/
 COPY --from=build /lib/i386-linux-gnu/ /lib/i386-linux-gnu/
 COPY --from=build /lib/ld-linux.so.2 /lib/ld-linux.so.2
