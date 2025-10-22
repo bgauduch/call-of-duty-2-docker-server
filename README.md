@@ -1,8 +1,8 @@
+# Call of Duty 2 server meets docker
+
 [![Lint](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/Lint/badge.svg)](https://github.com/bgauduch/call-of-duty-2-docker-server/actions?query=workflow%3ALint)
 [![Build, Test & Push](https://github.com/bgauduch/call-of-duty-2-docker-server/workflows/Build%2C%20Test%20%26%20Push/badge.svg)](https://github.com/bgauduch/call-of-duty-2-docker-server/actions?query=workflow%3A%22Build%2C+Test+%26+Push%22)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bgauduch/cod2server.svg)](https://hub.docker.com/r/bgauduch/cod2server/)
-
-# Call of Duty 2 server meets docker
 
 Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikipedia.org/wiki/Call_of_Duty_2) multiplayer game server, including libcod.
 
@@ -30,8 +30,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md#docker-image-tags) for complete tagging st
 
 ## 🔧 What's Inside
 
-* **Server binaries:** `cod2_lnxded` from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by [Kung Foo Man](https://github.com/kungfooman), [Mitch](https://github.com/M-itch)
-* **LibCOD:** Custom [libcod](https://github.com/voron00/libcod) by [Voron00](https://github.com/voron00)
+* **Server binaries:** `cod2_lnxded` from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by [Kung Foo Man](https://github.com/kungfooman) and [Mitch](https://github.com/M-itch)
+* **LibCOD:** Custom [libcod](https://github.com/voron00/libcod) by [Voron00](https://github.com/voron00) and [zk_libcod](https://github.com/ibuddieat/zk_libcod) by [iBuddieAt](https://github.com/iBuddieAt)
 
 Full credits to them for their awesome work!
 
