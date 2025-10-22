@@ -96,7 +96,7 @@ Kicks and temporarily bans player by client id from server
 Unban every player banned with [name]. If you want to unban a single player whose name appears more than once, you should edit "ban.txt" manually.
 
 ## Server config
-Server config files can be found in the [/cod2server/main](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/cod2server/main) directory.
+Server config files can be found in the [/cod2server/main](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/main/cod2server/main) directory.
 
 A note on server path:
 * `set fs_basepath`: set the game folder, where the `config` and `.iwd` files are.

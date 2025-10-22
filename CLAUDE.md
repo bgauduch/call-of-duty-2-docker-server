@@ -79,7 +79,7 @@ Format: `cod2_lnxded_X_Y[suffix]` (located in [bin/](bin/))
 |----------|---------|---------|
 | [Lint](.github/workflows/lint.yml) | PR/push | Hadolint (Dockerfile) + ShellCheck (scripts) |
 | [Build/Test/Push](.github/workflows/build-test-push.yml) | PR/push/release | Build all 12 variants, test, scan, push |
-| [Release Please](.github/workflows/release-please.yml) | Push to master | Create release PR, update CHANGELOG, trigger builds |
+| [Release Please](.github/workflows/release-please.yml) | Push to main | Create release PR, update CHANGELOG, trigger builds |
 
 ### Conventional Commits
 

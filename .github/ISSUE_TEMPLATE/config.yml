@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/bgauduch/call-of-duty-2-docker-server/discussions
     about: Ask questions or discuss ideas with the community
   - name: Documentation
-    url: https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/README.md
+    url: https://github.com/bgauduch/call-of-duty-2-docker-server/blob/main/README.md
     about: Read the project documentation

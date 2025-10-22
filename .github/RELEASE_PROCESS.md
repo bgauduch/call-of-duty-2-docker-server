@@ -70,7 +70,7 @@ git commit -m "chore: Update Alpine base image to 3.20"
 1. **Developer workflow:**
    - Create feature branch
    - Make changes with conventional commits
-   - Open PR to `master`
+   - Open PR to `main`
    - Merge PR after review
 
 2. **Release Please automation:**
@@ -143,7 +143,7 @@ Following [Semantic Versioning](https://semver.org/):
 ### Release Please PR not created
 
 - Ensure commits use conventional commit format
-- Check that commits are on `master` branch
+- Check that commits are on `main` branch
 - Verify `.release-please-manifest.json` exists and is valid
 
 ### Docker images not publishing

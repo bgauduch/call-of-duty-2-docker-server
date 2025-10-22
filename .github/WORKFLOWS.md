@@ -10,16 +10,16 @@ The project uses GitHub Actions for automated building, testing, and deployment 
 
 ```mermaid
 graph TD
-    A[Push to PR/Master] --> B[Lint]
+    A[Push to PR/Main] --> B[Lint]
     A --> C[Build, Test & Push]
     D[Release Published] --> C
-    E[Push to Master] --> F[release-please]
+    E[Push to Main] --> F[release-please]
 
     C --> G[Setup Config]
     G --> H[Build All Variants]
     H --> I[Test All Variants]
     I --> J{Event Type?}
-    J -->|Master Push| K[Push 'latest']
+    J -->|Main Push| K[Push 'latest']
     J -->|Release| L[Push Version Tags]
     J -->|PR| M[Complete]
 ```
@@ -28,7 +28,7 @@ graph TD
 
 ### 1. Lint (`lint.yml`)
 
-**Triggers:** PR and master push (when Dockerfile, scripts, or workflows change)
+**Triggers:** PR and main push (when Dockerfile, scripts, or workflows change)
 
 **Purpose:** Validates code quality
 
@@ -40,7 +40,7 @@ graph TD
 
 **Triggers:**
 - Pull requests
-- Push to master
+- Push to main
 - Release published
 
 **Purpose:** Complete CI/CD pipeline for Docker images
@@ -71,8 +71,8 @@ graph TD
    - May fail without game files (expected in CI)
    - Marked as `continue-on-error: true`
 
-5. **push-latest** - Pushes 'latest' tag (master only)
-   - Only runs on successful push to master
+5. **push-latest** - Pushes 'latest' tag (main only)
+   - Only runs on successful push to main
    - Downloads and loads default variant image
    - Tags default variant as `latest`
    - Pushes to Docker Hub
@@ -91,7 +91,7 @@ graph TD
 
 ### 3. Release Please (`release-please.yml`)
 
-**Triggers:** Push to master
+**Triggers:** Push to main
 
 **Purpose:** Automates semantic versioning and changelog generation
 
@@ -154,7 +154,7 @@ Single source of truth for:
 - `5.0.1-1_3_nodelay_va_loc` - Full version + variant
 
 **Mutable (updated with releases):**
-- `latest` - Latest master build (default variant)
+- `latest` - Latest main build (default variant)
 - `5.0.1` - Specific patch version (all variants)
 - `5.0` - Latest minor version (all variants)
 - `5` - Latest major version (all variants)
@@ -209,7 +209,7 @@ Single source of truth for:
 ### Push Doesn't Trigger
 
 **For 'latest' tag:**
-- Only runs on push to master (not PRs)
+- Only runs on push to main (not PRs)
 - Requires successful build and tests
 - Check workflow conditions
 

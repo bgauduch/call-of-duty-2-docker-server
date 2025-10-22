@@ -201,7 +201,7 @@ This project uses automated GitHub Actions workflows that run on every PR:
   - Runs container structure validation tests on all variants
   - Performs health check verification (optional, may fail without game files)
   - Executes Trivy security scanning
-  - Automatically pushes images to Docker Hub on master commits and releases
+  - Automatically pushes images to Docker Hub on main commits and releases
 
 Your PR must pass all checks before it can be merged. You can view workflow results in the "Checks" tab of your pull request.
 
@@ -211,8 +211,8 @@ Your PR must pass all checks before it can be merged. You can view workflow resu
 
 The `build-test-push.yml` workflow is triggered by:
 
-- **Pull requests** to master (builds and tests, no push)
-- **Pushes to master** (builds, tests, and pushes `latest` tag)
+- **Pull requests** to main (builds and tests, no push)
+- **Pushes to main** (builds, tests, and pushes `latest` tag)
 - **Release events** (builds, tests, and pushes all semver + variant tags)
 
 **Important:** The release-please workflow requires a `RELEASE_PLEASE_TOKEN` secret to trigger the build workflow when creating releases. This is necessary because GitHub's default `GITHUB_TOKEN` cannot trigger downstream workflows (security policy to prevent recursive workflow runs). See [.github/RELEASE_PROCESS.md](.github/RELEASE_PROCESS.md#required-repository-secrets) for setup details.
@@ -281,7 +281,7 @@ Format: `MAJOR.MINOR.PATCH-SERVER_VARIANT`
 These tags are updated and point to the latest builds:
 
 ```text
-bgauduch/cod2server:latest          # Latest stable from master (1.3 nodelay_va_loc)
+bgauduch/cod2server:latest          # Latest stable from main (1.3 nodelay_va_loc)
 bgauduch/cod2server:4               # Latest v4.x.x release (all variants)
 bgauduch/cod2server:4.2             # Latest v4.2.x release (all variants)
 bgauduch/cod2server:4.2.0           # Specific version v4.2.0 (all variants)
@@ -311,7 +311,7 @@ Server variants follow the format `X_Y_zzzzzz`:
 | 1.2 | Cracked version | `1_2_c`, `1_2_c_nodelay`, `1_2_c_nodelay_va_loc`, `1_2_c_patch_va_loc` |
 | 1.3 | Latest stable | `1_3`, `1_3_cracked`, `1_3_nodelay`, `1_3_patch_va_loc`, `1_3_nodelay_va_loc` |
 
-For detailed explanations of binary variants, see the [bin folder README](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin).
+For detailed explanations of binary variants, see the [bin folder README](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/main/bin).
 
 #### Choosing the Right Docker Image Tag
 
@@ -384,7 +384,7 @@ image: bgauduch/cod2server:1_2_c_nodelay
 
    ```bash
    git fetch upstream
-   git rebase upstream/master
+   git rebase upstream/main
    ```
 
 5. **Push to your fork**:

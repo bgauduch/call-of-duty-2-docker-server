@@ -50,7 +50,7 @@ LABEL org.opencontainers.image.description="Minimal & lightweight containerized 
 LABEL org.opencontainers.image.authors="Baptiste Gauduchon <bgauduch@users.noreply.github.com>"
 LABEL org.opencontainers.image.url="https://github.com/bgauduch/call-of-duty-2-docker-server"
 LABEL org.opencontainers.image.source="https://github.com/bgauduch/call-of-duty-2-docker-server"
-LABEL org.opencontainers.image.documentation="https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/README.md"
+LABEL org.opencontainers.image.documentation="https://github.com/bgauduch/call-of-duty-2-docker-server/blob/main/README.md"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.vendor="Baptiste Gauduchon"
 

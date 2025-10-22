@@ -9,7 +9,7 @@ on:
       - '.hadolint.yaml'
   push:
     branches:
-      - master
+      - main
     paths:
       - 'Dockerfile'
       - 'scripts/**'

@@ -8,7 +8,7 @@ Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikiped
 
 ## 📦 Supported tags and respective `Dockerfile` links
 
-This repository uses automated CI/CD with semantic versioning to provide images for all server binaries located in the [`/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin).
+This repository uses automated CI/CD with semantic versioning to provide images for all server binaries located in the [`/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/main/bin).
 All image tags can be found on the [Docker Hub registry](https://hub.docker.com/r/bgauduch/cod2server/tags).
 
 ### Tagging Strategy
@@ -17,7 +17,7 @@ All image tags can be found on the [Docker Hub registry](https://hub.docker.com/
 
 #### Mutable Tags (updated with new builds)
 
-* **`bgauduch/cod2server:latest`** - Latest build from `master` branch (COD2 1.3 nodelay_va_loc variant)
+* **`bgauduch/cod2server:latest`** - Latest build from `main` branch (COD2 1.3 nodelay_va_loc variant)
 * **`bgauduch/cod2server:4`** - Latest major version 4.x.x (all variants)
 * **`bgauduch/cod2server:4.2`** - Latest minor version 4.2.x (all variants)
 * **`bgauduch/cod2server:4.2.0`** - Specific version (all variants)
@@ -32,7 +32,7 @@ All image tags can be found on the [Docker Hub registry](https://hub.docker.com/
 * **`X_Y_zzzzzz`** where:
   * **`X_Y`** is the COD2 server version: [`1_0`, `1_2`, `1_3`]
   * **`zzzzzz`** is the server binary type (e.g., `_nodelay_va_loc`, `_cracked`, etc.)
-  * See [readme in the `/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) for variant explanations
+  * See [readme in the `/bin` folder](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/main/bin) for variant explanations
 
 **Example usage:**
 
@@ -74,7 +74,7 @@ Please refer to the [releases section](https://github.com/bgauduch/call-of-duty-
     1. Activate it by changing `sv_punkbuster` from `0` to `1` in the command arguments of the `docker-compose.yaml` file;
     1. Edit the `cod2server/main/punkbuster.cfg` configuration to suits your needs.
 1. *[Optional]* Edit the `bgauduch/cod2server` image tag in `docker-compose.yaml` to choose a different server version;
-1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available (see required open ports in the `EXPOSE` section of the [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/Dockerfile)).
+1. Depending on your setup, you might have some port-forwarding and firewalling to do in order to make your server publicly available (see required open ports in the `EXPOSE` section of the [Dockerfile](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/main/Dockerfile)).
 
 ### Launch the server
 
@@ -101,7 +101,7 @@ From the project root, you can:
   docker-compose logs -f cod2_server
   ```
 
-* Attach a shell to the server to run commands, see available commands in [/doc/readme.md](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/master/doc/readme.md):
+* Attach a shell to the server to run commands, see available commands in [/doc/readme.md](https://github.com/bgauduch/call-of-duty-2-docker-server/blob/main/doc/readme.md):
 
   ```sh
   docker container attach call-of-duty-2-docker-server_cod2_server_1
@@ -134,7 +134,7 @@ If you wish to contribute to and improve this project, please refer to [CONTRIBU
   * [on ubuntu 14.04](https://killtube.org/showthread.php?2454-Work-in-progress-Setup-CoD2-on-your-ubuntu-14-04-server) by IzNoGoD
   * [using Docker](https://killtube.org/showthread.php?3167-CoD2-Setup-CoD2-with-Docker) by Lonsofore
 * There is a similar repository on github proposing a Call of Duty 2 server based on CentOS: [hberntsen/docker-cod2](https://github.com/hberntsen/docker-cod2)
-* Original and cracked server binaries can be found in the [`bin`](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/master/bin) folder, have a look at the `readme`
+* Original and cracked server binaries can be found in the [`bin`](https://github.com/bgauduch/call-of-duty-2-docker-server/tree/main/bin) folder, have a look at the `readme`
 * If you need to use iptables in conjonction with Docker, please follow the [official documentation tips](https://docs.docker.com/network/iptables/)
 
 ## 🙏 Contribution
