@@ -116,7 +116,7 @@ tests/                    # Container validation
 
 - `COD2_VERSION` - Server version (`1_0`, `1_2`, `1_3`)
 - `COD2_LNXDED_TYPE` - Binary variant suffix (`_nodelay_va_loc`, `a`, `c`, etc.)
-- `LIBCOD_GIT_URL` - libcod repository (default: voron00/libcod)
+- `LIBCOD_TYPE` - LibCOD library variant (`voron`, `ibuddieat`) [default: `voron`]
 - `LIBCOD_MYSQL_TYPE` - MySQL support [0=disabled, 1=default, 2=experimental]
 
 ### Runtime Details
@@ -152,12 +152,51 @@ command: ["+set", "net_port", "28960", "+set", "sv_punkbuster", "0", "+exec", "s
 
 ### Test Dockerfile Changes
 
+**CRITICAL:** When modifying the Dockerfile, you MUST test multiple variants to ensure compatibility across all COD2 versions and libcod libraries.
+
+**Minimum test coverage required:**
+
 ```bash
+# Test v1.0 variant (oldest version)
+docker build \
+  --build-arg COD2_VERSION=1_0 \
+  --build-arg COD2_LNXDED_TYPE=a \
+  --build-arg LIBCOD_TYPE=voron \
+  -t cod2server:1_0-test .
+
+# Test v1.2 variant (cracked version)
+docker build \
+  --build-arg COD2_VERSION=1_2 \
+  --build-arg COD2_LNXDED_TYPE=c_nodelay \
+  --build-arg LIBCOD_TYPE=voron \
+  -t cod2server:1_2-test .
+
+# Test v1.3 with voron (default, most common)
 docker build \
   --build-arg COD2_VERSION=1_3 \
   --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
-  -t bgauduch/cod2server:test .
+  --build-arg LIBCOD_TYPE=voron \
+  -t cod2server:1_3-voron-test .
 
+# Test v1.3 with ibuddieat (alternative libcod)
+docker build \
+  --build-arg COD2_VERSION=1_3 \
+  --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
+  --build-arg LIBCOD_TYPE=ibuddieat \
+  -t cod2server:1_3-ibuddieat-test .
+```
+
+**Why test multiple variants?**
+
+- Different COD2 versions (1.0/1.2/1.3) may have different libcod compilation requirements
+- Both libcod libraries (voron/ibuddieat) use different build processes
+- Ensures multi-stage build selects correct builder
+- Catches version-specific issues before CI/CD
+
+**Quick test (development override):**
+
+```bash
+# Edit docker-compose.dev.yaml to change COD2_VERSION, COD2_LNXDED_TYPE, or LIBCOD_TYPE
 docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up
 ```
 

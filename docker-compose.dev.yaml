@@ -6,5 +6,6 @@ services:
       args:
         COD2_VERSION: "1_3"
         COD2_LNXDED_TYPE: "_nodelay_va_loc"
+        LIBCOD_TYPE: "voron"  # Options: "voron" or "ibuddieat"
         LIBCOD_MYSQL_TYPE: "1"
     image: bgauduch/cod2server:dev

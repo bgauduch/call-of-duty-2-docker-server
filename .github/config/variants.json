@@ -2,57 +2,95 @@
   "image_name": "bgauduch/cod2server",
   "default_variant": {
     "cod2_version": "1_3",
-    "cod2_lnxded_type": "_nodelay_va_loc"
+    "cod2_lnxded_type": "_nodelay_va_loc",
+    "libcod_type": "voron"
   },
   "artifact_retention_days": 7,
   "variants": [
     {
       "cod2_version": "1_0",
-      "cod2_lnxded_type": "a"
+      "cod2_lnxded_type": "a",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_0",
-      "cod2_lnxded_type": "a_va"
+      "cod2_lnxded_type": "a_va",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_0",
-      "cod2_lnxded_type": "a_va_loc"
+      "cod2_lnxded_type": "a_va_loc",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_2",
-      "cod2_lnxded_type": "c"
+      "cod2_lnxded_type": "c",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_2",
-      "cod2_lnxded_type": "c_nodelay"
+      "cod2_lnxded_type": "c_nodelay",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_2",
-      "cod2_lnxded_type": "c_nodelay_va_loc"
+      "cod2_lnxded_type": "c_nodelay_va_loc",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_2",
-      "cod2_lnxded_type": "c_patch_va_loc"
+      "cod2_lnxded_type": "c_patch_va_loc",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_3",
-      "cod2_lnxded_type": ""
+      "cod2_lnxded_type": "",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_3",
-      "cod2_lnxded_type": "_cracked"
+      "cod2_lnxded_type": "_cracked",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_3",
-      "cod2_lnxded_type": "_nodelay"
+      "cod2_lnxded_type": "_nodelay",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_3",
-      "cod2_lnxded_type": "_patch_va_loc"
+      "cod2_lnxded_type": "_patch_va_loc",
+      "libcod_type": "voron"
     },
     {
       "cod2_version": "1_3",
-      "cod2_lnxded_type": "_nodelay_va_loc"
+      "cod2_lnxded_type": "_nodelay_va_loc",
+      "libcod_type": "voron"
+    },
+    {
+      "cod2_version": "1_3",
+      "cod2_lnxded_type": "",
+      "libcod_type": "ibuddieat"
+    },
+    {
+      "cod2_version": "1_3",
+      "cod2_lnxded_type": "_cracked",
+      "libcod_type": "ibuddieat"
+    },
+    {
+      "cod2_version": "1_3",
+      "cod2_lnxded_type": "_nodelay",
+      "libcod_type": "ibuddieat"
+    },
+    {
+      "cod2_version": "1_3",
+      "cod2_lnxded_type": "_patch_va_loc",
+      "libcod_type": "ibuddieat"
+    },
+    {
+      "cod2_version": "1_3",
+      "cod2_lnxded_type": "_nodelay_va_loc",
+      "libcod_type": "ibuddieat"
     }
   ]
 }
