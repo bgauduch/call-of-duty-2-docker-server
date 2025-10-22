@@ -112,14 +112,15 @@ If you need to manually create a release:
 
 On release, the CI/CD workflow automatically:
 
-1. **Builds all image variants** (12 different combinations):
-   - Version 1.0: `1_0_a`, `1_0_a_va`, `1_0_a_va_loc`
-   - Version 1.2: `1_2_c`, `1_2_c_nodelay`, `1_2_c_nodelay_va_loc`, `1_2_c_patch_va_loc`
-   - Version 1.3: `1_3`, `1_3_cracked`, `1_3_nodelay`, `1_3_patch_va_loc`, `1_3_nodelay_va_loc`
+1. **Builds all image variants** (17 different combinations):
+   - Version 1.0: `1_0_a-voron`, `1_0_a_va-voron`, `1_0_a_va_loc-voron`
+   - Version 1.2: `1_2_c-voron`, `1_2_c_nodelay-voron`, `1_2_c_nodelay_va_loc-voron`, `1_2_c_patch_va_loc-voron`
+   - Version 1.3 (voron): `1_3-voron`, `1_3_cracked-voron`, `1_3_nodelay-voron`, `1_3_patch_va_loc-voron`, `1_3_nodelay_va_loc-voron`
+   - Version 1.3 (ibuddieat): `1_3-ibuddieat`, `1_3_cracked-ibuddieat`, `1_3_nodelay-ibuddieat`, `1_3_patch_va_loc-ibuddieat`, `1_3_nodelay_va_loc-ibuddieat`
 
 2. **Pushes to Docker Hub** with tags:
-   - For **all variants**: Immutable variant-specific tags (e.g., `5.0.0-1_3_nodelay_va_loc`) and variant tags (e.g., `1_3_nodelay_va_loc`)
-   - For **default variant only** (`1_3_nodelay_va_loc`): Semver tags (`5.0.0`, `5.0`, `5`) and `latest`
+   - For **all variants**: Immutable variant-specific tags (e.g., `6.0.0-1_3_nodelay_va_loc-voron`) and variant tags (e.g., `1_3_nodelay_va_loc-voron`)
+   - For **default variant only** (`1_3_nodelay_va_loc-voron`): Semver tags (`6.0.0`, `6.0`, `6`) and `latest`
 
 3. **Updates Docker Hub description** from README.md (if modified)
 

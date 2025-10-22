@@ -72,7 +72,7 @@ jobs:
       COD2_VERSION: ${{ matrix.cod2_version }}
       COD2_LNXDED_TYPE: ${{ matrix.cod2_lnxded_type }}
       LIBCOD_TYPE: ${{ matrix.libcod_type }}
-      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}-${{ matrix.libcod_type }}
       DOCKER_BUILDKIT: 1
 
     steps:
@@ -136,7 +136,7 @@ jobs:
       matrix: ${{ fromJSON(needs.setup.outputs.variants_matrix) }}
 
     env:
-      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}-${{ matrix.libcod_type }}
 
     steps:
       - name: Check out the repo (test config only)
@@ -172,7 +172,7 @@ jobs:
       matrix: ${{ fromJSON(needs.setup.outputs.variants_matrix) }}
 
     env:
-      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}-${{ matrix.libcod_type }}
 
     steps:
       - name: Check out the repo (test scripts only)
@@ -250,7 +250,7 @@ jobs:
       matrix: ${{ fromJSON(needs.setup.outputs.variants_matrix) }}
 
     env:
-      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}
+      IMAGE_TAG: ${{ matrix.cod2_version }}${{ matrix.cod2_lnxded_type }}-${{ matrix.libcod_type }}
 
     steps:
       - name: Download image artifact

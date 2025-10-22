@@ -8,10 +8,10 @@ Containerized COD2 multiplayer dedicated server with libcod support using Docker
 
 **Architecture:**
 
-- **12 server variants**: versions 1.0/1.2/1.3 with various patches (binaries in [bin/](bin/))
+- **17 server variants**: versions 1.0/1.2/1.3 with various patches and libcod libraries (binaries in [bin/](bin/))
 - **Multi-variant build**: All variants built via matrix strategy from [.github/config/variants.json](.github/config/variants.json)
-- **Default variant**: `1_3_nodelay_va_loc` (v1.3 + nodelay + VA security + no localization spam)
-- **Build args control variant**: `COD2_VERSION` (e.g., `1_3`), `COD2_LNXDED_TYPE` (e.g., `_nodelay_va_loc`)
+- **Default variant**: `1_3_nodelay_va_loc-voron` (v1.3 + nodelay + VA security + no localization spam + voron libcod)
+- **Build args control variant**: `COD2_VERSION` (e.g., `1_3`), `COD2_LNXDED_TYPE` (e.g., `_nodelay_va_loc`), `LIBCOD_TYPE` (e.g., `voron`)
 
 **Key Binaries & Suffixes:**
 
@@ -59,15 +59,17 @@ Format: `cod2_lnxded_X_Y[suffix]` (located in [bin/](bin/))
 
 ### Docker Image Tags
 
-**Immutable:** `bgauduch/cod2server:4.2.0-1_3_nodelay_va_loc` (semver + variant)
-**Mutable:** `latest`, `4`, `4.2`, `1_3_nodelay_va_loc`
+**Immutable:** `bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-voron` (semver + variant + libcod)
+**Mutable:** `latest`, `6`, `6.0`, `1_3_nodelay_va_loc-voron`, `1_3_nodelay_va_loc-ibuddieat`
+
+**Format:** `COD2_VERSION + COD2_LNXDED_TYPE + "-" + LIBCOD_TYPE`
 
 ### CI/CD Pipeline
 
 [.github/workflows/build-test-push.yml](.github/workflows/build-test-push.yml):
 
 1. Load config from [.github/config/variants.json](.github/config/variants.json)
-1. Build all 12 variants (matrix strategy)
+1. Build all 17 variants (matrix strategy)
 1. Run container structure tests + Trivy security scan
 1. Save artifacts (zstd compression)
 1. Push on release with semantic version tags
@@ -79,7 +81,7 @@ Format: `cod2_lnxded_X_Y[suffix]` (located in [bin/](bin/))
 | Workflow | Trigger | Actions |
 |----------|---------|---------|
 | [Lint](.github/workflows/lint.yml) | PR/push | Hadolint (Dockerfile) + ShellCheck (scripts) |
-| [Build/Test/Push](.github/workflows/build-test-push.yml) | PR/push/release | Build all 12 variants, test, scan, push |
+| [Build/Test/Push](.github/workflows/build-test-push.yml) | PR/push/release | Build all 17 variants, test, scan, push |
 | [Release Please](.github/workflows/release-please.yml) | Push to main | Create release PR, update CHANGELOG, trigger builds |
 
 ### Conventional Commits
@@ -96,17 +98,17 @@ See [.github/RELEASE_PROCESS.md](.github/RELEASE_PROCESS.md) for details.
 ## Project Structure
 
 ```text
-bin/                      # COD2 server binaries (12 variants)
+bin/                      # COD2 server binaries
 lib/pb/                   # PunkBuster files (v1.760)
 cod2server/main/          # Volume mount for game files (.iwd)
-Dockerfile                # Multi-stage build
+Dockerfile                # Multi-stage build (voron/ibuddieat builders)
 docker-compose.yaml       # Production config
 docker-compose.dev.yaml   # Development override
 scripts/                  # Dev helper scripts
 tests/                    # Container validation
 .github/
   ├── workflows/          # CI/CD pipelines
-  ├── config/variants.json    # Variant definitions
+  ├── config/variants.json    # Variant definitions (17 combinations)
   └── actions/setup-config/   # Reusable config loader
 ```
 
@@ -121,7 +123,7 @@ All build arguments have sensible defaults for quick local development:
 - `LIBCOD_TYPE` - LibCOD library variant (`voron`, `ibuddieat`) [default: `voron`]
 - `LIBCOD_MYSQL_TYPE` - MySQL support [0=disabled, 1=default, 2=experimental] [default: `1`]
 
-**Quick build without args**: `docker build -t cod2server .` uses the default variant (`1_3_nodelay_va_loc` with voron)
+**Quick build without args**: `docker build -t cod2server .` uses the default variant (`1_3_nodelay_va_loc-voron`)
 
 ### Runtime Details
 
@@ -142,13 +144,14 @@ command: ["+set", "net_port", "28960", "+set", "sv_punkbuster", "0", "+exec", "s
 
 ### Add New Server Variant
 
-1. Add binary to [bin/](bin/): `cod2_lnxded_X_Y[suffix]`
+1. Add binary to [bin/](bin/): `cod2_lnxded_X_Y[suffix]` (if not already present)
 1. Update [.github/config/variants.json](.github/config/variants.json):
 
    ```json
    {
      "cod2_version": "X_Y",
-     "cod2_lnxded_type": "[suffix]"
+     "cod2_lnxded_type": "[suffix]",
+     "libcod_type": "voron"
    }
    ```
 

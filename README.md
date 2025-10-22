@@ -8,13 +8,13 @@ Launch a minimal & lightweight containarized [Call of Duty 2](https://en.wikiped
 
 ## 📦 Docker Images
 
-Images are available on [Docker Hub](https://hub.docker.com/r/bgauduch/cod2server/tags) for all [12 server variants](bin/readme.md).
+Images are available on [Docker Hub](https://hub.docker.com/r/bgauduch/cod2server/tags) for all [17 server variants](bin/readme.md) (COD2 versions 1.0/1.2/1.3 with voron/ibuddieat libcod libraries).
 
 ### Quick Start
 
 ```yaml
 # Production - immutable tag (recommended)
-image: bgauduch/cod2server:5.0.3-1_3_nodelay_va_loc
+image: bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-voron
 
 # Development - latest default variant
 image: bgauduch/cod2server:latest
@@ -22,9 +22,9 @@ image: bgauduch/cod2server:latest
 
 ### Available Tags
 
-* **Immutable (recommended):** `5.0.3-1_3_nodelay_va_loc` - Full version + variant
-* **Version tags:** `latest`, `5`, `5.0`, `5.0.3` - Default variant only (`1_3_nodelay_va_loc`)
-* **Variant tags:** `1_3_nodelay_va_loc`, `1_2_c_nodelay`, etc. - Latest build per variant
+* **Immutable (recommended):** `6.0.0-1_3_nodelay_va_loc-voron` - Full version + variant + libcod
+* **Version tags:** `latest`, `6`, `6.0`, `6.0.0` - Default variant only (`1_3_nodelay_va_loc-voron`)
+* **Variant tags:** `1_3_nodelay_va_loc-voron`, `1_3_nodelay_va_loc-ibuddieat`, `1_2_c_nodelay-voron`, etc. - Latest build per variant
 
 See [CONTRIBUTING.md](CONTRIBUTING.md#docker-image-tags) for complete tagging strategy and [bin/readme.md](bin/readme.md) for variant explanations.
 
