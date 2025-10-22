@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v6.0.0...v7.0.0) (2025-10-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* Docker image tagging strategy now includes libcod library type to distinguish between voron and ibuddieat variants. Users must update their image references.
+* The variant configuration schema now requires a libcod_type field for each variant. CI/CD workflows must pass LIBCOD_TYPE as a build argument. Existing Docker builds without LIBCOD_TYPE will use the default 'voron' library, maintaining backward compatibility for end users, but CI/CD pipelines and custom build scripts must be updated.
+
+### Features
+
+* add support for multiple libcod libraries ([dc647fa](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/dc647fad2762156ea471bdc3d30df4e0fd720df1))
+* include libcod_type in Docker image tags and CI/CD pipeline ([3b660fc](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/3b660fca7a0ef9d54cf6814859e0bbdcff947267))
+* pin libcod library versions for reproducible builds ([979206c](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/979206c56fb1269d2f99ec95e6536e1c5b937628))
+
+
+### Documentation
+
+* document default build arguments and fix COD2_VERSION format ([1180b05](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/1180b05696908778a1d0d21e8112c07cce911d2b))
+
+
+### Miscellaneous
+
+* remove useless netcat dependencies, leftover from previous HEALTHCHECK ([13c9dc2](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/13c9dc2d126406bb0227a2022d3e39019c9bb8ce))
+
 ## [6.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v5.1.0...v6.0.0) (2025-10-22)
 
 
