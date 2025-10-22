@@ -122,8 +122,17 @@ All build arguments have sensible defaults for quick local development:
 - `COD2_LNXDED_TYPE` - Binary variant suffix (`_nodelay_va_loc`, `a`, `c`, etc.) [default: `_nodelay_va_loc`]
 - `LIBCOD_TYPE` - LibCOD library variant (`voron`, `ibuddieat`) [default: `voron`]
 - `LIBCOD_MYSQL_TYPE` - MySQL support [0=disabled, 1=default, 2=experimental] [default: `1`]
+- `LIBCOD_VORON_VERSION` - Voron libcod git commit/tag [default: `8e0dee9bf14510c8565e3633b7c0efdf6f9b8a11`]
+- `LIBCOD_IBUDDIEAT_VERSION` - ibuddieat libcod git tag [default: `v14.0`]
 
 **Quick build without args**: `docker build -t cod2server .` uses the default variant (`1_3_nodelay_va_loc-voron`)
+
+**LibCOD versions are pinned** for reproducibility. Override if needed:
+
+```bash
+docker build --build-arg LIBCOD_VORON_VERSION=<commit-sha> -t cod2server .
+docker build --build-arg LIBCOD_IBUDDIEAT_VERSION=<tag> -t cod2server .
+```
 
 ### Runtime Details
 
