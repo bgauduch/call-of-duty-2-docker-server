@@ -1,5 +1,5 @@
 # Available build arguments and default configuration
-ARG COD2_VERSION="1.3"
+ARG COD2_VERSION="1_3"
 ARG COD2_LNXDED_TYPE="_nodelay_va_loc"
 ARG LIBCOD_TYPE="voron"
 # Choose in: [0 = mysql disables; 1 = default mysql; 2 = VoroN experimental mysql]

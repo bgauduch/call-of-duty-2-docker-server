@@ -114,10 +114,14 @@ tests/                    # Container validation
 
 ### Dockerfile Build Arguments
 
-- `COD2_VERSION` - Server version (`1_0`, `1_2`, `1_3`)
-- `COD2_LNXDED_TYPE` - Binary variant suffix (`_nodelay_va_loc`, `a`, `c`, etc.)
+All build arguments have sensible defaults for quick local development:
+
+- `COD2_VERSION` - Server version (`1_0`, `1_2`, `1_3`) [default: `1_3`]
+- `COD2_LNXDED_TYPE` - Binary variant suffix (`_nodelay_va_loc`, `a`, `c`, etc.) [default: `_nodelay_va_loc`]
 - `LIBCOD_TYPE` - LibCOD library variant (`voron`, `ibuddieat`) [default: `voron`]
-- `LIBCOD_MYSQL_TYPE` - MySQL support [0=disabled, 1=default, 2=experimental]
+- `LIBCOD_MYSQL_TYPE` - MySQL support [0=disabled, 1=default, 2=experimental] [default: `1`]
+
+**Quick build without args**: `docker build -t cod2server .` uses the default variant (`1_3_nodelay_va_loc` with voron)
 
 ### Runtime Details
 
