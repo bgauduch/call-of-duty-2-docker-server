@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v7.0.0...v8.0.0) (2025-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* Default LIBCOD_TYPE changed from "voron" to "ibuddieat". Users relying on implicit defaults will now get ibuddieat variant. To continue using voron, explicitly set build arg: `docker build --build-arg LIBCOD_TYPE=voron ...`
+
+### Features
+
+* **deps:** migrate to Renovate-only dependency management with auto-merge ([47b51a9](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/47b51a9f9ecb5db9994b8cdaade30e0ed92a7e07))
+* improve Docker best practices and ibuddieat as default ([095a741](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/095a741ad5e8338043a8bd57cd03ef9f401cccc1))
+
+
+### Miscellaneous
+
+* **deps:** update actions/checkout action to v5 ([4c0ab5e](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/4c0ab5ede67654a2704562914c508a9a356725df))
+
 ## [7.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v6.0.0...v7.0.0) (2025-10-22)
 
 
