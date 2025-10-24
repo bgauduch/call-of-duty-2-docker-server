@@ -14,7 +14,7 @@ Images are available on [Docker Hub](https://hub.docker.com/r/bgauduch/cod2serve
 
 ```yaml
 # Production - immutable tag (recommended)
-image: bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-voron
+image: bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-ibuddieat
 
 # Development - latest default variant
 image: bgauduch/cod2server:latest
@@ -22,16 +22,16 @@ image: bgauduch/cod2server:latest
 
 ### Available Tags
 
-* **Immutable (recommended):** `6.0.0-1_3_nodelay_va_loc-voron` - Full version + variant + libcod
-* **Version tags:** `latest`, `6`, `6.0`, `6.0.0` - Default variant only (`1_3_nodelay_va_loc-voron`)
-* **Variant tags:** `1_3_nodelay_va_loc-voron`, `1_3_nodelay_va_loc-ibuddieat`, `1_2_c_nodelay-voron`, etc. - Latest build per variant
+* **Immutable (recommended):** `6.0.0-1_3_nodelay_va_loc-ibuddieat` - Full version + variant + libcod
+* **Version tags:** `latest`, `6`, `6.0`, `6.0.0` - Default variant only (`1_3_nodelay_va_loc-ibuddieat`)
+* **Variant tags:** `1_3_nodelay_va_loc-ibuddieat`, `1_3_nodelay_va_loc-voron`, `1_2_c_nodelay-voron`, etc. - Latest build per variant
 
 See [CONTRIBUTING.md](CONTRIBUTING.md#docker-image-tags) for complete tagging strategy and [bin/readme.md](bin/readme.md) for variant explanations.
 
 ## 🔧 What's Inside
 
 * **Server binaries:** `cod2_lnxded` from [Killtube](https://killtube.org/showthread.php?1719-Latest-cod2-linux-binaries-(1-0-1-2-1-3)) by [Kung Foo Man](https://github.com/kungfooman) and [Mitch](https://github.com/M-itch)
-* **LibCOD:** Custom [libcod](https://github.com/voron00/libcod) by [Voron00](https://github.com/voron00) and [zk_libcod](https://github.com/ibuddieat/zk_libcod) by [iBuddieAt](https://github.com/iBuddieAt)
+* **LibCOD:** Custom [libcod](https://github.com/voron00/libcod) by [Voron00](https://github.com/voron00) or [zk_libcod](https://github.com/ibuddieat/zk_libcod) by [iBuddieAt](https://github.com/iBuddieAt) depending on selected image tag
 
 Full credits to them for their awesome work!
 
