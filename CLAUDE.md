@@ -10,8 +10,8 @@ Containerized COD2 multiplayer dedicated server with libcod support using Docker
 
 - **17 server variants**: versions 1.0/1.2/1.3 with various patches and libcod libraries (binaries in [bin/](bin/))
 - **Multi-variant build**: All variants built via matrix strategy from [.github/config/variants.json](.github/config/variants.json)
-- **Default variant**: `1_3_nodelay_va_loc-voron` (v1.3 + nodelay + VA security + no localization spam + voron libcod)
-- **Build args control variant**: `COD2_VERSION` (e.g., `1_3`), `COD2_LNXDED_TYPE` (e.g., `_nodelay_va_loc`), `LIBCOD_TYPE` (e.g., `voron`)
+- **Default variant**: `1_3_nodelay_va_loc-ibuddieat` (v1.3 + nodelay + VA security + no localization spam + ibuddieat libcod)
+- **Build args control variant**: `COD2_VERSION` (e.g., `1_3`), `COD2_LNXDED_TYPE` (e.g., `_nodelay_va_loc`), `LIBCOD_TYPE` (e.g., `ibuddieat`)
 
 **Key Binaries & Suffixes:**
 
@@ -59,8 +59,8 @@ Format: `cod2_lnxded_X_Y[suffix]` (located in [bin/](bin/))
 
 ### Docker Image Tags
 
-**Immutable:** `bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-voron` (semver + variant + libcod)
-**Mutable:** `latest`, `6`, `6.0`, `1_3_nodelay_va_loc-voron`, `1_3_nodelay_va_loc-ibuddieat`
+**Immutable:** `bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-ibuddieat` (semver + variant + libcod)
+**Mutable:** `latest`, `6`, `6.0`, `1_3_nodelay_va_loc-ibuddieat`, `1_3_nodelay_va_loc-voron`
 
 **Format:** `COD2_VERSION + COD2_LNXDED_TYPE + "-" + LIBCOD_TYPE`
 
@@ -120,12 +120,12 @@ All build arguments have sensible defaults for quick local development:
 
 - `COD2_VERSION` - Server version (`1_0`, `1_2`, `1_3`) [default: `1_3`]
 - `COD2_LNXDED_TYPE` - Binary variant suffix (`_nodelay_va_loc`, `a`, `c`, etc.) [default: `_nodelay_va_loc`]
-- `LIBCOD_TYPE` - LibCOD library variant (`voron`, `ibuddieat`) [default: `voron`]
+- `LIBCOD_TYPE` - LibCOD library variant (`voron`, `ibuddieat`) [default: `ibuddieat`]
 - `LIBCOD_MYSQL_TYPE` - MySQL support [0=disabled, 1=default, 2=experimental] [default: `1`]
 - `LIBCOD_VORON_VERSION` - Voron libcod git commit/tag [default: `8e0dee9bf14510c8565e3633b7c0efdf6f9b8a11`]
 - `LIBCOD_IBUDDIEAT_VERSION` - ibuddieat libcod git tag [default: `v14.0`]
 
-**Quick build without args**: `docker build -t cod2server .` uses the default variant (`1_3_nodelay_va_loc-voron`)
+**Quick build without args**: `docker build -t cod2server .` uses the default variant (`1_3_nodelay_va_loc-ibuddieat`)
 
 **LibCOD versions are pinned** for reproducibility. Override if needed:
 
@@ -187,19 +187,19 @@ docker build \
   --build-arg LIBCOD_TYPE=voron \
   -t cod2server:1_2-test .
 
-# Test v1.3 with voron (default, most common)
-docker build \
-  --build-arg COD2_VERSION=1_3 \
-  --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
-  --build-arg LIBCOD_TYPE=voron \
-  -t cod2server:1_3-voron-test .
-
-# Test v1.3 with ibuddieat (alternative libcod)
+# Test v1.3 with ibuddieat (default, most common)
 docker build \
   --build-arg COD2_VERSION=1_3 \
   --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
   --build-arg LIBCOD_TYPE=ibuddieat \
   -t cod2server:1_3-ibuddieat-test .
+
+# Test v1.3 with voron (alternative libcod)
+docker build \
+  --build-arg COD2_VERSION=1_3 \
+  --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
+  --build-arg LIBCOD_TYPE=voron \
+  -t cod2server:1_3-voron-test .
 ```
 
 **Why test multiple variants?**

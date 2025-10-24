@@ -119,8 +119,8 @@ On release, the CI/CD workflow automatically:
    - Version 1.3 (ibuddieat): `1_3-ibuddieat`, `1_3_cracked-ibuddieat`, `1_3_nodelay-ibuddieat`, `1_3_patch_va_loc-ibuddieat`, `1_3_nodelay_va_loc-ibuddieat`
 
 2. **Pushes to Docker Hub** with tags:
-   - For **all variants**: Immutable variant-specific tags (e.g., `6.0.0-1_3_nodelay_va_loc-voron`) and variant tags (e.g., `1_3_nodelay_va_loc-voron`)
-   - For **default variant only** (`1_3_nodelay_va_loc-voron`): Semver tags (`6.0.0`, `6.0`, `6`) and `latest`
+   - For **all variants**: Immutable variant-specific tags (e.g., `6.0.0-1_3_nodelay_va_loc-ibuddieat`) and variant tags (e.g., `1_3_nodelay_va_loc-ibuddieat`)
+   - For **default variant only** (`1_3_nodelay_va_loc-ibuddieat`): Semver tags (`6.0.0`, `6.0`, `6`) and `latest`
 
 3. **Updates Docker Hub description** from README.md (if modified)
 

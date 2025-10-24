@@ -192,19 +192,19 @@ Before submitting a pull request, ensure all tests pass locally:
      --build-arg LIBCOD_TYPE=voron \
      -t cod2server:1_2-test .
 
-   # Test v1.3 with voron (default, most common)
-   docker build \
-     --build-arg COD2_VERSION=1_3 \
-     --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
-     --build-arg LIBCOD_TYPE=voron \
-     -t cod2server:1_3-voron-test .
-
-   # Test v1.3 with ibuddieat (alternative libcod)
+   # Test v1.3 with ibuddieat (default, most common)
    docker build \
      --build-arg COD2_VERSION=1_3 \
      --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
      --build-arg LIBCOD_TYPE=ibuddieat \
      -t cod2server:1_3-ibuddieat-test .
+
+   # Test v1.3 with voron (alternative libcod)
+   docker build \
+     --build-arg COD2_VERSION=1_3 \
+     --build-arg COD2_LNXDED_TYPE=_nodelay_va_loc \
+     --build-arg LIBCOD_TYPE=voron \
+     -t cod2server:1_3-voron-test .
    ```
 
    **Why test multiple variants?**
@@ -345,7 +345,7 @@ This project uses a comprehensive tagging strategy that combines semantic versio
 These tags are never overwritten and provide reproducible deployments:
 
 ```text
-bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-voron
+bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-ibuddieat
 ```
 
 Format: `MAJOR.MINOR.PATCH-SERVER_VARIANT-LIBCOD_TYPE`
@@ -355,11 +355,11 @@ Format: `MAJOR.MINOR.PATCH-SERVER_VARIANT-LIBCOD_TYPE`
 These tags are updated and point to the latest builds:
 
 ```text
-bgauduch/cod2server:latest                    # Latest stable from main (default variant: 1_3_nodelay_va_loc-voron)
-bgauduch/cod2server:6                         # Latest v6.x.x release (default variant only)
-bgauduch/cod2server:6.0                       # Latest v6.0.x release (default variant only)
-bgauduch/cod2server:6.0.0                     # Specific version v6.0.0 (default variant only)
-bgauduch/cod2server:1_3_nodelay_va_loc-voron  # Latest build of this variant (any variant available)
+bgauduch/cod2server:latest                       # Latest stable from main (default variant: 1_3_nodelay_va_loc-ibuddieat)
+bgauduch/cod2server:6                            # Latest v6.x.x release (default variant only)
+bgauduch/cod2server:6.0                          # Latest v6.0.x release (default variant only)
+bgauduch/cod2server:6.0.0                        # Specific version v6.0.0 (default variant only)
+bgauduch/cod2server:1_3_nodelay_va_loc-ibuddieat # Latest build of this variant (any variant available)
 ```
 
 #### Server Variant Format
@@ -373,8 +373,8 @@ Server variants follow the format `X_Y_zzzzzz-LIBCOD`:
 **Examples**:
 
 ```text
-1_3_nodelay_va_loc-voron     # Version 1.3 with nodelay, VA, and voron libcod (default)
-1_3_nodelay_va_loc-ibuddieat # Version 1.3 with nodelay, VA, and ibuddieat libcod
+1_3_nodelay_va_loc-ibuddieat # Version 1.3 with nodelay, VA, and ibuddieat libcod (default)
+1_3_nodelay_va_loc-voron     # Version 1.3 with nodelay, VA, and voron libcod
 1_2_c_nodelay-voron          # Version 1.2 cracked with nodelay and voron libcod
 1_0_a_va-voron               # Version 1.0 with VA and voron libcod
 ```
@@ -397,7 +397,7 @@ Use immutable tags for reproducibility and stability:
 
 ```yaml
 # docker-compose.yaml
-image: bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-voron
+image: bgauduch/cod2server:6.0.0-1_3_nodelay_va_loc-ibuddieat
 ```
 
 ##### For Development/Testing
@@ -415,7 +415,7 @@ Use variant tags to pin to a specific server version and libcod library:
 
 ```yaml
 # docker-compose.yaml
-image: bgauduch/cod2server:1_3_nodelay_va_loc-ibuddieat
+image: bgauduch/cod2server:1_3_nodelay_va_loc-voron
 # or
 image: bgauduch/cod2server:1_2_c_nodelay-voron
 ```
