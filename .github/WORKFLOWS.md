@@ -100,6 +100,37 @@ graph TD
 - Creates/updates release PR with version bump and changelog
 - When merged, creates GitHub release and triggers build-test-push workflow
 
+### 4. Automated Dependency Management (Renovate)
+
+**Purpose:** Keeps dependencies up-to-date with automated pull requests
+
+**Configuration:** `renovate.json` in repository root
+
+**What it manages:**
+
+- Docker base images (Debian, Alpine)
+- GitHub Actions versions
+- libcod library versions (voron00/libcod, ibuddieat/zk_libcod)
+
+**How it works:**
+
+- Runs weekly (Mondays before 6am)
+- Creates PRs for dependency updates
+- Auto-merges minor/patch updates when CI passes
+- Requires manual review for major updates and libcod changes
+
+**Auto-merge behavior:**
+
+- ✅ **Auto-merged** (when CI passes):
+  - Docker minor/patch updates (e.g., `alpine:3.20` → `alpine:3.21`)
+  - GitHub Actions minor/patch updates
+- 🔴 **Manual review required**:
+  - Docker major updates (e.g., `alpine:3.x` → `alpine:4.x`)
+  - GitHub Actions major updates
+  - libcod updates (requires testing all 17 variants)
+
+**Labels:** PRs are tagged with `dependencies`, `docker`, `github-actions`, or `libcod` for easy identification
+
 ## Centralized Configuration
 
 ### Variants Configuration (`.github/config/variants.json`)

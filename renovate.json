@@ -8,6 +8,31 @@
   ],
   "labels": ["dependencies"],
   "assignees": ["bgauduch"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update voron libcod git commit SHA in Dockerfile",
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": [
+        "ARG LIBCOD_VORON_VERSION=\"(?<currentValue>[a-f0-9]+)\""
+      ],
+      "datasourceTemplate": "git-refs",
+      "depNameTemplate": "https://github.com/voron00/libcod",
+      "packageNameTemplate": "voron00/libcod",
+      "versioningTemplate": "loose"
+    },
+    {
+      "customType": "regex",
+      "description": "Update ibuddieat zk_libcod git tag in Dockerfile",
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": [
+        "ARG LIBCOD_IBUDDIEAT_VERSION=\"(?<currentValue>v[0-9.]+)\""
+      ],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "ibuddieat/zk_libcod",
+      "extractVersionTemplate": "^(?<version>v.+)$"
+    }
+  ],
   "packageRules": [
     {
       "matchDatasources": ["docker"],
@@ -19,13 +44,25 @@
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch"],
       "labels": ["docker", "minor-update"],
-      "automerge": false
+      "automerge": true
     },
     {
       "matchDatasources": ["github-actions"],
       "labels": ["github-actions"],
       "automerge": true,
       "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "matchManagers": ["custom.regex"],
+      "matchPackageNames": ["voron00/libcod", "ibuddieat/zk_libcod"],
+      "labels": ["dependencies", "libcod"],
+      "automerge": false,
+      "reviewers": ["bgauduch"],
+      "commitMessagePrefix": "feat(deps):",
+      "commitMessageTopic": "{{depName}}",
+      "prBodyNotes": [
+        "⚠️ **Important**: This updates a libcod library version. Please test thoroughly with multiple COD2 server variants (1.0, 1.2, 1.3) before merging."
+      ]
     }
   ],
   "vulnerabilityAlerts": {
