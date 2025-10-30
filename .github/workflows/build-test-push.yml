@@ -106,7 +106,7 @@ jobs:
 
       - name: Upload Trivy results to GitHub Security tab
         if: always()
-        uses: github/codeql-action/upload-sarif@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
+        uses: github/codeql-action/upload-sarif@5d5cd550d3e189c569da8f16ea8de2d821c9bf7a # v3.31.2
         with:
           sarif_file: 'trivy-results-${{ env.IMAGE_TAG }}.sarif'
           category: 'trivy-${{ env.IMAGE_TAG }}'
