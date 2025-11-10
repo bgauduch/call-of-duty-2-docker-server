@@ -117,7 +117,7 @@ jobs:
           echo "Image size: $(du -h image-${{ env.IMAGE_TAG }}.tar | cut -f1)"
 
       - name: Upload image artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: image-${{ env.IMAGE_TAG }}
           path: image-${{ env.IMAGE_TAG }}.tar
@@ -145,7 +145,7 @@ jobs:
           sparse-checkout: tests
 
       - name: Download image artifact
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: image-${{ env.IMAGE_TAG }}
 
@@ -181,7 +181,7 @@ jobs:
           sparse-checkout: tests
 
       - name: Download image artifact
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: image-${{ env.IMAGE_TAG }}
 
@@ -206,7 +206,7 @@ jobs:
 
     steps:
       - name: Download image artifact
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: image-${{ needs.setup.outputs.default_variant }}
 
@@ -254,7 +254,7 @@ jobs:
 
     steps:
       - name: Download image artifact
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: image-${{ env.IMAGE_TAG }}
 
