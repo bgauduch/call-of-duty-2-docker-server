@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v7.0.0...v8.0.0) (2025-11-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* Default LIBCOD_TYPE changed from "voron" to "ibuddieat". Users relying on implicit defaults will now get ibuddieat variant. To continue using voron, explicitly set build arg: `docker build --build-arg LIBCOD_TYPE=voron ...`
+
+### Features
+
+* **deps:** migrate to Renovate-only dependency management with auto-merge ([47b51a9](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/47b51a9f9ecb5db9994b8cdaade30e0ed92a7e07))
+* improve Docker best practices and ibuddieat as default ([095a741](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/095a741ad5e8338043a8bd57cd03ef9f401cccc1))
+
+
+### Miscellaneous
+
+* **deps:** update actions/checkout action to v5 ([4c0ab5e](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/4c0ab5ede67654a2704562914c508a9a356725df))
+* **deps:** update actions/upload-artifact action to v4.6.2 ([840e853](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/840e85384eccfdbdbfe1c3ba10427c2f0fe0650e))
+* **deps:** update docker/metadata-action action to v5.8.0 ([8d15511](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/8d155112e3d92ff4a641e9f246ce837633277090))
+* **deps:** update docker/metadata-action action to v5.9.0 ([5f9993f](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/5f9993f8e0667ae7267221e6c37636683e4c61ef))
+* **deps:** update github artifact actions ([7bfcaee](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/7bfcaeef82fa521caacd12c5e4916fcc5e4b0980))
+* **deps:** update github/codeql-action action to v3.31.2 ([c3972ea](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/c3972ea19f663305999b82deb478f0c5fffebaec))
+* **deps:** update github/codeql-action action to v4 ([743d4af](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/743d4afd937e22b2557d3e8123ccba89d8b25587))
+* **deps:** update googleapis/release-please-action action to v4.4.0 ([f7ef2d0](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/f7ef2d03b3deb3fcda87f64b131ea456f0edf3a4))
+* **deps:** update peter-evans/dockerhub-description action to v4.0.2 ([e7a4c57](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/e7a4c57a2584a8ea59e7ee238f0ef866684df54a))
+* **deps:** update peter-evans/dockerhub-description action to v5 ([066bc37](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/066bc37e9033306d95ea243bbe9902125d7aaa95))
+
 ## [7.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v6.0.0...v7.0.0) (2025-10-22)
 
 
