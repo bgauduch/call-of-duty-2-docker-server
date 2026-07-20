@@ -1,0 +1,55 @@
+name: Build, Test & Push (skip)
+
+# Companion "skip" workflow — DO NOT add real build logic here.
+#
+# The real "Build, Test & Push" workflow (build-test-push.yml) is path-filtered:
+# it only runs on PRs that touch build-related files. Its jobs (Build Docker
+# Images, Container Structure Tests, Container Health & Runtime Tests) are
+# configured as *required* status checks on `main`. GitHub leaves a required
+# check that never reports in a permanent "Expected — Waiting for status to be
+# reported" state, which blocks (and prevents auto-merge of) any PR that does not
+# touch build files.
+#
+# This workflow triggers on the exact complement (`paths-ignore` mirrors the real
+# workflow's `paths`) and re-reports the same job names as trivial successes, so
+# unrelated PRs can satisfy the required checks without building the 17 variants.
+#
+# IMPORTANT: keep the `paths-ignore` list and the job `name:` values in sync with
+# .github/workflows/build-test-push.yml.
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'Dockerfile'
+      - 'bin/**'
+      - 'lib/**'
+      - 'docker-compose.yaml'
+      - 'tests/**'
+      - '.github/workflows/build-*.yml'
+      - '.github/config/variants.json'
+      - '.github/actions/**'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip build
+        run: echo "No build-relevant files changed — reporting success so the required check is satisfied."
+
+  test-structure:
+    name: Container Structure Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip structure tests
+        run: echo "No build-relevant files changed — reporting success so the required check is satisfied."
+
+  test-health:
+    name: Container Health & Runtime Tests (Optional)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip health tests
+        run: echo "No build-relevant files changed — reporting success so the required check is satisfied."
