@@ -103,6 +103,11 @@ jobs:
           image-ref: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           format: 'sarif'
           output: 'trivy-results-${{ env.IMAGE_TAG }}.sarif'
+          # Pin the Trivy binary to a currently-published release. The action's
+          # bundled default (v0.65.0) was removed from GitHub releases, so
+          # setup-trivy could no longer download it and every build job failed.
+          # Renovate keeps this pinned to a release that still exists.
+          version: 'v0.72.0' # trivy-version
 
       - name: Upload Trivy results to GitHub Security tab
         if: always()
