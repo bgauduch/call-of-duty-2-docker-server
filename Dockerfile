@@ -134,7 +134,7 @@ FROM build-${LIBCOD_TYPE} AS build
 # ==================================================================
 # Runtime image
 # ==================================================================
-FROM alpine:3.22
+FROM alpine:3.24
 ARG COD2_VERSION
 
 # OCI standard labels
