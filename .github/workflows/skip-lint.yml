@@ -1,0 +1,36 @@
+name: Lint (skip)
+
+# Companion "skip" workflow for .github/workflows/lint.yml.
+# See .github/workflows/skip-build-test-push.yml for the full rationale: it
+# re-reports Lint's required status checks as no-op successes on PRs that do not
+# touch lint-relevant paths, so those PRs are not blocked by required-but-skipped
+# checks.
+#
+# IMPORTANT: keep the `paths-ignore` list and the job `name:` values in sync with
+# .github/workflows/lint.yml.
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'Dockerfile'
+      - 'scripts/**'
+      - '.github/workflows/**'
+      - '.hadolint.yaml'
+
+permissions:
+  contents: read
+
+jobs:
+  hadolint:
+    name: Lint Dockerfile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip Dockerfile lint
+        run: echo "No lint-relevant files changed — reporting success so the required check is satisfied."
+
+  shellcheck:
+    name: Lint Shell Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip shell lint
+        run: echo "No lint-relevant files changed — reporting success so the required check is satisfied."
