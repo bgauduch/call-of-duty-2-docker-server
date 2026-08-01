@@ -202,6 +202,53 @@ jobs:
           ./tests/test-container-health.sh ${{ needs.setup.outputs.image_name }}:${{ env.IMAGE_TAG }} || true
           echo "Note: Health check may fail without game files - this is expected in CI"
 
+  # Required-check gates: branch protection on `main` requires the bare check
+  # names "Build Docker Images", "Container Structure Tests" and "Container
+  # Health & Runtime Tests (Optional)". The matrix jobs above only ever report
+  # suffixed names like "Build Docker Images (1_3, _nodelay_va_loc, ibuddieat)",
+  # which never satisfy those required checks — on PRs that touch build paths
+  # the bare names would stay "Expected" forever and block the merge (the
+  # skip-build-test-push.yml companion only covers PRs that do NOT touch build
+  # paths). These non-matrix jobs aggregate each matrix and re-report the bare
+  # names as real results.
+  # IMPORTANT: keep the `name:` values in sync with the required status checks
+  # on `main` and with the job names in .github/workflows/skip-build-test-push.yml.
+  build-gate:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+    steps:
+      - name: Check build matrix result
+        run: |
+          echo "Build matrix result: ${{ needs.build.result }}"
+          test "${{ needs.build.result }}" = "success"
+
+  test-structure-gate:
+    name: Container Structure Tests
+    runs-on: ubuntu-latest
+    needs: test-structure
+    if: always()
+    steps:
+      - name: Check structure tests matrix result
+        run: |
+          echo "Structure tests matrix result: ${{ needs.test-structure.result }}"
+          test "${{ needs.test-structure.result }}" = "success"
+
+  test-health-gate:
+    name: Container Health & Runtime Tests (Optional)
+    runs-on: ubuntu-latest
+    needs: test-health
+    if: always()
+    steps:
+      - name: Check health tests matrix result
+        run: |
+          # Health tests are optional (continue-on-error on the matrix job), so
+          # a failed matrix still passes the gate — only cancelled/skipped fails.
+          result="${{ needs.test-health.result }}"
+          echo "Health tests matrix result: $result"
+          test "$result" = "success" || test "$result" = "failure"
+
   push-latest:
     name: Push Latest Tag
     runs-on: ubuntu-latest

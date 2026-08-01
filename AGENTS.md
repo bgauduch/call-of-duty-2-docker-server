@@ -86,6 +86,8 @@ Format: `cod2_lnxded_X_Y[suffix]` (located in [bin/](bin/))
 
 Path-filtered workflows above have companion `skip-*.yml` workflows that report the same *required* status checks as no-op successes for PRs that don't touch the relevant paths. This prevents required-but-skipped checks from getting stuck in a permanent "Expected" state. Keep each `skip-*.yml` `paths-ignore` list and job `name:` values in sync with the real workflow it mirrors.
 
+Because the build/test jobs in [build-test-push.yml](.github/workflows/build-test-push.yml) use a matrix, they only report suffixed check names (e.g. `Build Docker Images (1_3, _nodelay_va_loc, ibuddieat)`), which never satisfy the bare-name required checks. Non-matrix *gate* jobs (`build-gate`, `test-structure-gate`, `test-health-gate`) aggregate each matrix and re-report the bare names on PRs that touch build paths. Keep the gate job `name:` values in sync with the required status checks and with `skip-build-test-push.yml`.
+
 ### Conventional Commits
 
 | Type | Version Bump | Example |
