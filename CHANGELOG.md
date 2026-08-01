@@ -5,6 +5,53 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v7.0.0...v8.0.0) (2026-08-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* Default LIBCOD_TYPE changed from "voron" to "ibuddieat". Users relying on implicit defaults will now get ibuddieat variant. To continue using voron, explicitly set build arg: `docker build --build-arg LIBCOD_TYPE=voron ...`
+
+### Features
+
+* **deps:** migrate to Renovate-only dependency management with auto-merge ([47b51a9](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/47b51a9f9ecb5db9994b8cdaade30e0ed92a7e07))
+* improve Docker best practices and ibuddieat as default ([095a741](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/095a741ad5e8338043a8bd57cd03ef9f401cccc1))
+
+
+### Bug Fixes
+
+* **ci:** pin Trivy scanner to a published release version ([c6b894a](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/c6b894af171cd396d301c4948d4f50891573d55d))
+
+
+### Documentation
+
+* scope CI badges to main branch only ([6be38a1](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/6be38a135464ee62ab851f0021f1d3fa3b278c5b))
+* use modern workflow-file badge URLs scoped to main ([ed7b3d1](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/ed7b3d1e1997d1a38b76ab5ecc49be3ee42a197e))
+
+
+### Miscellaneous
+
+* **deps:** update actions/checkout action to v5 ([4c0ab5e](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/4c0ab5ede67654a2704562914c508a9a356725df))
+* **deps:** update actions/checkout action to v7 ([#164](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/164)) ([f9f8a82](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/f9f8a82a8e41e72cc43b207d9137e07574b88d38))
+* **deps:** update actions/upload-artifact action to v4.6.2 ([840e853](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/840e85384eccfdbdbfe1c3ba10427c2f0fe0650e))
+* **deps:** Update Alpine runtime image to v3.24 ([#153](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/153)) ([3b7cb4c](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/3b7cb4c45de4891c0d49e55b352431968f278d1a))
+* **deps:** update aquasecurity/trivy-action action to v0.36.0 ([#157](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/157)) ([e0cdc34](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/e0cdc34ffd6ba7ab79f9be473d95825909395f0e))
+* **deps:** update docker/build-push-action action to v6.19.2 ([#158](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/158)) ([a1d8f63](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/a1d8f635aaacefda67ccf1b7a3d8c9151faca63a))
+* **deps:** update docker/login-action action to v3.7.0 ([#156](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/156)) ([1290453](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/129045387e471b0823e4d837c776bfbae18daff1))
+* **deps:** update docker/metadata-action action to v5.10.0 ([#152](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/152)) ([3b7fe85](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/3b7fe85d5b2e11afaf5d84330c9dcf791d2dcc37))
+* **deps:** update docker/metadata-action action to v5.8.0 ([8d15511](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/8d155112e3d92ff4a641e9f246ce837633277090))
+* **deps:** update docker/metadata-action action to v5.9.0 ([5f9993f](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/5f9993f8e0667ae7267221e6c37636683e4c61ef))
+* **deps:** update docker/setup-buildx-action action to v3.12.0 ([#155](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/155)) ([0c07d05](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/0c07d05c4e40b2242b5d8c64d1933f7c7acdc18f))
+* **deps:** update github artifact actions ([7bfcaee](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/7bfcaeef82fa521caacd12c5e4916fcc5e4b0980))
+* **deps:** update github artifact actions (major) ([#154](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/154)) ([4690b0c](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/4690b0cc58dad9caeb1d9f785afdb44cabf8b158))
+* **deps:** update github/codeql-action action to v3.31.2 ([c3972ea](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/c3972ea19f663305999b82deb478f0c5fffebaec))
+* **deps:** update github/codeql-action action to v4 ([743d4af](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/743d4afd937e22b2557d3e8123ccba89d8b25587))
+* **deps:** update github/codeql-action action to v4.37.4 ([#149](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/149)) ([c789f0b](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/c789f0bab0c1e917902f183b8c03e4ba5e056f84))
+* **deps:** update googleapis/release-please-action action to v4.4.0 ([f7ef2d0](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/f7ef2d03b3deb3fcda87f64b131ea456f0edf3a4))
+* **deps:** update googleapis/release-please-action action to v4.4.1 ([fd948db](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/fd948dbfc54a22b111a0a737990e9cc5a639aac1))
+* **deps:** update peter-evans/dockerhub-description action to v4.0.2 ([e7a4c57](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/e7a4c57a2584a8ea59e7ee238f0ef866684df54a))
+* **deps:** update peter-evans/dockerhub-description action to v5 ([066bc37](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/066bc37e9033306d95ea243bbe9902125d7aaa95))
+
 ## [7.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v6.0.0...v7.0.0) (2025-10-22)
 
 
