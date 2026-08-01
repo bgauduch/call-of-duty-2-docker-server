@@ -71,14 +71,26 @@ graph TD
    - May fail without game files (expected in CI)
    - Marked as `continue-on-error: true`
 
-5. **push-latest** - Pushes 'latest' tag (main only)
+5. **build-gate / test-structure-gate / test-health-gate** - Required-check gates
+   - Non-matrix jobs that aggregate the matrix job results
+   - Re-report the bare check names required by branch protection on `main`
+     ("Build Docker Images", "Container Structure Tests",
+     "Container Health & Runtime Tests (Optional)")
+   - Needed because matrix jobs only report suffixed names
+     (e.g. `Build Docker Images (1_3, _nodelay_va_loc, ibuddieat)`), which
+     never satisfy the bare-name required checks
+   - The health gate mirrors the optional semantics: a failed health matrix
+     still passes the gate
+   - Keep the gate `name:` values in sync with `skip-build-test-push.yml`
+
+6. **push-latest** - Pushes 'latest' tag (main only)
    - Only runs on successful push to main
    - Downloads and loads default variant image
    - Tags default variant as `latest`
    - Pushes to Docker Hub
    - Creates job summary with deployment details
 
-6. **push-release** - Pushes semantic version tags (releases only)
+7. **push-release** - Pushes semantic version tags (releases only)
    - Only runs on release events
    - Downloads and loads all variant images
    - Uses docker/metadata-action for tag generation

@@ -3,19 +3,22 @@ name: Build, Test & Push (skip)
 # Companion "skip" workflow — DO NOT add real build logic here.
 #
 # The real "Build, Test & Push" workflow (build-test-push.yml) is path-filtered:
-# it only runs on PRs that touch build-related files. Its jobs (Build Docker
-# Images, Container Structure Tests, Container Health & Runtime Tests) are
-# configured as *required* status checks on `main`. GitHub leaves a required
-# check that never reports in a permanent "Expected — Waiting for status to be
-# reported" state, which blocks (and prevents auto-merge of) any PR that does not
-# touch build files.
+# it only runs on PRs that touch build-related files. The bare check names
+# "Build Docker Images", "Container Structure Tests" and "Container Health &
+# Runtime Tests (Optional)" are configured as *required* status checks on
+# `main`. GitHub leaves a required check that never reports in a permanent
+# "Expected — Waiting for status to be reported" state, which blocks (and
+# prevents auto-merge of) any PR that does not touch build files.
 #
 # This workflow triggers on the exact complement (`paths-ignore` mirrors the real
 # workflow's `paths`) and re-reports the same job names as trivial successes, so
 # unrelated PRs can satisfy the required checks without building the 17 variants.
+# On PRs that DO touch build files, the real workflow's non-matrix "gate" jobs
+# report those same bare names, since its matrix jobs only report suffixed names
+# ("Build Docker Images (1_3, ...)") that never match the required checks.
 #
 # IMPORTANT: keep the `paths-ignore` list and the job `name:` values in sync with
-# .github/workflows/build-test-push.yml.
+# .github/workflows/build-test-push.yml (both its gate jobs and its `paths`).
 
 on:
   pull_request:
