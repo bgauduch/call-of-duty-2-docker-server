@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.1](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v8.0.0...v8.0.1) (2026-08-03)
+
+
+### Miscellaneous
+
+* **deps:** update docker/build-push-action action to v7 ([#168](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/168)) ([c653c73](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/c653c73c7f41b78c2317370e0d4a0e5167357538))
+
 ## [8.0.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v7.0.0...v8.0.0) (2026-08-01)
 
 
