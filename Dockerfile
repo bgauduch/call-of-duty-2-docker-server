@@ -178,8 +178,7 @@ RUN mkdir -p /home/${SERVER_USER}/.callofduty2/main/ \
 # - check server process is running and responsive
 # - check games log are written to file (Uses -e to check symlink/file exists)
 HEALTHCHECK --interval=5s --timeout=1s --start-period=5s --retries=3 \
-  CMD pgrep -x cod2_lnxded > /dev/null && \
-  test -e /home/${SERVER_USER}/.callofduty2/main/games_mp.log || exit 1
+  CMD [ "/bin/sh", "-c", "pgrep -x cod2_lnxded > /dev/null && test -e /home/${SERVER_USER}/.callofduty2/main/games_mp.log || exit 1" ]
 
 # Switch to non-root user
 USER ${SERVER_USER}
