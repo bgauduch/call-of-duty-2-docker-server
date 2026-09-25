@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.1.2](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v8.1.1...v8.1.2) (2026-09-25)
+
+
+### Miscellaneous
+
+* **deps:** update docker/build-push-action action to v7.4.0 ([#187](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/187)) ([7337a3d](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/7337a3db57520588fb2588ff3c84ea821c17f85d))
+* **deps:** update docker/setup-buildx-action action to v4.4.1 ([#188](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/188)) ([defb289](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/defb289573183708fe93c5a073c213817f43e6b8))
+* **deps:** update github/codeql-action action to v4.38.0 ([#184](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/184)) ([500ef0c](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/500ef0c0bab9633774cc7668ad31c071463cc408))
+* **deps:** update github/codeql-action action to v4.38.2 ([#186](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/186)) ([bd77b88](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/bd77b88f8eea11cba78b49ae8f0201a9a1ed06da))
+
 ## [8.1.1](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v8.1.0...v8.1.1) (2026-08-31)
 
 
