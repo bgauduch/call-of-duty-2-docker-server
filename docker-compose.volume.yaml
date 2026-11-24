@@ -6,7 +6,6 @@ services:
       - ./cod2server/main:/source:ro
       - cod2_main:/dest
     command: ["cp", "-au", "/source/.", "/dest/"]
-    restart: "no"
 
   cod2_server:
     depends_on:
