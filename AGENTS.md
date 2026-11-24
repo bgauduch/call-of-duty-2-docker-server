@@ -108,6 +108,7 @@ cod2server/main/          # Volume mount for game files (.iwd)
 Dockerfile                # Multi-stage build (voron/ibuddieat builders)
 docker-compose.yaml       # Production config
 docker-compose.dev.yaml   # Development override
+docker-compose.volume.yaml  # Named volume override
 scripts/                  # Dev helper scripts
 tests/                    # Container validation
 .github/
