@@ -74,6 +74,29 @@ docker-compose down                 # Stop server
 
 For console commands and advanced usage, see [doc/readme.md](doc/readme.md).
 
+### Troubleshooting
+
+The server stops with these log lines when it finds no game file in `/home/cod2/main`:
+
+```text
+0 files in iwd files
+Couldn't load default_localize_mp.cfg.  Make sure Call of Duty is run from the correct folder.
+```
+
+1. **List the files the container sees:**
+
+   ```bash
+   docker-compose run --rm --entrypoint ls cod2_server /home/cod2/main
+   ```
+
+2. **The list is empty:** set the `volumes` path in `docker-compose.yaml` to the folder that holds your `.iwd` files.
+
+3. **The list shows the `.iwd` files** (reported on Windows Docker Desktop and Unraid): start the server with the named volume override. It copies `cod2server/main` into a Docker volume at each start.
+
+   ```bash
+   docker-compose -f docker-compose.yaml -f docker-compose.volume.yaml up -d
+   ```
+
 ## 📚 Documentation
 
 * **[CONTRIBUTING.md](CONTRIBUTING.md)** - Development setup, testing, and contribution guidelines

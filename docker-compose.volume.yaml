@@ -1,0 +1,18 @@
+# Docker-compose override: serve game files from a named volume
+services:
+  cod2_sync:
+    image: alpine:3.24
+    volumes:
+      - ./cod2server/main:/source:ro
+      - cod2_main:/dest
+    command: ["cp", "-au", "/source/.", "/dest/"]
+
+  cod2_server:
+    depends_on:
+      cod2_sync:
+        condition: service_completed_successfully
+    volumes:
+      - cod2_main:/home/cod2/main
+
+volumes:
+  cod2_main:
