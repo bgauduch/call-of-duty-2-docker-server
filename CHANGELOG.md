@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.2.1](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v8.2.0...v8.2.1) (2026-11-26)
+
+
+### Bug Fixes
+
+* drop pgrep -x from HEALTHCHECK so it matches on BusyBox ([#202](https://github.com/bgauduch/call-of-duty-2-docker-server/issues/202)) ([c553bfa](https://github.com/bgauduch/call-of-duty-2-docker-server/commit/c553bfa34c459ba5e83c0e8ed95fb0b781a79c81))
+
 ## [8.2.0](https://github.com/bgauduch/call-of-duty-2-docker-server/compare/v8.1.1...v8.2.0) (2026-11-25)
 
 
