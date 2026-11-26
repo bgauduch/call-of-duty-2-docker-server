@@ -1,0 +1,46 @@
+{
+  "cli_version": "0.13.4",
+  "checkpoint_id": "695f9bd3bf0b",
+  "session_id": "8213b506-4f4f-4641-82ef-50e5675e384c",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-26T09:35:15.597352Z",
+  "branch": "fix/healthcheck-pgrep-busybox",
+  "checkpoints_count": 1,
+  "save_step_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-2",
+  "turn_id": "d556f33f6ffa",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 38,
+    "cache_creation_tokens": 49015,
+    "cache_read_tokens": 1298363,
+    "output_tokens": 14074,
+    "api_call_count": 19
+  },
+  "session_token_usage": {
+    "input_tokens": 38,
+    "cache_creation_tokens": 49015,
+    "cache_read_tokens": 1298363,
+    "output_tokens": 14074,
+    "api_call_count": 19
+  },
+  "redaction": {
+    "replacements": 6,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 6,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 1
+  }
+}

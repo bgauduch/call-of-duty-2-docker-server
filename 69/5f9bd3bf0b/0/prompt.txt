@@ -1,0 +1,11 @@
+regarde la denière issue sur le healthcheck ouvert sur le dépôt, essaye de reprodiure, propose un plan de correction + réponse à l'issue.
+
+---
+
+can we use emulation of some sort to validate the container behavior againstsome other hosts ? like linux x64 and windows ?
+
+ok go pour le fix simple sur une branche, et ouvrir l'issue pour le check plus approfondie (si pas déjà existant)
+
+delete le container, balec en local.
+
+met moi le commenteire en pbcopy à jour.
