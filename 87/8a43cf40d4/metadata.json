@@ -1,0 +1,44 @@
+{
+  "cli_version": "0.13.4",
+  "checkpoint_id": "878a43cf40d4",
+  "strategy": "manual-commit",
+  "branch": "feat/named-volume-override",
+  "checkpoints_count": 13,
+  "files_touched": [
+    ".github/workflows/build-test-push.yml",
+    "CLAUDE.md",
+    "Dockerfile",
+    "cod2server/readme.md",
+    "docker-compose.yaml"
+  ],
+  "sessions": [
+    {
+      "metadata": "/87/8a43cf40d4/0/metadata.json",
+      "transcript": "/87/8a43cf40d4/0/full.jsonl",
+      "compact_transcript": "/87/8a43cf40d4/0/transcript.jsonl",
+      "content_hash": "/87/8a43cf40d4/0/content_hash.txt",
+      "prompt": "/87/8a43cf40d4/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 102,
+    "cache_creation_tokens": 117677,
+    "cache_read_tokens": 6150862,
+    "output_tokens": 40592,
+    "api_call_count": 51
+  },
+  "redaction": {
+    "replacements": 0,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}

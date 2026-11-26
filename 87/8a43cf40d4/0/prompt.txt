@@ -1,0 +1,82 @@
+https://github.com/bgauduch/call-of-duty-2-docker-server/discussions/197 => do a torought analysis : what the issue is, how it affect the repo, what can and should be done, what should NOT be done (because outside repo boundary).
+
+---
+
+let's open a PR to support this issue, and prepare an anwser.
+
+---
+
+use alias to stard
+
+---
+
+docker started.
+
+---
+
+open vcode to show changes once done
+
+---
+
+use alias to stard
+
+---
+
+docker started.
+
+---
+
+je ne comprends pas, pas de script init dans la PR ?
+
+remet moi la réponse en pbcopy
+
+---
+
+je préfère le plus propre, le plus lean, le plus cohérent, le plus simple.
+
+---
+
+stop, wtf are you doing ????
+
+---
+
+ok ça me va go
+
+---
+
+how can i test the volume override locally ? getting :
+
+
+<pasted_content id="1ffb">
+❯ docker-compose -f docker-compose.yaml -f docker-compose.volume.yaml up -d
+[+] up 5/5
+ ✔ Network call-of-duty-2-docker-server-197_default         Created                                                         0.0s
+ ✔ Volume call-of-duty-2-docker-server-197_cod2_main        Created                                                         0.0s
+ ✔ Container call-of-duty-2-docker-server-197-cod2_sync-1   Exited                                                          0.2s
+ ✔ Container call-of-duty-2-docker-server-197-cod2_server-1 Started                                                         0.2s
+ ! cod2_server                                              The requested image's platform (linux/amd64) does not match ... 0.0s
+</pasted_content id="1ffb">
+
+---
+
+PUTAIN => "2. La garder : je la commite et la pousse sur la PR." go option 2 bordel
+
+---
+
+ok cleanup worktree, and checkout branch in repo
+
+---
+
+how to stop once up ?
+
+---
+
+ok, remet pbcopy
+
+---
+
+la doc est complète au fait ?
+
+---
+
+je ne comprends pas le point "- zk_libcod hooks and custom methods: they are specific to your mod, so they belong in your repository." => on utilse la même lib dans le dépôt ? ou alors on supporte un peu plus loin avec une nouvelle lib ?
